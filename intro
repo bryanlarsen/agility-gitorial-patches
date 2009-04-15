@@ -1,0 +1,35 @@
+Contents
+
+From: Bryan Larsen <bryan@larsen.st>
+
+{: .contents-heading}
+
+- contents
+{:toc}
+
+# Introduction
+
+In this tutorial we'll be creating a simple "Agile Development" application -- _Agility_. The application tracks projects which consist of a number of user stories. Stories have a status (e.g. accepted, under development...) as well as a number of associated tasks. Tasks can be assigned to users, and each user can see a heads-up of all the tasks they've been assigned to on their home page.
+
+This is a bit of an in-at-the-deep-end tutorial -- we build the app the way you would assuming you had already got the hang of the way Hobo works. In the later stages new concepts start coming thick and fast. The goal here is to show you what's possible, and give you a flavour of Hobo-style application development, rather than to provide detailed background on how everything workds. Don't worry about it, it's fun! If you'd rather take things a bit slower, you might prefer the [POD tutorial](http://hobocentral.net/pod-tutorial).
+
+
+# Part 1 -- Getting Started
+
+
+## Introduction to Hobo
+
+Hobo is a bunch of extensions to Ruby on Rails that are designed to make developing any kind of web application a good deal faster and more fun. This tutorial is designed to show off Hobo's ability to get quite sophisticated applications up and running extremely quickly.
+
+While Hobo is very well suited to this kind of throw-it-together-in-an-afternoon application, it is equally useful for longer term projects, where the end result needs to be very meticulously crafted to the needs of its users. Hopefully the tutorial will give you an idea of how to take your Hobo/Rails application much further.
+
+For more info on Hobo please see [hobocentral.net](http://hobocentral.net)
+
+## This is a gitorial
+
+This is a 'gitorial'.  This means you can follow along using git.  You can check out the [application at github](http://github.com/bryanlarsen/agility-gitorial/tree/master).  You will probably be unable to `git pull` from this repository because as this gitorial is updated, history will be rewritten to keep the tutorial clean.
+---
+
+ 0 files changed, 0 insertions(+), 0 deletions(-)
+
+

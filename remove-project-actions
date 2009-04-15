@@ -1,0 +1,31 @@
+# Part 2 -- Removing actions
+
+From: Bryan Larsen <bryan@larsen.st>
+
+By default Hobo has given us a full set of restful actions for every single model/controller pair. Many of these routes are inappropriate for our application. For example, why would we want an index page listing every Task in the database? We only really want to see tasks listed against stories and users. We need to disable the routes we don't want.
+
+There's an interesting change of approach here that often crops up with Hobo development. Normally you'd expect to have to build everything yourself. With Hobo, you often get given everything you want and more besides. Your job is to take away the parts that you *don't* want.
+
+Here's how we would remove, for example, the index action from TasksController. In `app/controllers/tasks_controller.rb`, change
+
+SHOW_PATCH
+
+Refresh the browser and you'll notice that Tasks has been removed from the main nav-bar. Hobo's page generators adapt to changes in the actions that you make available.
+---
+
+ app/controllers/tasks_controller.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/controllers/tasks_controller.rb b/app/controllers/tasks_controller.rb
+index f5a4f00..503f69a 100644
+--- a/app/controllers/tasks_controller.rb
++++ b/app/controllers/tasks_controller.rb
+@@ -2,6 +2,6 @@ class TasksController < ApplicationController
+ 
+   hobo_model_controller
+ 
+-  auto_actions :all
++  auto_actions :all, :except => :index
+ 
+ end

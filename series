@@ -1,0 +1,18 @@
+# This series applies on GIT commit 60332d9823e90815c98482cb0d334f648e1cc75d
+intro
+gitignore
+blank-rails-template
+add-hobo-plugin
+run-hobo-command
+fix-hobo-plugin
+run-hobo-command-again
+fix-rakefile
+initial-migration
+interface-first-hobo-style
+generate-initial-models
+add-initial-associations
+migration-to-create-initial-models
+remove-project-actions
+auto-actions-for-project
+auto-actions-for-story
+more-auto-actions

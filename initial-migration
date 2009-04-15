@@ -1,0 +1,85 @@
+## Run the app
+
+From: Bryan Larsen <bryan@larsen.st>
+
+With Hobo, you get a bare-bones application immediately. Let's create the database and then run the app. We first need to use the migration generator to create the basic database:
+
+    $ ./script/generate hobo_migration
+
+(Tip: Windows users: Whenever you see `./script/something`, you will need to instead do `ruby script/something`)
+
+Respond to the prompt with `m` and then give the migration a name. Then:
+
+    $ ./script/server
+
+You should be able to sign up. In the next section we'll be starting to flesh out the basics of the app.
+---
+
+ .../20090415014217_hobo_migration_initial_users.rb |   21 +++++++++++++++
+ db/schema.rb                                       |   28 ++++++++++++++++++++
+ 2 files changed, 49 insertions(+), 0 deletions(-)
+ create mode 100644 db/migrate/20090415014217_hobo_migration_initial_users.rb
+ create mode 100644 db/schema.rb
+
+
+diff --git a/db/migrate/20090415014217_hobo_migration_initial_users.rb b/db/migrate/20090415014217_hobo_migration_initial_users.rb
+new file mode 100644
+index 0000000..3f919c9
+--- /dev/null
++++ b/db/migrate/20090415014217_hobo_migration_initial_users.rb
+@@ -0,0 +1,21 @@
++class HoboMigrationInitialUsers < ActiveRecord::Migration
++  def self.up
++    create_table :users do |t|
++      t.string   :crypted_password, :limit => 40
++      t.string   :salt, :limit => 40
++      t.string   :remember_token
++      t.datetime :remember_token_expires_at
++      t.string   :name
++      t.string   :email_address
++      t.boolean  :administrator, :default => false
++      t.datetime :created_at
++      t.datetime :updated_at
++      t.string   :state, :default => "active"
++      t.datetime :key_timestamp
++    end
++  end
++
++  def self.down
++    drop_table :users
++  end
++end
+diff --git a/db/schema.rb b/db/schema.rb
+new file mode 100644
+index 0000000..ba10294
+--- /dev/null
++++ b/db/schema.rb
+@@ -0,0 +1,28 @@
++# This file is auto-generated from the current state of the database. Instead of editing this file, 
++# please use the migrations feature of Active Record to incrementally modify your database, and
++# then regenerate this schema definition.
++#
++# Note that this schema.rb definition is the authoritative source for your database schema. If you need
++# to create the application database on another system, you should be using db:schema:load, not running
++# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
++# you'll amass, the slower it'll run and the greater likelihood for issues).
++#
++# It's strongly recommended to check this file into your version control system.
++
++ActiveRecord::Schema.define(:version => 20090415014217) do
++
++  create_table "users", :force => true do |t|
++    t.string   "crypted_password",          :limit => 40
++    t.string   "salt",                      :limit => 40
++    t.string   "remember_token"
++    t.datetime "remember_token_expires_at"
++    t.string   "name"
++    t.string   "email_address"
++    t.boolean  "administrator",                           :default => false
++    t.datetime "created_at"
++    t.datetime "updated_at"
++    t.string   "state",                                   :default => "active"
++    t.datetime "key_timestamp"
++  end
++
++end

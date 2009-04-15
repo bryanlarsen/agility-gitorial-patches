@@ -1,0 +1,83 @@
+The field declarations have been created by the generators, but not the associations. Go ahead and add the associations, just below the `fields do ... end` declaration in each model, as follows:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ app/models/project.rb         |    1 +
+ app/models/story.rb           |    3 +++
+ app/models/task.rb            |    4 ++++
+ app/models/task_assignment.rb |    2 ++
+ app/models/user.rb            |    3 +++
+ 5 files changed, 13 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/models/project.rb b/app/models/project.rb
+index 7dc4ebc..a6f4e3b 100644
+--- a/app/models/project.rb
++++ b/app/models/project.rb
+@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
+     timestamps
+   end
+ 
++  has_many :stories, :dependent => :destroy
+ 
+   # --- Permissions --- #
+ 
+diff --git a/app/models/story.rb b/app/models/story.rb
+index 7f2e550..b7d48c9 100644
+--- a/app/models/story.rb
++++ b/app/models/story.rb
+@@ -9,6 +9,9 @@ class Story < ActiveRecord::Base
+     timestamps
+   end
+ 
++  belongs_to :project
++      
++  has_many :tasks, :dependent => :destroy
+ 
+   # --- Permissions --- #
+ 
+diff --git a/app/models/task.rb b/app/models/task.rb
+index 23479ba..f79516b 100644
+--- a/app/models/task.rb
++++ b/app/models/task.rb
+@@ -7,6 +7,10 @@ class Task < ActiveRecord::Base
+     timestamps
+   end
+ 
++  belongs_to :story
++
++  has_many :task_assignments, :dependent => :destroy
++  has_many :users, :through => :task_assignments
+ 
+   # --- Permissions --- #
+ 
+diff --git a/app/models/task_assignment.rb b/app/models/task_assignment.rb
+index 486f72f..b420c68 100644
+--- a/app/models/task_assignment.rb
++++ b/app/models/task_assignment.rb
+@@ -6,6 +6,8 @@ class TaskAssignment < ActiveRecord::Base
+     timestamps
+   end
+ 
++  belongs_to :user
++  belongs_to :task
+ 
+   # --- Permissions --- #
+ 
+diff --git a/app/models/user.rb b/app/models/user.rb
+index 26c449f..881e477 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
+     timestamps
+   end
+ 
++  has_many :task_assignments, :dependent => :destroy
++  has_many :tasks, :through => :task_assignments
++
+   # This gives admin rights to the first sign-up.
+   # Just remove it if you don't want that
+   before_create { |user| user.administrator = true if RAILS_ENV != "test" && count == 0 }

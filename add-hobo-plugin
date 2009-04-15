@@ -1,0 +1,20 @@
+You can optionally install hobo as a plugin with:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+$ git submodule add git://github.com/tablatom/hobo.git vendor/plugins/hobo
+---
+
+ vendor/plugins/hobo |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 120000 vendor/plugins/hobo
+
+
+diff --git a/vendor/plugins/hobo b/vendor/plugins/hobo
+new file mode 120000
+index 0000000..7a2802c
+--- /dev/null
++++ b/vendor/plugins/hobo
+@@ -0,0 +1 @@
++../../../hobo-blarsen
+\ No newline at end of file

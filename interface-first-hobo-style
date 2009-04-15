@@ -1,0 +1,18 @@
+## Interface first Hobo style
+
+From: Bryan Larsen <bryan@larsen.st>
+
+The next thing we're going to do is sketch out our models. If you're a fully signed up devotee of the Rails Way, that should ring a few alarm bells. What happened to [interface first][]? We do believe in Interface First. Absolutely. But for Hobos, interface first means first priority, not first task. 
+
+[Interface First]: http://gettingreal.37signals.com/ch09_Interface_First.php
+
+The reason is, we think we've rewritten this rule:
+
+> Design is relatively light. A paper sketch is cheap and easy to change. html designs are still relatively simple to modify (or throw out). That's not true of programming. Designing first keeps you flexible. Programming first fences you in and sets you up for additional costs.
+
+In our experience, experimenting with an app by actually building a prototype with Hobo, is actually quicker than creating html designs. How's that for getting real? We could waffle for a good while on this point, but that's probably best saved for a blog post. For now let's dive in and get this app running.
+---
+
+ 0 files changed, 0 insertions(+), 0 deletions(-)
+
+

@@ -1,0 +1,24 @@
+Our first git checkin will create our .gitignore
+
+From: Bryan Larsen <bryan@larsen.st>
+
+
+---
+
+ .gitignore |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+ create mode 100644 .gitignore
+
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..6a4f984
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,6 @@
++tmp/*
++log/*.log
++db/*.sqlite3
++app/views/taglibs/auto
++db/data.yml
++patches-*/*

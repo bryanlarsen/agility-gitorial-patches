@@ -1,0 +1,24 @@
+Create a story and you'll see the story has the same issue with it's task - there's no way to create one. Again we can add the `auto_actions_for` declaration to the tasks controller, but this time we'll only ask for a `create` action and not a `new` action:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+    
+Hobo's page generator can cope with the lack of a 'New Task' page -- it gives you an in-line form on the story page.
+---
+
+ app/controllers/tasks_controller.rb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/controllers/tasks_controller.rb b/app/controllers/tasks_controller.rb
+index 503f69a..578fc23 100644
+--- a/app/controllers/tasks_controller.rb
++++ b/app/controllers/tasks_controller.rb
+@@ -4,4 +4,6 @@ class TasksController < ApplicationController
+ 
+   auto_actions :all, :except => :index
+ 
++  auto_actions_for :story, :create
++
+ end

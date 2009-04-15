@@ -1,0 +1,228 @@
+To run the hobo command when it's installed as a plugin instead of a gem:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+$ ./vendor/plugins/hobo/hobo/bin/hobo --no-rails
+---
+
+ Rakefile                            |    2 +
+ app/models/guest.rb                 |    7 ++
+ app/views/taglibs/application.dryml |    3 +
+ config/environment.rb               |    2 +
+ config/initializers/hobo.rb         |    1 
+ config/routes.rb                    |    3 +
+ public/javascripts/dryml-support.js |  132 +++++++++++++++++++++++++++++++++++
+ public/stylesheets/application.css  |    0 
+ 8 files changed, 150 insertions(+), 0 deletions(-)
+ create mode 100644 app/models/guest.rb
+ create mode 100644 app/views/taglibs/application.dryml
+ create mode 100644 config/initializers/hobo.rb
+ create mode 100644 public/javascripts/dryml-support.js
+ create mode 100644 public/stylesheets/application.css
+
+
+diff --git a/Rakefile b/Rakefile
+index 3bb0e85..d998641 100644
+--- a/Rakefile
++++ b/Rakefile
+@@ -8,3 +8,5 @@ require 'rake/testtask'
+ require 'rake/rdoctask'
+ 
+ require 'tasks/rails'
++
++require 'hobo/tasks/rails'
+diff --git a/app/models/guest.rb b/app/models/guest.rb
+new file mode 100644
+index 0000000..f653f35
+--- /dev/null
++++ b/app/models/guest.rb
+@@ -0,0 +1,7 @@
++class Guest < Hobo::Guest
++
++  def administrator?
++    false
++  end
++
++end
+diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
+new file mode 100644
+index 0000000..5accb09
+--- /dev/null
++++ b/app/views/taglibs/application.dryml
+@@ -0,0 +1,3 @@
++<def tag="app-name">Agility Gitorial</def>
++
++
+diff --git a/config/environment.rb b/config/environment.rb
+index ff450c7..f95dfb7 100644
+--- a/config/environment.rb
++++ b/config/environment.rb
+@@ -7,6 +7,8 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+ require File.join(File.dirname(__FILE__), 'boot')
+ 
+ Rails::Initializer.run do |config|
++  config.gem 'hobo'
++
+   # Settings in config/environments/* take precedence over those specified here.
+   # Application configuration should go into files in config/initializers
+   # -- all .rb files in that directory are automatically loaded.
+diff --git a/config/initializers/hobo.rb b/config/initializers/hobo.rb
+new file mode 100644
+index 0000000..286b2a6
+--- /dev/null
++++ b/config/initializers/hobo.rb
+@@ -0,0 +1 @@
++Hobo::ModelRouter.reload_routes_on_every_request = true
+diff --git a/config/routes.rb b/config/routes.rb
+index 4f3d9d2..94b4715 100644
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@ -1,4 +1,7 @@
+ ActionController::Routing::Routes.draw do |map|
++
++  Hobo.add_routes(map)
++
+   # The priority is based upon order of creation: first created -> highest priority.
+ 
+   # Sample of regular route:
+diff --git a/public/javascripts/dryml-support.js b/public/javascripts/dryml-support.js
+new file mode 100644
+index 0000000..57fdff0
+--- /dev/null
++++ b/public/javascripts/dryml-support.js
+@@ -0,0 +1,132 @@
++Event.addBehavior({
++    'body:click' : function(event) { 
++        if (event.shiftKey && event.altKey) {
++            Dryml.click(event)
++            Event.stop(event)
++        }
++    }
++})
++
++
++var Dryml = {
++
++    menu: null,
++    event: null,
++
++    click: function(event) {
++        Dryml.event = event
++        Dryml.showSourceMenu(event.target)
++    },
++
++    showSourceMenu: function(element) {
++        var stack = Dryml.getSrcInfoStack(element)
++        Dryml.showMenu(stack)
++    },
++
++    getSrcInfoStack: function(element) {
++        var stack = $A()
++        while(element != document.documentElement) {
++            var el = Dryml.findPrecedingDrymlInfo(element)
++            if (el == null) {
++                element = element.parentNode
++            } else {
++                element = el
++                var info = Dryml.getDrymlInfo(element)
++                stack.push(info)
++            }
++        }
++        return stack
++    },
++
++    findPrecedingDrymlInfo: function(element) {
++        var ignoreCount = 0
++        var el = element
++        while (el = el.previousSibling) {
++            if (Dryml.isDrymlInfo(el)) {
++                if (ignoreCount > 0)
++                    ignoreCount -= 1;
++                else
++                    return el
++            } else if (Dryml.isDrymlInfoClose(el)) {
++                ignoreCount += 1
++            }
++        }
++        return null
++    },
++
++    getDrymlInfo: function(el) {
++        var parts = el.nodeValue.sub(/^\[DRYML\|/, "").sub(/\[$/, "").split("|")
++        return { kind: parts[0], tag: parts[1], line: parts[2], file: parts[3] }
++    },
++
++    isDrymlInfo: function(el) {
++        return el.nodeType == Node.COMMENT_NODE && el.nodeValue.match(/^\[DRYML/)
++    },
++
++    isDrymlInfoClose: function(el) {
++        return el.nodeType == Node.COMMENT_NODE && el.nodeValue == "]DRYML]"
++    },
++
++    showMenu: function(stack) {
++        Dryml.removeMenu()
++
++        var style = $style({id: "dryml-menu-style"},
++                           "#dryml-src-menu         { position: fixed; margin: 10px; padding: 10px; background: black; color: white; border: 1px solid white; }\n",
++                           "#dryml-src-menu a       { color: white; text-decoration: none; border: none; }\n",
++                           "#dryml-src-menu td      { padding: 2px 7px; }\n",
++                           "#dryml-src-menu a:hover { background: black; color: white; text-decoration: none; border: none; }\n")
++        $$("head")[0].appendChild(style)
++
++        var items = stack.map(Dryml.makeMenuItem)
++
++        var closer = $a({href:"#"}, "[close]")
++        closer.onclick = Dryml.removeMenu
++        Dryml.menu = $div({id:    "dryml-src-menu",
++                           style: "position: fixed; margin: 10px; padding: 10px; background: black; color: #cfc; border: 1px solid white;"
++                          },
++                          closer,
++                          $table(items))
++
++        document.body.appendChild(Dryml.menu)
++        Dryml.menu.style.top  = "20px"//Dryml.event.clientY + "px"
++        Dryml.menu.style.left = "20px"//Dryml.event.clientX + "px"
++    },
++
++    editSourceFile: function(path, line) {
++        new Ajax.Request("/dryml/edit_source?file=" + path + "&line=" + line)
++    },
++
++
++    makeMenuItem: function(item) {
++        var text
++        switch (item.kind) {
++        case "call":
++            text = "<" + item.tag + ">"
++            break
++        case "param":
++            text = "<" + item.tag + ":>"
++            break
++        case "replace":
++            text = "<" + item.tag + ": replace>"
++            break
++        case "def":
++            text = "<def " + item.tag + ">"
++            break
++        }
++        var a = $a({href:"#"}, text)
++        a.onclick = function() { Dryml.editSourceFile(item.file, item.line); return false }
++
++        var filename = item.file.sub("vendor/plugins", "").sub("app/views", "").sub(/^\/+/, "").sub(".dryml", "")
++
++        return $tr($td({"class": "file"}, filename), $td(a))
++    },
++
++    removeMenu: function() {
++        if (Dryml.menu) { 
++            $("dryml-menu-style").remove()
++            Dryml.menu.remove()
++            Dryml.menu = null
++        }
++    }
++
++}
+diff --git a/public/stylesheets/application.css b/public/stylesheets/application.css
+new file mode 100644
+index 0000000..e69de29

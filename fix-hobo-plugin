@@ -1,0 +1,31 @@
+The hobo command generates a setup designed to be used with the hobo gem.  If you wish to use the plugin, comment out `config.gem 'hobo'` in *config/environment.rb*.
+
+From: Bryan Larsen <bryan@larsen.st>
+
+
+---
+
+ config/environment.rb |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+
+diff --git a/config/environment.rb b/config/environment.rb
+index f95dfb7..76d8bb3 100644
+--- a/config/environment.rb
++++ b/config/environment.rb
+@@ -7,7 +7,7 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+ require File.join(File.dirname(__FILE__), 'boot')
+ 
+ Rails::Initializer.run do |config|
+-  config.gem 'hobo'
++#  config.gem 'hobo'
+ 
+   # Settings in config/environments/* take precedence over those specified here.
+   # Application configuration should go into files in config/initializers
+@@ -40,4 +40,4 @@ Rails::Initializer.run do |config|
+   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+   # config.i18n.default_locale = :de
+-end
+\ No newline at end of file
++end

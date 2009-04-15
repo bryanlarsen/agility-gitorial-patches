@@ -1,0 +1,60 @@
+We'll now continue and configure the available actions for all of the controllers. So far we've seen the black-list style where you list what you *don't* want:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+auto_actions :all, :except => :index
+{: .ruby}
+
+There's also white-list style where you list what you do want, e.g.
+
+    auto_actions :index, :show
+{: .ruby}
+
+There's also a handy shortcut to get just the read-only routes (i.e. the ones that don't modify the database)
+
+	auto_actions :read_only
+{: .ruby}
+	
+The opposite is handy for things that are manipulated by ajax but never viewed directly:
+
+	auto_actions :write_only # short for -- :create, :update, :destroy
+{: .ruby}
+
+Work through your controllers and have a think about which actions you want. You need to end up with:
+
+SHOW_PATCH
+
+Have a play with the application with this set of actions in place. Looking pretty good!
+---
+
+ app/controllers/stories_controller.rb |    2 +-
+ app/controllers/tasks_controller.rb   |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+
+diff --git a/app/controllers/stories_controller.rb b/app/controllers/stories_controller.rb
+index 0e6095b..a54eec1 100644
+--- a/app/controllers/stories_controller.rb
++++ b/app/controllers/stories_controller.rb
+@@ -2,7 +2,7 @@ class StoriesController < ApplicationController
+ 
+   hobo_model_controller
+ 
+-  auto_actions :all
++  auto_actions :all, :except => :index
+ 
+   auto_actions_for :project, [:new, :create]
+ 
+diff --git a/app/controllers/tasks_controller.rb b/app/controllers/tasks_controller.rb
+index 578fc23..7423c3b 100644
+--- a/app/controllers/tasks_controller.rb
++++ b/app/controllers/tasks_controller.rb
+@@ -2,7 +2,7 @@ class TasksController < ApplicationController
+ 
+   hobo_model_controller
+ 
+-  auto_actions :all, :except => :index
++  auto_actions :write_only, :edit
+ 
+   auto_actions_for :story, :create
+ 
