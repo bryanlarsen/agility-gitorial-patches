@@ -1,0 +1,41 @@
+Now run the migration generator
+
+From: Bryan Larsen <bryan@larsen.st>
+
+$ ./script/generate hobo_migration
+	
+You'll see that the migration generator considers this change to be ambiguous. Whenever there are columns removed *and* columns added, the migration generator can't tell whether you're actually removing one column and adding another, or if you are renaming the old column. It's also pretty fussy about what it makes you type. We really don't want to play fast and lose with your precious data, so to confirm that you want to drop the 'status' column, you have to type in full: "drop status".
+
+Once you've done that you'll see that the generated migration includes the creation of the new foreign key and the removal of the old status column.  Press `g` now to generate the migration without running it.
+---
+
+ ...0415174642_hobo_migration_story_status_model.rb |   19 +++++++++++++++++++
+ 1 files changed, 19 insertions(+), 0 deletions(-)
+ create mode 100644 db/migrate/20090415174642_hobo_migration_story_status_model.rb
+
+
+diff --git a/db/migrate/20090415174642_hobo_migration_story_status_model.rb b/db/migrate/20090415174642_hobo_migration_story_status_model.rb
+new file mode 100644
+index 0000000..5c88b68
+--- /dev/null
++++ b/db/migrate/20090415174642_hobo_migration_story_status_model.rb
+@@ -0,0 +1,19 @@
++class HoboMigrationStoryStatusModel < ActiveRecord::Migration
++  def self.up
++    create_table :story_statuses do |t|
++      t.string   :name
++      t.datetime :created_at
++      t.datetime :updated_at
++    end
++    
++    add_column :stories, :status_id, :integer
++    remove_column :stories, :status
++  end
++
++  def self.down
++    remove_column :stories, :status_id
++    add_column :stories, :status, :string
++    
++    drop_table :story_statuses
++  end
++end

@@ -1,0 +1,29 @@
+You'll notice a slight glitch -- the tasks position has been added to the new-task and edit-task forms. We don't want that. We'll fix it by customising the Task form.
+
+From: Bryan Larsen <bryan@larsen.st>
+
+In `application.dryml` add:
+
+SHOW_PATCH
+---
+
+ app/views/taglibs/application.dryml |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
+index 3d515db..f40c604 100644
+--- a/app/views/taglibs/application.dryml
++++ b/app/views/taglibs/application.dryml
+@@ -16,4 +16,10 @@
+     </div>
+     </append-body:>
+   </old-card>
++</extend>
++
++<extend tag="form" for="Task">
++  <old-form merge>
++    <field-list: fields="description, users"/>
++  </old-form>
+ </extend>
+\ No newline at end of file

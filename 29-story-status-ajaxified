@@ -1,0 +1,24 @@
+The menu is working in the edit-story page now. It would be nice though if we had a ajaxified editor right on the story page. Edit `app/views/stories/show.dryml` to be:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+
+What did that do? `<show-page>` uses a tag `<field-list>` to render a table of fields. DRYML's parameter mechanism allows the caller to customize the parameters that are passed to `<field-list>`. On our story page the field-list contains only the status field. By default `<field-list>` uses the `<view>` tag to render read-only views of the fields, but that can be changed by passing a tag name to the `tag` attribute. We're passing `editor` which is a tag for creating ajax-style in-place editors.
+---
+
+ app/views/stories/show.dryml |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+ create mode 100644 app/views/stories/show.dryml
+
+
+diff --git a/app/views/stories/show.dryml b/app/views/stories/show.dryml
+new file mode 100644
+index 0000000..51e3dd9
+--- /dev/null
++++ b/app/views/stories/show.dryml
+@@ -0,0 +1,3 @@
++<show-page>
++  <field-list: tag="editor"/>
++</show-page>
+\ No newline at end of file

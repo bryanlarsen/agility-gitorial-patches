@@ -1,0 +1,72 @@
+# Part 3 -- Permissions
+
+From: Bryan Larsen <bryan@larsen.st>
+
+So far we've only done two things to our app: created some models & controllers, and specified which actions are available. There's one more thing we typically do when creating a new Hobo app, before we even touch the view layer. We modify permissions in the model layer.
+
+## Introduction to permissions
+
+You might have noticed methods like this one in the generated models:
+
+	def create_permitted?
+	  acting_user.administrator?
+	end
+{: .ruby}
+
+That tells Hobo that only administrators are allowed to create this kind of model. Before every create, update and delete (destroy) operation, Hobo's controller calls one of these methods with `acting_user` set to the logged in user. Only if the method returns true is the operation allowed to continue.
+
+Furthermore, the *Rapid* DRYML tag library (that's the part of Hobo that creates the UI automatically for you) knows how to interrogate the permissions and adapt accordingly. For example, Rapid will only generate a "New Project" link if the current user has permission to create a project.
+
+You can see this feature in action by changing user (use the "user changer" menu in the top left) as you browse around the app. You'll notice that all the 'new' and 'edit' links disappear if you are a guest. If you experiment by changing `acting_user.administrator?` to `true` in some permission methods, you'll see operations start to become available.
+
+
+## Customise the permissions in Agility
+
+For the purposes of the tutorial you can make your own decisions about who should be allowed to do what. In the spirit of agile methods, we probably don't want to lock things down too much. Here's a suggestion:
+
+ * Only administrators can create, edit and delete projects
+ * Stories and tasks are open to change by all signed up users.
+
+A permission that says "only signed up users" looks like this:
+
+	def create_permitted?
+	  acting_user.signed_up?
+	end
+{: .ruby}
+
+(Note: there is also `acting_user.guest?`)
+	
+You might need to sign up a new user so you've got a non-admin to test things with.
+---
+
+ app/models/story.rb |    2 +-
+ app/models/task.rb  |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+
+diff --git a/app/models/story.rb b/app/models/story.rb
+index b7d48c9..60c1118 100644
+--- a/app/models/story.rb
++++ b/app/models/story.rb
+@@ -20,7 +20,7 @@ class Story < ActiveRecord::Base
+   end
+ 
+   def update_permitted?
+-    acting_user.administrator?
++    acting_user.signed_up?
+   end
+ 
+   def destroy_permitted?
+diff --git a/app/models/task.rb b/app/models/task.rb
+index f79516b..9e5e356 100644
+--- a/app/models/task.rb
++++ b/app/models/task.rb
+@@ -19,7 +19,7 @@ class Task < ActiveRecord::Base
+   end
+ 
+   def update_permitted?
+-    acting_user.administrator?
++    acting_user.signed_up?
+   end
+ 
+   def destroy_permitted?

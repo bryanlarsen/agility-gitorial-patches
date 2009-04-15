@@ -1,0 +1,38 @@
+Now two changes to our models:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ app/models/story.rb |    2 +-
+ app/models/task.rb  |    2 ++
+ 2 files changed, 3 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/models/story.rb b/app/models/story.rb
+index 6bacbdf..cbf7eb9 100644
+--- a/app/models/story.rb
++++ b/app/models/story.rb
+@@ -11,7 +11,7 @@ class Story < ActiveRecord::Base
+   belongs_to :project
+   belongs_to :status, :class_name => "StoryStatus"
+ 
+-  has_many :tasks, :dependent => :destroy
++  has_many :tasks, :dependent => :destroy, :order => :position
+ 
+   # --- Permissions --- #
+ 
+diff --git a/app/models/task.rb b/app/models/task.rb
+index 53bea38..ad48413 100644
+--- a/app/models/task.rb
++++ b/app/models/task.rb
+@@ -12,6 +12,8 @@ class Task < ActiveRecord::Base
+   has_many :task_assignments, :dependent => :destroy
+   has_many :users, :through => :task_assignments, :accessible => true
+ 
++  acts_as_list :scope => :story
++
+   # --- Permissions --- #
+ 
+   def create_permitted?

@@ -1,0 +1,27 @@
+If you try to use the filter, you'll see it adds a `status` parameter in the query string. We need to pick that up and do something useful with it in the controller.  We can use the `apply_scopes` method again, which is already being used, so it's just a matter of adding one more keyword argument:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+	
+Status filtering should now be working.
+
+(To do: explain the scope being used there)
+---
+
+ app/controllers/projects_controller.rb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/controllers/projects_controller.rb b/app/controllers/projects_controller.rb
+index 77a314b..8b1700d 100644
+--- a/app/controllers/projects_controller.rb
++++ b/app/controllers/projects_controller.rb
+@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
+     @project = find_instance
+     @stories = 
+       @project.stories.apply_scopes(:search    => [params[:search], :title],
++                                    :status_is => params[:status],
+                                     :order_by  => parse_sort_param(:title, :status))
+   end
+ 

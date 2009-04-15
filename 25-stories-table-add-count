@@ -1,0 +1,23 @@
+We could also add a column showing the number of tasks in a story. Change to `fields="this, tasks.count, status"` and see that a column is added with a readable title "Tasks Count".
+
+From: Bryan Larsen <bryan@larsen.st>
+
+
+---
+
+ app/views/projects/show.dryml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/views/projects/show.dryml b/app/views/projects/show.dryml
+index b12fac6..9e1fa90 100644
+--- a/app/views/projects/show.dryml
++++ b/app/views/projects/show.dryml
+@@ -1,6 +1,6 @@
+ <show-page>
+   <collection: replace>
+-  <table-plus:stories fields="this, status">
++  <table-plus:stories fields="this, tasks.count, status">
+     <empty-message:>No stories match your criteria</empty-message:>
+   </table-plus>
+   </collection:>

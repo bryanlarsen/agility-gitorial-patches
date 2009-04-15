@@ -1,0 +1,28 @@
+# Markdown / Textile formatting of stories
+
+From: Bryan Larsen <bryan@larsen.st>
+
+We'll wrap up this section with a really easy one. Hobo renders model fields based on their type. You can add your own custom types and there's bunch built it, including textile and markdown formatted strings.
+
+Location the `fields do ... end` section in the Story model, and change
+
+SHOW_PATCH
+---
+
+ app/models/story.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/models/story.rb b/app/models/story.rb
+index cbf7eb9..c10f68b 100644
+--- a/app/models/story.rb
++++ b/app/models/story.rb
+@@ -4,7 +4,7 @@ class Story < ActiveRecord::Base
+ 
+   fields do
+     title  :string
+-    body   :text
++    body   :markdown # or :textile
+     timestamps
+   end
+ 

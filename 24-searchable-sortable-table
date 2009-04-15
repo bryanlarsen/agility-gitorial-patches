@@ -1,0 +1,62 @@
+## Improve the project page with a searchable, sortable table
+
+From: Bryan Larsen <bryan@larsen.st>
+
+The project page is currently workable, but we can easily improve it a lot. Rapid provides a tag `<table-plus>` which renders a table with support for sorting by clicking on the headings, and a built-in search bar for filtering the rows displayed. Searching and sorting are done server-side so we need to modify the controller as well as the view for this enhancement.
+
+As with the user's show-page, to get started put a simple call to `<show-page/>` in `app/views/projects/show.dryml`
+
+To see what this page is doing, take a look at `<def tag="show-page" for="Project">` in `pages.dryml` (in `app/views/taglibs/auto/rapid`). Notice this tag:
+    
+    <collection:stories param/>
+{: .dryml}
+
+    
+That's the part we want to replace with the table. Note that when a `param` attribute doesn't give a name, the name defaults to the same name as the tag. Here's how we would replace that `<collection>` with a simple list of links:
+
+	<show-page>
+	  <collection: replace>
+	    <div>
+	      <repeat:stories join=", "><a/></repeat>
+	    </div>
+	  </collection:>
+	</show-page>
+{: .dryml}
+
+You should now see that in place of the story cards, we now get a simple comma-separated list of links to the stories. Not what we want of course, but it illustrates the concept of replacing a parameter.
+
+Here's how we get the table-plus:
+
+SHOW_PATCH
+
+	<show-page>
+	  <collection: replace>
+        <table-plus:stories fields="this, status">
+          <empty-message:>No stories match your criteria</empty-message:>
+        </table-plus>
+	  </collection:>
+	</show-page>
+{: .dryml}
+
+The `fields` attribute to `<table-plus>` lets you specify a list of fields that will become the columns in the table. We could have said `fields="title, status"` which would have given us the same content in the table, but by saying `this`, the first column contains links to the stories, rather than just the title as text.
+---
+
+ app/views/projects/show.dryml |    7 +++++++
+ 1 files changed, 7 insertions(+), 0 deletions(-)
+ create mode 100644 app/views/projects/show.dryml
+
+
+diff --git a/app/views/projects/show.dryml b/app/views/projects/show.dryml
+new file mode 100644
+index 0000000..b12fac6
+--- /dev/null
++++ b/app/views/projects/show.dryml
+@@ -0,0 +1,7 @@
++<show-page>
++  <collection: replace>
++  <table-plus:stories fields="this, status">
++    <empty-message:>No stories match your criteria</empty-message:>
++  </table-plus>
++  </collection:>
++</show-page>
+\ No newline at end of file

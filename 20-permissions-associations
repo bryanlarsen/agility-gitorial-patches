@@ -1,0 +1,28 @@
+## Associations
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Although we have modelled the assignment of tasks to users, at the moment there is no way for the user to set these assignments. We'll add that to the task edit page. Create a task and browse to the edit page - only the description is editable. Hobo does provide support for "multi-model" forms, but it is not active by default. To specify that a particular association should be accessible to updates from the form, you need to declare `:accessible => true` on the association. In `task.rb`, edit the `has_many :users` association as follows:
+
+SHOW_PATCH
+
+Without that declaration, the permission system was reporting that this association was not editable. Now that the association is "accessible", the permission system will check for create and destroy permission on the join model `TaskAssignments`. As long as the current user has those permissions, the task edit page should now include a nice javascript powered control for assigning users in the edit-task page.
+---
+
+ app/models/task.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/models/task.rb b/app/models/task.rb
+index 65967b5..53bea38 100644
+--- a/app/models/task.rb
++++ b/app/models/task.rb
+@@ -10,7 +10,7 @@ class Task < ActiveRecord::Base
+   belongs_to :story
+ 
+   has_many :task_assignments, :dependent => :destroy
+-  has_many :users, :through => :task_assignments
++  has_many :users, :through => :task_assignments, :accessible => true
+ 
+   # --- Permissions --- #
+ 

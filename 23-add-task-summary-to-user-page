@@ -1,0 +1,61 @@
+## Add a task summary to the user's home page
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Now that each task provides links to the assigned users, the user's page is not looking great. Rapid has rendered cards for the task-assignments but there's no meaningful content in them. What we'd like to see there is a list of all the tasks the user has been assigned to. Having them grouped by story would be helpful too.
+
+To achieve this we want to create a custom template for `users/show`. If you look in `app/views/users` you'll see that it's empty. When a page template is missing, Hobo tries to fall back on a defined tag. For a 'show' page, that tag is `<show-page>`. The Rapid library provides a definition of `<show-page>`, so that's what we're seeing at the moment. As soon as we create `app/views/users/show.dryml`, that file will take over from the generic `<show-page>` tag. Try creating that file and just throw "Hello!" in there for now. You should see that the user's show page now displays just "Hello!" and has lost all of the page styling.
+
+If you now edit `show.dryml` to read "`<show-page/>`" you'll see we're back where we started. The `<show-page>` tag is just being called explicitly instead of by convention. Rapid has generated a custom definition of `<show-page for="User">`. You can find this in `app/views/taglibs/auto/rapid/pages.dryml`. Don't edit this file! Your changes will be overwritten. Instead use this file as a reference so you can see what the page provides, and what parameters there are (the `param` attributes). You'll see:
+
+    <section param="content-body">
+{: .dryml}
+
+That means you can change that part of the page entirely, like this:
+
+	<show-page>
+	  <content-body:>Hello!</content-body:>
+	</show-page>
+{: .dryml}
+
+Edit show.dryml to look like that. The "Hello!" message is back, but now it's embedded in the properly marked-up page.
+
+Now let's get the content we're after - the user's assigned tasks, grouped by story. It's only five lines of markup:
+
+SHOW_PATCH
+
+Again - lots of new stuff there. Let's quickly run over what's going on
+
+ * The `<Your>` tag is a handy little gadget. It outputs "Your" if the context is the current user, otherwise it outputs the user's name. You'll see "Your Assigned Tasks" when looking at yourself, and "Fred's Assigned Tasks" when looking at Fred.
+
+ * We're using `<repeat>` again, but this time we're setting the context to the result of a Ruby expression (`with="&...expr..."`). The expression `@user.tasks.group_by(&:story)` gives us the grouped tasks.
+
+ * We're repeating on a hash this time. Inside the repeat `this` (the implicit context) will be an array of tasks, and `this_key` will be the story. So `<a with="&this_key">` gives us a link to the story.
+
+ * `<collection>` is used to render a collection of anything in a `<ul>` list. By default it renders `<card>` tags. To change this just provide a body to the `<collection>` tag.
+
+That's probably a lot to take in all at once -- the main idea here is to throw you in and give you an overview of what's possible. The [DRYML Guide][] will shed more light.
+
+[DRYML Guide]: http://hobocentral.net/docs/dryml
+---
+
+ app/views/users/show.dryml |    9 +++++++++
+ 1 files changed, 9 insertions(+), 0 deletions(-)
+ create mode 100644 app/views/users/show.dryml
+
+
+diff --git a/app/views/users/show.dryml b/app/views/users/show.dryml
+new file mode 100644
+index 0000000..a2e5c01
+--- /dev/null
++++ b/app/views/users/show.dryml
+@@ -0,0 +1,9 @@
++<show-page>
++  <content-body:>
++    <h3><Your/> Assigned Tasks</h3>
++    <repeat with="&@user.tasks.group_by(&:story)">
++      <h4>Story: <a with="&this_key"/></h4>
++      <collection/>
++    </repeat>
++  </content-body:>
++</show-page>

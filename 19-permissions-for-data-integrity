@@ -1,0 +1,49 @@
+## Permissions for data integrity
+
+From: Bryan Larsen <bryan@larsen.st>
+
+The permissions system is not just for providing operations to some users but not to others. It is also used to prevent operations that don't make sense for anyone. For example, you've probably noticed that the default UI allows stories to be moved from one project to another. That's arguably not a sensible operation for *anyone* to be doing. Before we fix this, browse to an "Edit Story" page and notice the menu that lets you choose a different project. Now prevent the project from changing with this method in `story.rb`:
+
+	def update_permitted?
+	  acting_user.signed_up? && !project_changed?
+	end
+{: .ruby}
+
+Refresh the browser and you'll see that menu removed from the form automatically.
+
+The `update_permitted?` method can take advantage of the "dirty tracking" features in ActiveRecord. If you're savvy with ActiveRecord you might notice something unusual there - those `*_changed?` methods are only available on primitive fields. Hobo's model extensions give you methods like that for `belongs_to` associations too.
+
+Now make a similar change to prevent tasks being moved from one story to another.
+---
+
+ app/models/story.rb |    2 +-
+ app/models/task.rb  |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+
+diff --git a/app/models/story.rb b/app/models/story.rb
+index 60c1118..352d9d5 100644
+--- a/app/models/story.rb
++++ b/app/models/story.rb
+@@ -20,7 +20,7 @@ class Story < ActiveRecord::Base
+   end
+ 
+   def update_permitted?
+-    acting_user.signed_up?
++    acting_user.signed_up? && !project_changed?
+   end
+ 
+   def destroy_permitted?
+diff --git a/app/models/task.rb b/app/models/task.rb
+index 9e5e356..65967b5 100644
+--- a/app/models/task.rb
++++ b/app/models/task.rb
+@@ -19,7 +19,7 @@ class Task < ActiveRecord::Base
+   end
+ 
+   def update_permitted?
+-    acting_user.signed_up?
++    acting_user.signed_up? && !project_changed?
+   end
+ 
+   def destroy_permitted?

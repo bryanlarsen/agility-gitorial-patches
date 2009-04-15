@@ -1,0 +1,20 @@
+# Part 5 -- odds and ends
+
+From: Bryan Larsen <bryan@larsen.st>
+
+We're now going to work through some more easy but very valuable enhancements to the app. We're going to add:
+
+ * A menu for story statuses. The free-form text field is a bit poor after all. We'll do this first with a hard-wired set of options, and then add the ability to manage the set of available statuses.
+
+ * Add filtering of stories by status to the project page
+
+ * Drag and drop re-ordering of tasks. This effectively gives us prioritisation of tasks.
+
+ * Markdown or textile formatting of stories. This is implemented by changing *one symbol* in the source code.
+
+Off we go.
+---
+
+ 0 files changed, 0 insertions(+), 0 deletions(-)
+
+

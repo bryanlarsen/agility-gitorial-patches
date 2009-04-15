@@ -1,0 +1,29 @@
+You can always edit the migration before running it. For example you could create some initial story statuses by adding this code to the `self.up` method:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+
+That's it. The page to manage the story statuses should appear in the main navigation.
+
+Now that we've got more structured statuses, let's do something with them...
+---
+
+ ...0415174642_hobo_migration_story_status_model.rb |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+
+diff --git a/db/migrate/20090415174642_hobo_migration_story_status_model.rb b/db/migrate/20090415174642_hobo_migration_story_status_model.rb
+index 5c88b68..0bfcd70 100644
+--- a/db/migrate/20090415174642_hobo_migration_story_status_model.rb
++++ b/db/migrate/20090415174642_hobo_migration_story_status_model.rb
+@@ -8,6 +8,9 @@ class HoboMigrationStoryStatusModel < ActiveRecord::Migration
+     
+     add_column :stories, :status_id, :integer
+     remove_column :stories, :status
++
++    statuses = %w(new accepted discussion implementation user_testing deployed rejected)
++    statuses.each { |status| StoryStatus.create :name => status }         
+   end
+ 
+   def self.down

@@ -1,0 +1,26 @@
+On the task edit page you might also have noticed that Rapid didn't manage to figure out a destination for the cancel link. You can fix that by editing `tasks/edit.dryml` to be:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+    
+This is a good demonstration of DRYML's nested parameter feature. The `<edit-page>` makes it's form available as a parameter, and the form provides a `<cancel:>` parameter. We can drill down from the edit-page to the form and then to the cancel link to pass in a custom attribute. You can do this to any depth.
+---
+
+ app/views/tasks/edit.dryml |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+ create mode 100644 app/views/tasks/edit.dryml
+
+
+diff --git a/app/views/tasks/edit.dryml b/app/views/tasks/edit.dryml
+new file mode 100644
+index 0000000..c988f10
+--- /dev/null
++++ b/app/views/tasks/edit.dryml
+@@ -0,0 +1,5 @@
++<edit-page>
++  <form:>
++    <cancel: with="&this.story"/>
++  </form:>
++</edit-page>
+\ No newline at end of file

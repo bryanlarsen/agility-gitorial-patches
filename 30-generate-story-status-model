@@ -1,0 +1,132 @@
+## Have a configurable set of statuses
+
+From: Bryan Larsen <bryan@larsen.st>
+
+In order to support management of the statuses available, we'll create a StoryStatus model
+
+	$ ./script/generate hobo_model_resource story_status name:string
+---
+
+ app/controllers/story_statuses_controller.rb      |    7 +++++
+ app/helpers/story_statuses_helper.rb              |    2 +
+ app/models/story_status.rb                        |   29 +++++++++++++++++++++
+ app/viewhints/story_status_hints.rb               |    4 +++
+ test/fixtures/story_statuses.yml                  |    6 ++++
+ test/functional/story_statuses_controller_test.rb |    8 ++++++
+ test/unit/story_status_test.rb                    |    8 ++++++
+ 7 files changed, 64 insertions(+), 0 deletions(-)
+ create mode 100644 app/controllers/story_statuses_controller.rb
+ create mode 100644 app/helpers/story_statuses_helper.rb
+ create mode 100644 app/models/story_status.rb
+ create mode 100644 app/viewhints/story_status_hints.rb
+ create mode 100644 test/fixtures/story_statuses.yml
+ create mode 100644 test/functional/story_statuses_controller_test.rb
+ create mode 100644 test/unit/story_status_test.rb
+
+
+diff --git a/app/controllers/story_statuses_controller.rb b/app/controllers/story_statuses_controller.rb
+new file mode 100644
+index 0000000..53a3817
+--- /dev/null
++++ b/app/controllers/story_statuses_controller.rb
+@@ -0,0 +1,7 @@
++class StoryStatusesController < ApplicationController
++
++  hobo_model_controller
++
++  auto_actions :all
++
++end
+diff --git a/app/helpers/story_statuses_helper.rb b/app/helpers/story_statuses_helper.rb
+new file mode 100644
+index 0000000..0c9d639
+--- /dev/null
++++ b/app/helpers/story_statuses_helper.rb
+@@ -0,0 +1,2 @@
++module StoryStatusesHelper
++end
+diff --git a/app/models/story_status.rb b/app/models/story_status.rb
+new file mode 100644
+index 0000000..2d01ab7
+--- /dev/null
++++ b/app/models/story_status.rb
+@@ -0,0 +1,29 @@
++class StoryStatus < ActiveRecord::Base
++
++  hobo_model # Don't put anything above this
++
++  fields do
++    name :string
++    timestamps
++  end
++
++
++  # --- Permissions --- #
++
++  def create_permitted?
++    acting_user.administrator?
++  end
++
++  def update_permitted?
++    acting_user.administrator?
++  end
++
++  def destroy_permitted?
++    acting_user.administrator?
++  end
++
++  def view_permitted?(field)
++    true
++  end
++
++end
+diff --git a/app/viewhints/story_status_hints.rb b/app/viewhints/story_status_hints.rb
+new file mode 100644
+index 0000000..6ec7947
+--- /dev/null
++++ b/app/viewhints/story_status_hints.rb
+@@ -0,0 +1,4 @@
++class StoryStatusHints < Hobo::ViewHints
++
++
++end
+diff --git a/test/fixtures/story_statuses.yml b/test/fixtures/story_statuses.yml
+new file mode 100644
+index 0000000..5f81936
+--- /dev/null
++++ b/test/fixtures/story_statuses.yml
+@@ -0,0 +1,6 @@
++# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
++one:
++  id: 1
++
++two:
++  id: 2
+diff --git a/test/functional/story_statuses_controller_test.rb b/test/functional/story_statuses_controller_test.rb
+new file mode 100644
+index 0000000..b7c2937
+--- /dev/null
++++ b/test/functional/story_statuses_controller_test.rb
+@@ -0,0 +1,8 @@
++require File.dirname(__FILE__) + '/../test_helper'
++
++class StoryStatusesControllerTest < ActionController::TestCase
++  # Replace this with your real tests.
++  def test_truth
++    assert true
++  end
++end
+diff --git a/test/unit/story_status_test.rb b/test/unit/story_status_test.rb
+new file mode 100644
+index 0000000..52cd5ed
+--- /dev/null
++++ b/test/unit/story_status_test.rb
+@@ -0,0 +1,8 @@
++require File.dirname(__FILE__) + '/../test_helper'
++
++class StoryStatusTest < ActiveSupport::TestCase
++  # Replace this with your real tests.
++  def test_truth
++    assert true
++  end
++end

@@ -1,0 +1,47 @@
+## Add assigned users to the tasks
+
+From: Bryan Larsen <bryan@larsen.st>
+
+At the moment, the only way to see who's assigned to a task is to click the task's edit link. Not good. Let's add a list of the assigned users to each task when we're looking at a story.
+
+DRYML has a feature called *polymorphic tags*. These are tags that are defined differently for different types of object. Rapid makes use of this feature with a system of "cards". The tasks that are displayed on the story page are rendered by the `<card>`. You can define custom cards for particular models. Furthermore, if you call `<base-card>` you can define your card by tweaking the default, rather than starting from scratch. This is what DRYML is all about. It's like a smart-bomb, capable of taking out little bits of unwanted HTML with pin-point strikes and no collateral damage.
+
+The file `app/views/taglibs/application.dryml` is a place to put tag definitions that will be available throughout the site. Add this definition to that file:
+
+SHOW_PATCH
+	
+OK there's a lot of new concepts thrown at you at once there :-) 
+	
+First off, refresh the story page. You'll see that in the cards for each task there is now a list of assigned users. The users are clickable - they link to each users home page (which doesn't have much on it at the moment).
+
+The `<extend>` tag is used to extend any tag that's already defined. The body of `<extend>` is our new definition. It's very common to want to base the new definition on the old one, for example, we often want to insert a bit of extra content as we've done here. We can do that by calling the "old" definition, which is available as `<old-card>`. We've passed the `<append-body:>` parameter to `<old-card>` which, in a startling twist, is used to append content to the body of the card. Some points to note:
+	
+ * The `<repeat>` tag provides a `join` attribute which we use to insert the commas
+ * The link is created with a simple empty `<a/>`. It links to the 'current context' which, in this case, is the user.
+ * The `:users` in `<repeat:users>` switches the context. It selects the `users` association of the task.
+ * DRYML has a multi-purpose `<else>` tag. When used with repeat, it provides a default for the case when the collection is empty.
+---
+
+ app/views/taglibs/application.dryml |   10 +++++++++-
+ 1 files changed, 9 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
+index 07f9ca2..3d515db 100644
+--- a/app/views/taglibs/application.dryml
++++ b/app/views/taglibs/application.dryml
+@@ -8,4 +8,12 @@
+ 
+ <def tag="app-name">Agility Gitorial</def>
+ 
+-
++<extend tag="card" for="Task">
++  <old-card merge>
++    <append-body:>
++    <div class="users">
++      Assigned users: <repeat:users join=", "><a/></repeat><else>None</else>
++    </div>
++    </append-body:>
++  </old-card>
++</extend>
+\ No newline at end of file

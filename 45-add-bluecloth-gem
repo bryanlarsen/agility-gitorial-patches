@@ -1,0 +1,24 @@
+You may need to install the relevant ruby gem: either BlueCloth (markdown) or RedCloth (textile)
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ config/environment.rb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+
+diff --git a/config/environment.rb b/config/environment.rb
+index 76d8bb3..c2ab601 100644
+--- a/config/environment.rb
++++ b/config/environment.rb
+@@ -9,6 +9,8 @@ require File.join(File.dirname(__FILE__), 'boot')
+ Rails::Initializer.run do |config|
+ #  config.gem 'hobo'
+ 
++  config.gem 'bluecloth'
++
+   # Settings in config/environments/* take precedence over those specified here.
+   # Application configuration should go into files in config/initializers
+   # -- all .rb files in that directory are automatically loaded.

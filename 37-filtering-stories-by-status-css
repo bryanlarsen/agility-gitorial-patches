@@ -1,0 +1,18 @@
+To make the filter look right, add this to `public/stylesheets/application.css`
+
+From: Bryan Larsen <bryan@larsen.st>
+
+
+---
+
+ public/stylesheets/application.css |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+
+diff --git a/public/stylesheets/application.css b/public/stylesheets/application.css
+index e69de29..9fc31c9 100644
+--- a/public/stylesheets/application.css
++++ b/public/stylesheets/application.css
+@@ -0,0 +1,2 @@
++.show-page.project .filter {float: left;}
++.show-page.project .filter form, .show-page.project .filter form div {display: inline;}

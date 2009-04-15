@@ -5,20 +5,21 @@ From: Bryan Larsen <bryan@larsen.st>
 
 ---
 
- .gitignore |    6 ++++++
- 1 files changed, 6 insertions(+), 0 deletions(-)
+ .gitignore |    7 +++++++
+ 1 files changed, 7 insertions(+), 0 deletions(-)
  create mode 100644 .gitignore
 
 
 diff --git a/.gitignore b/.gitignore
 new file mode 100644
-index 0000000..6a4f984
+index 0000000..7b84d97
 --- /dev/null
 +++ b/.gitignore
-@@ -0,0 +1,6 @@
+@@ -0,0 +1,7 @@
 +tmp/*
 +log/*.log
 +db/*.sqlite3
 +app/views/taglibs/auto
 +db/data.yml
 +patches-*/*
++.stgit-edit.txt
