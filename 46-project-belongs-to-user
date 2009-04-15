@@ -1,0 +1,30 @@
+# Part 6 -- Project Ownership
+
+From: Bryan Larsen <bryan@larsen.st>
+
+The next goal for Agility is to move to a full mutli-user application, where users can create their own projects and control who has access to them. Rather than make this change in one go, we'll start with a small change that doesn't do much by itself, but is a step in the right direction: making projects be owned by users.
+
+Add the following to the Project model:
+
+SHOW_PATCH
+	
+There's a Hobo extension there: `:creator => true` tells Hobo that when creating one of these things, the `owner` association should be automatically set up to be the user doing the create.
+---
+
+ app/models/project.rb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/models/project.rb b/app/models/project.rb
+index a6f4e3b..5554c17 100644
+--- a/app/models/project.rb
++++ b/app/models/project.rb
+@@ -9,6 +9,8 @@ class Project < ActiveRecord::Base
+ 
+   has_many :stories, :dependent => :destroy
+ 
++  belongs_to :owner, :class_name => "User", :creator => true
++
+   # --- Permissions --- #
+ 
+   def create_permitted?

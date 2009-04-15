@@ -1,0 +1,23 @@
+First remove the actions we don't need on the `ProjectMembershipsController`:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ app/controllers/project_memberships_controller.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/controllers/project_memberships_controller.rb b/app/controllers/project_memberships_controller.rb
+index aa14a80..4e32ec5 100644
+--- a/app/controllers/project_memberships_controller.rb
++++ b/app/controllers/project_memberships_controller.rb
+@@ -2,6 +2,6 @@ class ProjectMembershipsController < ApplicationController
+ 
+   hobo_model_controller
+ 
+-  auto_actions :all
++  auto_actions :write_only
+ 
+ end

@@ -1,0 +1,133 @@
+# Part 7 -- Granting read access to others
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Now that we've got users owning their own projects, it seems wrong that any signed up user can view any project. On the other hand it wouldn't make any sense to hide the project from everyone. What we need is a way for the project owner to grant others access.
+
+We can model this with a ProjectMembership model that represents access for a specific user and project:
+
+    $ ./script/generate hobo_model_resource project_membership
+---
+
+ app/controllers/project_memberships_controller.rb  |    7 +++++
+ app/helpers/project_memberships_helper.rb          |    2 +
+ app/models/project_membership.rb                   |   28 ++++++++++++++++++++
+ app/viewhints/project_membership_hints.rb          |    4 +++
+ test/fixtures/project_memberships.yml              |    6 ++++
+ .../project_memberships_controller_test.rb         |    8 ++++++
+ test/unit/project_membership_test.rb               |    8 ++++++
+ 7 files changed, 63 insertions(+), 0 deletions(-)
+ create mode 100644 app/controllers/project_memberships_controller.rb
+ create mode 100644 app/helpers/project_memberships_helper.rb
+ create mode 100644 app/models/project_membership.rb
+ create mode 100644 app/viewhints/project_membership_hints.rb
+ create mode 100644 test/fixtures/project_memberships.yml
+ create mode 100644 test/functional/project_memberships_controller_test.rb
+ create mode 100644 test/unit/project_membership_test.rb
+
+
+diff --git a/app/controllers/project_memberships_controller.rb b/app/controllers/project_memberships_controller.rb
+new file mode 100644
+index 0000000..aa14a80
+--- /dev/null
++++ b/app/controllers/project_memberships_controller.rb
+@@ -0,0 +1,7 @@
++class ProjectMembershipsController < ApplicationController
++
++  hobo_model_controller
++
++  auto_actions :all
++
++end
+diff --git a/app/helpers/project_memberships_helper.rb b/app/helpers/project_memberships_helper.rb
+new file mode 100644
+index 0000000..9f2d805
+--- /dev/null
++++ b/app/helpers/project_memberships_helper.rb
+@@ -0,0 +1,2 @@
++module ProjectMembershipsHelper
++end
+diff --git a/app/models/project_membership.rb b/app/models/project_membership.rb
+new file mode 100644
+index 0000000..b0a4acb
+--- /dev/null
++++ b/app/models/project_membership.rb
+@@ -0,0 +1,28 @@
++class ProjectMembership < ActiveRecord::Base
++
++  hobo_model # Don't put anything above this
++
++  fields do
++    timestamps
++  end
++
++
++  # --- Permissions --- #
++
++  def create_permitted?
++    acting_user.administrator?
++  end
++
++  def update_permitted?
++    acting_user.administrator?
++  end
++
++  def destroy_permitted?
++    acting_user.administrator?
++  end
++
++  def view_permitted?(field)
++    true
++  end
++
++end
+diff --git a/app/viewhints/project_membership_hints.rb b/app/viewhints/project_membership_hints.rb
+new file mode 100644
+index 0000000..6359c88
+--- /dev/null
++++ b/app/viewhints/project_membership_hints.rb
+@@ -0,0 +1,4 @@
++class ProjectMembershipHints < Hobo::ViewHints
++
++
++end
+diff --git a/test/fixtures/project_memberships.yml b/test/fixtures/project_memberships.yml
+new file mode 100644
+index 0000000..5f81936
+--- /dev/null
++++ b/test/fixtures/project_memberships.yml
+@@ -0,0 +1,6 @@
++# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
++one:
++  id: 1
++
++two:
++  id: 2
+diff --git a/test/functional/project_memberships_controller_test.rb b/test/functional/project_memberships_controller_test.rb
+new file mode 100644
+index 0000000..f7db0d9
+--- /dev/null
++++ b/test/functional/project_memberships_controller_test.rb
+@@ -0,0 +1,8 @@
++require File.dirname(__FILE__) + '/../test_helper'
++
++class ProjectMembershipsControllerTest < ActionController::TestCase
++  # Replace this with your real tests.
++  def test_truth
++    assert true
++  end
++end
+diff --git a/test/unit/project_membership_test.rb b/test/unit/project_membership_test.rb
+new file mode 100644
+index 0000000..6063ca0
+--- /dev/null
++++ b/test/unit/project_membership_test.rb
+@@ -0,0 +1,8 @@
++require File.dirname(__FILE__) + '/../test_helper'
++
++class ProjectMembershipTest < ActiveSupport::TestCase
++  # Replace this with your real tests.
++  def test_truth
++    assert true
++  end
++end

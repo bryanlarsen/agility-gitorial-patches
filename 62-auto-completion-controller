@@ -1,0 +1,33 @@
+## A form with auto-completion
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Now we'll create the form to add a new person to the project. We'll set it up so that you can type the user's name, with autocompletion, in order to add someone to the project.
+
+First we need the controller side of the auto-complete. We're going to add an auto-completer to ProjectsController that will only complete the names of people that are not already members of the project. Hobo's automatic scopes come very handy. Add this declaration to `projects_controller.rb`:
+
+SHOW_PATCH
+
+You can read this as: create an auto-complete action called '`new_member_name`' that finds users that are not already members of the project, and not the owner of the project and completes the `:username` field.
+---
+
+ app/controllers/projects_controller.rb |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/controllers/projects_controller.rb b/app/controllers/projects_controller.rb
+index d15495d..61cca48 100644
+--- a/app/controllers/projects_controller.rb
++++ b/app/controllers/projects_controller.rb
+@@ -6,6 +6,11 @@ class ProjectsController < ApplicationController
+   
+   auto_actions_for :owner, [:new, :create]
+ 
++  autocomplete :new_member_name do
++    project = find_instance
++    hobo_completions :name, User.without_project(project).is_not(project.owner)
++  end
++
+   def show
+     @project = find_instance
+     @stories = 

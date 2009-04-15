@@ -1,0 +1,23 @@
+We also need the other end of this association, in the User model:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ app/models/user.rb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/models/user.rb b/app/models/user.rb
+index 881e477..6784e69 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
+ 
+   has_many :task_assignments, :dependent => :destroy
+   has_many :tasks, :through => :task_assignments
++  has_many :projects, :class_name => "Project", :foreign_key => "owner_id"
+ 
+   # This gives admin rights to the first sign-up.
+   # Just remove it if you don't want that

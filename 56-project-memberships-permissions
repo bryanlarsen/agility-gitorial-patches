@@ -1,0 +1,40 @@
+Then permissions -- only the project owner (and admins) can manipulate these:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+
+---
+
+ app/models/project_membership.rb |   18 +++++++++---------
+ 1 files changed, 9 insertions(+), 9 deletions(-)
+
+
+diff --git a/app/models/project_membership.rb b/app/models/project_membership.rb
+index 2179383..9dc8e63 100644
+--- a/app/models/project_membership.rb
++++ b/app/models/project_membership.rb
+@@ -12,15 +12,15 @@ class ProjectMembership < ActiveRecord::Base
+   # --- Permissions --- #
+ 
+   def create_permitted?
+-    acting_user.administrator?
+-  end
+-
+-  def update_permitted?
+-    acting_user.administrator?
+-  end
+-
+-  def destroy_permitted?
+-    acting_user.administrator?
++    acting_user.administrator? || project.owner_is?(acting_user)
++  end                             
++                                  
++  def update_permitted?           
++    acting_user.administrator? || project.owner_is?(acting_user)
++  end                             
++                                  
++  def delete_permitted?           
++    acting_user.administrator? || project.owner_is?(acting_user)
+   end
+ 
+   def view_permitted?(field)

@@ -1,0 +1,26 @@
+Next, add the associations to the model:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ app/models/project_membership.rb |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/models/project_membership.rb b/app/models/project_membership.rb
+index b0a4acb..2179383 100644
+--- a/app/models/project_membership.rb
++++ b/app/models/project_membership.rb
+@@ -6,7 +6,9 @@ class ProjectMembership < ActiveRecord::Base
+     timestamps
+   end
+ 
+-
++  belongs_to :project
++  belongs_to :user
++  
+   # --- Permissions --- #
+ 
+   def create_permitted?

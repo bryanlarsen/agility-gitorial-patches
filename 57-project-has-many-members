@@ -1,0 +1,24 @@
+Let's do the other ends of those two belongs-to associations. In the Project model:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ app/models/project.rb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/models/project.rb b/app/models/project.rb
+index 0f811c2..781ea28 100644
+--- a/app/models/project.rb
++++ b/app/models/project.rb
+@@ -8,6 +8,8 @@ class Project < ActiveRecord::Base
+   end
+ 
+   has_many :stories, :dependent => :destroy
++  has_many :memberships, :class_name => "ProjectMembership", :dependent => :destroy
++  has_many :members, :through => :memberships, :source => :user
+ 
+   belongs_to :owner, :class_name => "User", :creator => true
+ 

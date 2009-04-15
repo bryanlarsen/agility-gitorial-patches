@@ -1,0 +1,26 @@
+Problem -- the membership card doesn't display the users name. There are two ways we could fix this. We could either customise the global membership card using `<extend tag="card" for="Membership">` in `application.dryml`, or we could customise *this particular usage* of the membership card. Let's do the latter. Modify the `<collection:memberships>` as follows:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ app/views/projects/show.dryml |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/views/projects/show.dryml b/app/views/projects/show.dryml
+index 3f12a7a..f155d8c 100644
+--- a/app/views/projects/show.dryml
++++ b/app/views/projects/show.dryml
+@@ -12,7 +12,9 @@
+   
+   <aside:>
+     <h2>Project Members</h2>
+-    <collection:memberships part="members"/>
++    <collection:memberships part="members">
++      <card><heading:><a:user/></heading:></card>
++    </collection>
+     
+     <form:memberships.new update="members" reset-form refocus-form>
+       <div>

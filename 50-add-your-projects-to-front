@@ -1,0 +1,26 @@
+Finally lets add a handy list of "Your Projects" to the home page. Edit the content-body section of `app/views/front/index.dryml` to be:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+SHOW_PATCH
+---
+
+ app/views/front/index.dryml |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
+index ef5c3a5..b1a397f 100644
+--- a/app/views/front/index.dryml
++++ b/app/views/front/index.dryml
+@@ -13,7 +13,9 @@
+       </section>
+     </header>
+ 
+-    <section class="content-body">
++    <section class="content-body" if="&logged_in?">
++      <h3>Your Projects</h3>
++      <collection:projects with="&current_user"/>
+     </section>
+   </content:>
+   

@@ -1,0 +1,31 @@
+Finally, now that not all projects are viewable by all users, the projects index page won't work too well. In addition, the top-level New Project page at `/projects/new` isn't suited to our purposes any more. It will fit better with Hobo's RESTful architecture to create projects for specific users, e.g. at `/users/12/projects/new`
+
+From: Bryan Larsen <bryan@larsen.st>
+
+So we'll modify the actions provided by the projects controller to:
+
+SHOW_PATCH
+
+Note that there won't be a link to that new-project page by default -- we'll add one in the next section.
+---
+
+ app/controllers/projects_controller.rb |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/controllers/projects_controller.rb b/app/controllers/projects_controller.rb
+index 8b1700d..d15495d 100644
+--- a/app/controllers/projects_controller.rb
++++ b/app/controllers/projects_controller.rb
+@@ -2,8 +2,10 @@ class ProjectsController < ApplicationController
+ 
+   hobo_model_controller
+ 
+-  auto_actions :all
++  auto_actions :show, :edit, :update, :destroy
+   
++  auto_actions_for :owner, [:new, :create]
++
+   def show
+     @project = find_instance
+     @stories = 
