@@ -1,0 +1,7 @@
+Agility Gitorial Patchset
+=========================
+
+This is [stacked git](http://www.procode.org/stgit/) patchset for
+[agility-gitorial](http://github.com/bryanlarsen/agility-gitorial/tree/master).
+Since agility-gitorial constantly rewrites its history, this becomes
+our real working history.
