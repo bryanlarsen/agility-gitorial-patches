@@ -2,11 +2,11 @@
 
 From: Bryan Larsen <bryan@larsen.st>
 
-We would like the list of project memberships to appear in a side-bar on the project show page, so the page will now display two collections: stories and memberships. We can tell rapid that these are the two collections we are interested in using Hobo's *view hints* mechanism. Edit the file `app/viewhints/project_hints.rb` to look like this:
+We would like the list of project memberships to appear in a side-bar on the project show page, so the page will now display two collections: stories and memberships. We can tell Rapid that these are the two collections we are interested in using Hobo's [*View Hints*](/manual/viewhints). Edit the file `app/viewhints/project_hints.rb` to look like this:
 
 SHOW_PAGE
 
-It is very common for websites to present information in a hierarchy, and this `children` declaration tells Hobo about the hierarchy of your data. The order is significant: in this example `stories` is the 'main' child relationship, and `memberships` is secondary. The Rapid page generators use this information and place the `stories` collection in the main area of the page, and an aside section will be added for the `memberships`.
+It is very common for websites to present information in a hierarchy, and this `children` declaration tells Hobo about the hierarchy of your data. The order is significant; in this example `stories` is the 'main' child relationship, and `memberships` is secondary. The Rapid page generators use this information and place the `stories` collection in the main area of the page, and an aside section will be added for the `memberships`.
 
 Refresh any project page and you should see the collection, which will be empty of course, in a side-bar.
 ---

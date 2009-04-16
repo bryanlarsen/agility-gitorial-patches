@@ -1,4 +1,4 @@
-If you try to use the filter, you'll see it adds a `status` parameter in the query string. We need to pick that up and do something useful with it in the controller.  We can use the `apply_scopes` method again, which is already being used, so it's just a matter of adding one more keyword argument:
+If you try to use the filter widget, you'll see it adds a `status` parameter in the query string. We need to pick that up and do something useful with it in the Projects controller at `app/controllers/projects_controller.rb`. Happily, we can leverage the `apply_scopes` method we earlier used in the `show` method for searching and sorting to also handle filtering by adding a `:status_is` argument:
 
 From: Bryan Larsen <bryan@larsen.st>
 

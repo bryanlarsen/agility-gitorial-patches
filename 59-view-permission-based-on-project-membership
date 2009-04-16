@@ -1,4 +1,4 @@
-Note that users now have two collections of projects: `projects` are the projects that users owns, and `joined_projects` are the projects they have joined as a member.
+Note that users now have two collections of projects: `projects` are the projects that users own, and `joined_projects` are the projects they have joined as members.
 
 From: Bryan Larsen <bryan@larsen.st>
 

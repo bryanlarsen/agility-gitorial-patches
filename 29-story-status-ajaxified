@@ -1,4 +1,4 @@
-The menu is working in the edit-story page now. It would be nice though if we had a ajaxified editor right on the story page. Edit `app/views/stories/show.dryml` to be:
+Now there is a status selector on the 'story/edit' page. It would be nice though if we had an ajaxified editor right on the story 'show' page. Edit `app/views/stories/show.dryml` to be:
 
 From: Bryan Larsen <bryan@larsen.st>
 

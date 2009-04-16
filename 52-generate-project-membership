@@ -2,7 +2,7 @@
 
 From: Bryan Larsen <bryan@larsen.st>
 
-Now that we've got users owning their own projects, it seems wrong that any signed up user can view any project. On the other hand it wouldn't make any sense to hide the project from everyone. What we need is a way for the project owner to grant others access.
+Now that we've got users owning their own projects, it seems wrong that any signed-up user can view any project. On the other hand it wouldn't make any sense to hide the project from everyone. What we need is a way for the project owner to grant others access.
 
 We can model this with a ProjectMembership model that represents access for a specific user and project:
 

@@ -1,7 +1,12 @@
-Contents
+The Agility Tutorial - A simple story manager
 
 From: Bryan Larsen <bryan@larsen.st>
 
+{: .document-title}
+
+The full source code for the Agility app is available at [http://github.com/tablatom/agility](http://github.com/tablatom/agility/tree/master).
+
+Contents
 {: .contents-heading}
 
 - contents
@@ -11,7 +16,7 @@ From: Bryan Larsen <bryan@larsen.st>
 
 In this tutorial we'll be creating a simple "Agile Development" application -- _Agility_. The application tracks projects which consist of a number of user stories. Stories have a status (e.g. accepted, under development...) as well as a number of associated tasks. Tasks can be assigned to users, and each user can see a heads-up of all the tasks they've been assigned to on their home page.
 
-This is a bit of an in-at-the-deep-end tutorial -- we build the app the way you would assuming you had already got the hang of the way Hobo works. In the later stages new concepts start coming thick and fast. The goal here is to show you what's possible, and give you a flavour of Hobo-style application development, rather than to provide detailed background on how everything workds. Don't worry about it, it's fun! If you'd rather take things a bit slower, you might prefer the [POD tutorial](http://hobocentral.net/pod-tutorial).
+This is a bit of an in-at-the-deep-end tutorial -- we build the app the way you would assuming you had already got the hang of the way Hobo works. In the later stages new concepts start coming thick and fast. The goal here is to show you what's possible, and give you a flavour of Hobo-style application development, rather than to provide detailed background on how everything works. Don't worry about it, it's fun! If you'd rather take things a bit slower, you might prefer the [POD tutorial](http://hobocentral.net/pod-tutorial).
 
 
 # Part 1 -- Getting Started

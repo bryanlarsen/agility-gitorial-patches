@@ -6,7 +6,7 @@ Although we have modelled the assignment of tasks to users, at the moment there 
 
 SHOW_PATCH
 
-Without that declaration, the permission system was reporting that this association was not editable. Now that the association is "accessible", the permission system will check for create and destroy permission on the join model `TaskAssignments`. As long as the current user has those permissions, the task edit page should now include a nice javascript powered control for assigning users in the edit-task page.
+Without that declaration, the permission system was reporting that this association was not editable. Now that the association is "accessible", the permission system will check for create and destroy permission on the join model `TaskAssignment`. As long as the current user has those permissions, the task edit page should now include a nice javascript powered control for assigning users in the edit-task page.
 ---
 
  app/models/task.rb |    2 +-

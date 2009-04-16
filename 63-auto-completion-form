@@ -1,4 +1,4 @@
-Now for the form in projects/show.dryml. We'll use Hobo's ajax part mechanism to refresh the collection without reloading the page:
+Now for the form in `projects/show.dryml`. We'll use Hobo's ajax `part` mechanism to refresh the collection without reloading the page:
 
 From: Bryan Larsen <bryan@larsen.st>
 

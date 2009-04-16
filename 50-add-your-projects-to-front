@@ -1,4 +1,4 @@
-Finally lets add a handy list of "Your Projects" to the home page. Edit the content-body section of `app/views/front/index.dryml` to be:
+Finally, let's add a handy list of "Your Projects" to the home page. Edit the content-body section of `app/views/front/index.dryml` to be:
 
 From: Bryan Larsen <bryan@larsen.st>
 

@@ -6,7 +6,7 @@ There's just a couple of things to do to round this part of the tutorial off. Fi
 
 SHOW_PATCH
 
-Notice how we set the context on the entire section to be the current user (`with="&current_user"`). That makes the mark-up inside the section much more compact and easy to read.
+Notice how we set the context on the entire section to be the current user (`with="&current_user"`). That makes the markup inside the section much more compact and easy to read.
 ---
 
  app/views/front/index.dryml |    9 +++++++--

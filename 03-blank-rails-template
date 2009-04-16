@@ -4,7 +4,7 @@ From: Bryan Larsen <bryan@larsen.st>
 
 You'll need a working Ruby on Rails setup. We're assuming you know at least the basics of Rails. If not, you should probably work through a Rails tutorial before attempting this one.
 
-## Create the app with Hobo gem
+## Create the application with Hobo gem
 
 Although Hobo is in fact a group of Rails plugins, it is also available as a gem which gives you the useful `hobo` command:
 
@@ -15,7 +15,7 @@ The `hobo` command is like the Rails command, it will create a new blank Rails a
     $ hobo agility
     $ cd agility
 
-## Alternately: Create the app with Hobo plugin
+## Alternately: Create the application with Hobo plugin
 
 If you wish to use hobo as a plugin instead of a gem, you will have to run the rails command yourself:
 
