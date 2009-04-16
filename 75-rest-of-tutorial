@@ -1,0 +1,157 @@
+# Part 9 -- Granting write access to others
+
+From: Bryan Larsen <bryan@larsen.st>
+
+It's not enough just to allow others to view your projects, you need to allow some people to make changes, too. The goal of this part of the tutorial is to add a "Contributor" checkbox next to each person in the side-bar.
+
+Implementing this is left as an exercise for the reader. The steps are:
+1. Add a boolean `contributor` field to the `ProjectMembership` model.
+2. Modify the permissions of stories and tasks so that users with `contributor=true` on their project membership have update permission for the project.
+3. Use the `<editor>` tag to create an ajax editor for the `contributor` field in the ProjectMembership card.
+	
+That's all the hints we're going to give you for this one -- good luck!
+
+Ok, one more hint, here's some associations that might be handy in the Project model:
+
+	has_many :contributor_memberships, :class_name => "ProjectMembership", :scope => :contributor
+	has_many :contributors, :through => :contributor_memberships, :source => :user
+{: .ruby}	
+
+And a helper method that might come in handy when implementing your permission methods:
+
+	def accepts_changes_from?(user)
+	  user.administrator? || user == owner || user.in?(contributors)
+	end
+{: .ruby}
+
+
+# Part 9 -- Ideas for extending the application
+
+## Milestones
+
+A pretty obvious addition is to have project milestones, and to be able to associate stories with milestones.
+
+## Add comments to stories
+
+It's always useful to be able to have a discussion around things, and a trail of comments is a nice easy way to support this.
+
+## Better users/show page
+
+The current `users/show` page could be improved a lot. For example, it doesn't give any indication of the different projects that stories belong to. What else would be useful on this page?
+
+
+# Appendix -- Styling the Application
+
+**NOTE: This section is a bit out of date. It will mostly work but there might be some style glitches**
+
+The default Hobo theme “Clean” provides comprehensive but minimal styling for all of Hobo’s generic pages and tags. When styling your app you have a choice between creating your own theme from scratch or tweaking an existing theme to suit your needs. The Clean theme has been designed with this in mind; it can be adapted to look very different with only a small amount of effort. 
+
+In this section we will adapt our existing theme to create a new look for our app. We will make our changes in `public/stylesheets/application.css`, which is initially empty. This stylesheet is applied after our theme stylesheet so we can override the theme's styles here instead of editing the theme stylesheet directly. This approach means that we can upgrade the theme in the future with minimal effort, although it also means that our stylesheets will be bigger than they could be, so the approach is better suited to small and medium sized projects. For larger projects it might be better to create a new theme, perhaps based on an existing one, or do away with themes altogether and do all the styling in the `application.css` stylesheet.
+
+In order to override our existing theme styles we need to know about the styles that are being applied. For this we can look at the existing theme file in `public/hobothemes/clean/stylesheets/clean.css`. Another good source for this information is by using [Firebug](http://www.firebug.com) in Firefox where we can examine the various page elements to discover what styling is being applied.
+
+Hobo's tags add various CSS classes to the output elements to help with styling. These are typically the name of the tag that was used to generate the output and the name of the model or field corresponding to `this` context. For example:
+
+An index page for "Project" adds the following classes to `<body>`:
+`<body class="index-page project">`
+
+A show page for "Project" adds the following classes to `<body>`:
+`<body class="show-page project">` on `/projects/1`
+
+The `<view>` tag applied to a "Project" name will output:
+`<span class="view project-name">My Project</span>`
+
+The `<card>` tag applied to a "Project" will output:
+`<div class="card project linkable">`
+  
+With these classes it becomes very easy to style specific elements on the page. For example:
+
+`.card.project` - Style all "project" cards
+`.index-page .card.project` - Style "project" cards on index pages
+`.show-page.project .card.story` - Style "story" cards on the "project" show page
+
+We'll now add some styling to `public/stylesheets/application.css` to make our Agility app look a bit different.
+
+The first thing we'll do is switch from a "boxed in" look to an horizontally open style. To do this we'll use a background image to draw a horizontal top banner across the whole page and change the page background colour to white: 
+
+    html, body {
+    	background-image: url(/images/header.png);
+    	background-position: top left;
+    	background-repeat: repeat-x;
+    	background-color: white;
+    }
+
+Next we'll make the page a bit wider and make the header taller:
+
+    body {width: 860px; background: none;}
+
+    .page-header {height: 176px; padding: 0; margin-top: 0;}
+
+Next we'll want to position the contents of the page header differently since we've increased its height. We'll start by increasing the size and padding on the application name:
+
+    .page-header h1 {
+    	margin: 0; padding: 50px 30px 0;
+    	font-family: "Lucida Grande", Tahoma, Arial, sans-serif; font-size: 42px; font-weight: bold;
+    	text-transform: lowercase;
+    }
+
+Next we'll move the main navigation bar to the top right of the page and change the way it looks:
+
+    .page-header .main-nav {
+    	position: absolute; top: 0; right: 0;
+    }
+    .page-header .main-nav li {margin-right: 1px;}
+    .main-nav a, .main-nav a:hover {
+    	padding: 37px 6px 5px; min-width: 95px;
+    	text-shadow: none;
+    	border: 1px solid black; border-width: 0 0 0 1px; background-color: #D61951;
+    }
+    .main-nav a:hover {
+    	background-color: #AD163D;
+    }
+
+Next we need to reposition the account navigation and search bar. We'll also need to reposition our development-mode user changer:
+
+    .account-nav {
+    	position: absolute; top: 70px; right: 15px;
+    	font-size: 11px;
+    }
+    .account-nav a {color: #bbb;}
+
+    .page-header div.search {
+    	top: auto; bottom: 0; right: 5px; z-index: 10;
+    }
+    select.dev-user-changer {top: 100px; left: auto; right: 15px; height: auto;}
+
+Now that we've finished the page header we want to customise the content section of the page:
+
+    .page-content {background: none;}
+    .content-header, .content-body {margin: 0 25px 15px;}
+
+    body {
+    	color: #555;
+    	font: 14px "Trebuchet MS", Arial, sans-serif; line-height: 150%;
+    }
+    h1, h2, h3 {font-weight: normal; line-height: 100%; text-transform: lowercase; color: #D61951;}
+    h1 {margin: 20px 0 10px; font-size: 26px;}
+    h2 {margin: 15px 0 10px; font-size: 18px;}
+    h3 {margin: 10px 0 5px;  font-size: 16px;}
+    h4 {margin: 10px 0 5px;  font-size: 14px;}
+    h5 {margin: 10px 0 5px;  font-size: 12px;}
+    h6 {margin: 10px 0 5px;  font-size: 10px;}
+
+    .show-page .content-header, .primary-collection h2 {border-bottom: 1px solid #ccc;}
+    .front-page .welcome-message {border: none;}
+
+    .card {border: none; background: #f2f2f2;}
+    a, a:hover, .card a, .card a:hover {background: none; color: #1D7D39;}
+
+Finally we'll customise the look of the aside section which is used on the project show page:
+
+    .aside {padding: 20px; margin: 40px 25px 0 0;}
+    .aside-content h2, .aside-content h3 {border-bottom: 1px solid #ccc; margin-top: 0;}
+---
+
+ 0 files changed, 0 insertions(+), 0 deletions(-)
+
+
