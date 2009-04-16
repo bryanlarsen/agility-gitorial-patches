@@ -1,0 +1,130 @@
+Now go ahead and fill out your test.
+
+From: Bryan Larsen <bryan@larsen.st>
+
+
+---
+
+ test/selenium/create_account.rsel |   14 ------
+ test/selenium/populate.rsel       |   90 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 90 insertions(+), 14 deletions(-)
+ delete mode 100644 test/selenium/create_account.rsel
+ create mode 100644 test/selenium/populate.rsel
+
+
+diff --git a/test/selenium/create_account.rsel b/test/selenium/create_account.rsel
+deleted file mode 100644
+index 312acf6..0000000
+--- a/test/selenium/create_account.rsel
++++ /dev/null
+@@ -1,14 +0,0 @@
+-
+-include_partial "setup_fixture_set", :set => "blank"
+-open "/"
+-click "link=Sign up"
+-wait_for_page_to_load "30000"
+-type "user_name", "Test User"
+-type "user_email_address", "test@example.com"
+-type "user_password", "test"
+-type "user_password_confirmation", "test"
+-click "//input[@value='Signup']"
+-wait_for_page_to_load "30000"
+-verify_text_present "Thanks for signing up!"
+-verify_text_present "Logged in as Test Use"
+-verify_text_present "New Project"
+diff --git a/test/selenium/populate.rsel b/test/selenium/populate.rsel
+new file mode 100644
+index 0000000..cb8b10d
+--- /dev/null
++++ b/test/selenium/populate.rsel
+@@ -0,0 +1,90 @@
++# -*- coding: utf-8 -*-
++
++include_partial "setup_fixture_set", :set => "blank"
++open "/"
++
++# create Test User
++click "link=Sign up"
++wait_for_page_to_load "30000"
++type "user_name", "Test User"
++type "user_email_address", "test@example.com"
++type "user_password", "test"
++type "user_password_confirmation", "test"
++click "//input[@value='Signup']"
++wait_for_page_to_load "30000"
++verify_text_present "Thanks for signing up!"
++verify_text_present "Logged in as Test User"
++verify_text_present "New Project"
++
++# create First Project/Story/Task
++click_and_wait "link=New Project"
++type "project_name", "First Project"
++click_and_wait "//input[@value='Create Project']"
++verify_text_present "The project was created successfully"
++click_and_wait "link=New Story"
++type "story_title", "First Story"
++type "story[body]", "First Story"
++click_and_wait "//input[@value='Create Story']"
++type "task_description", "First Task"
++select "css=div.task-users select", "label=Test User"
++click_and_wait "//input[@value='Add']"
++wait_for_text_present "The task was created successfully"
++
++# create Second User
++click_and_wait "link=Log out"
++click_and_wait "link=Sign up"
++type "user_name", "Second User"
++type "user_email_address", "second@example.com"
++type "user_password", "second"
++type "user_password_confirmation", "second"
++click_and_wait "//input[@value='Signup']"
++verify_text_present "Logged in as Second User"
++
++#click_and_wait "link=New Project"
++#type "project_name", "Second Project"
++#click_and_wait "//input[@value='Create Project']"
++
++# switch to Test User
++click_and_wait "link=Log out"
++click_and_wait "link=Log in"
++type "login", "test@example.com"
++type "password", "test"
++click_and_wait "//input[@value='Log in']"
++verify_text_present "Logged in as Test User"
++
++# add Second User to First Task
++click_and_wait "link=First Project"
++click_and_wait "link=First Story"
++# FIXME: better selector
++click_and_wait "link=Edit"
++select "css=div.task-users select", "label=Second User"
++click_and_wait "//input[@value='Save']"
++verify_text_present "Assigned users: Test User, Second User"
++
++# define statuses
++click_and_wait "link=Story Statuses"
++click_and_wait "link=New Story Status"
++type "story_status_name", "discussion"
++click_and_wait "//input[@value='Create Story Status']"
++verify_text_present "There is 1 Story Status"
++click_and_wait "link=New Story Status"
++type "story_status_name", "implementation"
++click_and_wait "//input[@value='Create Story Status']"
++verify_text_present "There are 2 Story Statuses"
++
++# add status to First Story
++click_and_wait "link=Home"
++click_and_wait "link=First Project"
++click_and_wait "link=First Story"
++watch_ajax_requests
++select "css=select.story_status", "label=discussion"
++#wait_for_visible "css=div.ajax-progress"
++#wait_for_not_visible "css=div.ajax-progress"
++wait_for_ajax_request 5000
++click_and_wait "link=« First Project"
++verify_text "css=span.story-status-name", "discussion"
++
++# check filtering
++select_and_wait "status", "label=implementation"
++verify_text_present "No stories match your criteria"
++

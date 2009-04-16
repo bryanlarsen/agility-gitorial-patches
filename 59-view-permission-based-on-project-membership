@@ -40,7 +40,7 @@ index c10f68b..e2967b0 100644
  
  end
 diff --git a/app/models/task.rb b/app/models/task.rb
-index ad48413..766d241 100644
+index edcf700..90dcc69 100644
 --- a/app/models/task.rb
 +++ b/app/models/task.rb
 @@ -29,7 +29,7 @@ class Task < ActiveRecord::Base

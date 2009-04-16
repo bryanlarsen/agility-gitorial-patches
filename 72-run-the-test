@@ -1,0 +1,19 @@
+Now you can run your test.  In one terminal type:
+
+From: Bryan Larsen <bryan@larsen.st>
+
+$ RAILS_ENV=test rake db:migrate
+    $ script/server -e test -p 3001
+
+And in another:
+
+    $ rake test:acceptance
+
+If you've done everything correctly, you should eventually see:
+
+    1 tests passed, 0 tests failed
+---
+
+ 0 files changed, 0 insertions(+), 0 deletions(-)
+
+

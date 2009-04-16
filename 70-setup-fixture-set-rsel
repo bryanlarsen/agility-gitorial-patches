@@ -1,0 +1,21 @@
+We'll first create a file that we can include from our tests to load
+
+From: Bryan Larsen <bryan@larsen.st>
+
+the fixture set:
+
+SHOW_PATCH
+---
+
+ test/selenium/_setup_fixture_set.rsel |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 test/selenium/_setup_fixture_set.rsel
+
+
+diff --git a/test/selenium/_setup_fixture_set.rsel b/test/selenium/_setup_fixture_set.rsel
+new file mode 100644
+index 0000000..705dba4
+--- /dev/null
++++ b/test/selenium/_setup_fixture_set.rsel
+@@ -0,0 +1 @@
++setup :fixtures => Dir["#{RAILS_ROOT}/test/fixtures/#{set}/*.yml"].map {|f| "#{set}/#{File.basename(f, '.yml')}"}

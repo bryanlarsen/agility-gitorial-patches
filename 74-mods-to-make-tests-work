@@ -1,0 +1,26 @@
+There's one other change we need to make to ensure that our
+
+From: Bryan Larsen <bryan@larsen.st>
+
+integration test works:
+
+SHOW_PATCH
+---
+
+ app/models/user.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/models/user.rb b/app/models/user.rb
+index e147df8..4ebed4f 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
+ 
+   # This gives admin rights to the first sign-up.
+   # Just remove it if you don't want that
+-  before_create { |user| user.administrator = true if RAILS_ENV != "test" && count == 0 }
++  before_create { |user| user.administrator = true if count == 0 }
+   
+   
+   # --- Signup lifecycle --- #

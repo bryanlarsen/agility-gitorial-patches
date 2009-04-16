@@ -14,7 +14,7 @@ Without that declaration, the permission system was reporting that this associat
 
 
 diff --git a/app/models/task.rb b/app/models/task.rb
-index 65967b5..53bea38 100644
+index 27aaae1..8fad2b5 100644
 --- a/app/models/task.rb
 +++ b/app/models/task.rb
 @@ -10,7 +10,7 @@ class Task < ActiveRecord::Base

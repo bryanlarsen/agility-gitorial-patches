@@ -1,0 +1,38 @@
+Record a test using the [Selenium IDE Firefox extension](http://seleniumhq.org/projects/ide/).  We are going to use the [rselenese format](http://wiki.openqa.org/display/SIDE/SeleniumOnRails), which you must add to Selenium IDE.  (Options|Options|Formats|Add)
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Record a small test, perhaps just the process of creating a new
+account.  Make sure and add some verify's, which you can find in your
+right click menu.
+
+After you've finished, tweak it so that it looks something like this:
+
+SHOW_PATCH
+---
+
+ test/selenium/create_account.rsel |   14 ++++++++++++++
+ 1 files changed, 14 insertions(+), 0 deletions(-)
+ create mode 100644 test/selenium/create_account.rsel
+
+
+diff --git a/test/selenium/create_account.rsel b/test/selenium/create_account.rsel
+new file mode 100644
+index 0000000..312acf6
+--- /dev/null
++++ b/test/selenium/create_account.rsel
+@@ -0,0 +1,14 @@
++
++include_partial "setup_fixture_set", :set => "blank"
++open "/"
++click "link=Sign up"
++wait_for_page_to_load "30000"
++type "user_name", "Test User"
++type "user_email_address", "test@example.com"
++type "user_password", "test"
++type "user_password_confirmation", "test"
++click "//input[@value='Signup']"
++wait_for_page_to_load "30000"
++verify_text_present "Thanks for signing up!"
++verify_text_present "Logged in as Test Use"
++verify_text_present "New Project"
