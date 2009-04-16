@@ -6,5 +6,19 @@ This is [stacked git](http://www.procode.org/stgit/) patchset for
 Since agility-gitorial constantly rewrites its history, this becomes
 our real working history.
 
-The series file for the patchset is called "series".  You can
-import this into stacked git via `stgit import -s`
+To recreate the gitorial from this patchset:
+
+    mkdir agility-gitorial
+    cd agility-gitorial
+    git init .
+    touch README
+    git add README
+    git commit --cleanup=verbatim -m ""
+    stg init
+    stg import -i -s ../series
+
+You'll have to issue that last command repeatedly because stg import chokes on empty patches.
+
+Then load the plugins:
+
+    git submodule update --init
