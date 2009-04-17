@@ -10,7 +10,7 @@ To recreate the gitorial from this patchset:
 
     mkdir agility-gitorial
     cd agility-gitorial
-    git init .
+    git init
     touch README
     git add README
     git commit --cleanup=verbatim -m ""
@@ -22,3 +22,5 @@ You'll have to issue that last command repeatedly because stg import chokes on e
 Then load the plugins:
 
     git submodule update --init
+
+You can tag the gitorial using [gitorial-bulk-tag](http://github.com/bryanlarsen/gitorial-tools/tree/master)

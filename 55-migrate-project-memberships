@@ -1,8 +1,9 @@
-Run the migration generator to have the required foreign keys added to the database:
+
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ ./script/generate hobo_migration
+Run the migration generator to have the required foreign keys added to the database:
+    $ ./script/generate hobo_migration
 ---
 
  ...415214215_hobo_migration_project_memberships.rb |   14 ++++++++++++++

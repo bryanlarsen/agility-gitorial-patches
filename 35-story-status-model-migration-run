@@ -1,8 +1,9 @@
-Run your modified migration:
+
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ rake:db_migrate
+Run your modified migration:
+    $ rake:db_migrate
 ---
 
  db/schema.rb |   10 ++++++++--

@@ -1,8 +1,9 @@
-Now watch how Hobo can create a single migration for all of these:
+
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ ./script/generate hobo_migration
+Now watch how Hobo can create a single migration for all of these:
+    $ ./script/generate hobo_migration
 	
 Fire up the app. It's not a polished UI of course, but we do actually have a working application. Make sure you are logged in as an administrator (e.g. the user who signed up first), and spend a few minutes populating the app with projects, stories and tasks. 
 

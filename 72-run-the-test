@@ -1,8 +1,9 @@
-Now you can run your test.  In one terminal type:
+
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ RAILS_ENV=test rake db:migrate
+Now you can run your test.  In one terminal type:
+    $ RAILS_ENV=test rake db:migrate
     $ script/server -e test -p 3001
 
 And in another:

@@ -2,10 +2,8 @@ One thing you'll notice is that the project cards have a link to the project own
 
 From: Bryan Larsen <bryan@larsen.st>
 
-<section class="content-body">
-      <h3>Your Projects</h3>
-      <collection:projects with="&current_user"><card without-creator-link/></collection>
-    </section>
+SHOW_PATCH
+
 ---
 
  app/views/front/index.dryml |    2 +-

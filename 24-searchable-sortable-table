@@ -29,15 +29,6 @@ Here's how we get the table-plus:
 
 SHOW_PATCH
 
-	<show-page>
-	  <collection: replace>
-        <table-plus:stories fields="this, status">
-          <empty-message:>No stories match your criteria</empty-message:>
-        </table-plus>
-	  </collection:>
-	</show-page>
-{: .dryml}
-
 The `fields` attribute to `<table-plus>` lets you specify a list of fields that will become the columns in the table. We could have said `fields="title, status"` which would have given us the same content in the table, but by saying `this`, the first column contains links to the stories, rather than just the title as text.
 ---
 

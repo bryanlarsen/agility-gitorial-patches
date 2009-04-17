@@ -1,8 +1,9 @@
-The migration generator knows about `acts_as_list`, so you can just run it and you'll get the new position column on Task.
+
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ ./script/generate hobo_migration
+The migration generator knows about `acts_as_list`, so you can just run it and you'll get the new position column on Task.
+    $ ./script/generate hobo_migration
 	
 And that's it!
 ---

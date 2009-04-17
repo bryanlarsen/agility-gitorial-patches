@@ -1,8 +1,8 @@
-Now run the migration generator
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ ./script/generate hobo_migration
+Now run the migration generator
+    $ ./script/generate hobo_migration
 	
 You'll see that the migration generator considers this change to be ambiguous. Whenever there are columns removed *and* columns added, the migration generator can't tell whether you're actually removing one column and adding another, or if you are renaming the old column. It's also pretty fussy about what it makes you type. We really don't want to play fast and lose with your precious data, so to confirm that you want to drop the 'status' column, you have to type in full: "drop status".
 

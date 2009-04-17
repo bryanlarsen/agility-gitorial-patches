@@ -1,8 +1,9 @@
-We'll now continue and configure the available actions for all of the controllers. So far we've seen the black-list style where you list what you *don't* want:
+
 
 From: Bryan Larsen <bryan@larsen.st>
 
-auto_actions :all, :except => :index
+We'll now continue and configure the available actions for all of the controllers. So far we've seen the black-list style where you list what you *don't* want:
+    auto_actions :all, :except => :index
 {: .ruby}
 
 There's also white-list style where you list what you do want, e.g.

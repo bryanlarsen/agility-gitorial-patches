@@ -1,7 +1,8 @@
-The Agility Tutorial - A simple story manager
+
 
 From: Bryan Larsen <bryan@larsen.st>
 
+The Agility Tutorial - A simple story manager
 {: .document-title}
 
 The full source code for the Agility app is available at [http://github.com/tablatom/agility](http://github.com/tablatom/agility/tree/master).
@@ -19,7 +20,7 @@ In this tutorial we'll be creating a simple "Agile Development" application -- _
 This is a bit of an in-at-the-deep-end tutorial -- we build the app the way you would assuming you had already got the hang of the way Hobo works. In the later stages new concepts start coming thick and fast. The goal here is to show you what's possible, and give you a flavour of Hobo-style application development, rather than to provide detailed background on how everything works. Don't worry about it, it's fun! If you'd rather take things a bit slower, you might prefer the [POD tutorial](http://hobocentral.net/pod-tutorial).
 
 
-# Part 1 -- Getting Started
+# Getting Started
 
 
 ## Introduction to Hobo
@@ -32,7 +33,26 @@ For more info on Hobo please see [hobocentral.net](http://hobocentral.net)
 
 ## This is a gitorial
 
-This is a 'gitorial'.  This means you can follow along using git.  You can check out the [application at github](http://github.com/bryanlarsen/agility-gitorial/tree/master).  You will probably be unable to `git pull` from this repository because as this gitorial is updated, history will be rewritten to keep the tutorial clean.
+This is a 'gitorial', a tutorial made with git.  This means you can
+follow along.  You can check out the [application at
+github](http://github.com/bryanlarsen/agility-gitorial/tree/master):
+
+    $ git clone git://github.com/bryanlarsen/agility-gitorial.git
+    $ cd agility-gitorial
+    $ git submodule update --init
+
+Then you can switch to any point in the tutorial:
+
+    $ git checkout -b gitoriral-001
+
+To keep the gitorial clean, updates to the gitorial **rewrite
+history**.  That means that you cannot `git pull`.  If you wish to
+update to a later version, you must `git clone` the repository again
+and move any changes you have made from your old clone to the new one.
+
+The "real" history is kept in our [source
+repository](http://github.com/bryanlarsen/agility-gitorial-patches/tree/master).
+
 ---
 
  0 files changed, 0 insertions(+), 0 deletions(-)

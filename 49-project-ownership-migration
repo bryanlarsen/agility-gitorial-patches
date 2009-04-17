@@ -1,8 +1,9 @@
-Run the migration generator to see the effect on the app:
+
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ ./script/generate hobo_migration
+Run the migration generator to see the effect on the app:
+    $ ./script/generate hobo_migration
 ---
 
  ...0415213347_hobo_migration_project_membership.rb |    9 +++++++++

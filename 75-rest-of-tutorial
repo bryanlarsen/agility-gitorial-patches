@@ -1,4 +1,4 @@
-# Part 9 -- Granting write access to others
+# Granting write access to others
 
 From: Bryan Larsen <bryan@larsen.st>
 
@@ -25,7 +25,7 @@ And a helper method that might come in handy when implementing your permission m
 {: .ruby}
 
 
-# Part 9 -- Ideas for extending the application
+# Ideas for extending the application
 
 ## Milestones
 
