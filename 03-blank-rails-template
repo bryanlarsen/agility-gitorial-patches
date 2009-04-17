@@ -1,6 +1,8 @@
-## Before you start
+blank-rails-template
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## Before you start
 
 You'll need a working Ruby on Rails setup. We're assuming you know at least the basics of Rails. If not, you should probably work through a Rails tutorial before attempting this one.
 
@@ -451,13 +453,13 @@ index 0000000..c2169ed
 \ No newline at end of file
 diff --git a/config/initializers/inflections.rb b/config/initializers/inflections.rb
 new file mode 100644
-index 0000000..d531b8b
+index 0000000..9e8b013
 --- /dev/null
 +++ b/config/initializers/inflections.rb
 @@ -0,0 +1,10 @@
 +# Be sure to restart your server when you modify this file.
 +
-+# Add new inflection rules using the following format 
++# Add new inflection rules using the following format
 +# (all these examples are active by default):
 +# ActiveSupport::Inflector.inflections do |inflect|
 +#   inflect.plural /^(ox)$/i, '\1en'
@@ -504,7 +506,7 @@ index 0000000..8ec3186
 \ No newline at end of file
 diff --git a/config/initializers/session_store.rb b/config/initializers/session_store.rb
 new file mode 100644
-index 0000000..3a4492b
+index 0000000..46acf65
 --- /dev/null
 +++ b/config/initializers/session_store.rb
 @@ -0,0 +1,15 @@
@@ -512,7 +514,7 @@ index 0000000..3a4492b
 +
 +# Your secret key for verifying cookie session data integrity.
 +# If you change this key, all old sessions will become invalid!
-+# Make sure the secret is at least 30 characters and all random, 
++# Make sure the secret is at least 30 characters and all random,
 +# no regular words or you'll be exposed to dictionary attacks.
 +ActionController::Base.session = {
 +  :key         => '_agility-gitorial_session',
@@ -537,7 +539,7 @@ index 0000000..f265c06
 \ No newline at end of file
 diff --git a/config/routes.rb b/config/routes.rb
 new file mode 100644
-index 0000000..4f3d9d2
+index 0000000..1784d62
 --- /dev/null
 +++ b/config/routes.rb
 @@ -0,0 +1,43 @@
@@ -560,7 +562,7 @@ index 0000000..4f3d9d2
 +
 +  # Sample resource route with sub-resources:
 +  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-+  
++
 +  # Sample resource route with more complex sub-resources
 +  #   map.resources :products do |products|
 +  #     products.resources :comments
@@ -845,7 +847,7 @@ HcmV?d00001
 
 diff --git a/public/index.html b/public/index.html
 new file mode 100644
-index 0000000..0dd5189
+index 0000000..bc971db
 --- /dev/null
 +++ b/public/index.html
 @@ -0,0 +1,275 @@
@@ -865,20 +867,20 @@ index 0000000..0dd5189
 +        font-size: 13px;
 +        color: #333;
 +      }
-+      
++
 +      h1 {
 +        font-size: 28px;
 +        color: #000;
 +      }
-+      
++
 +      a  {color: #03c}
 +      a:hover {
 +        background-color: #03c;
 +        color: white;
 +        text-decoration: none;
 +      }
-+      
-+      
++
++
 +      #page {
 +        background-color: #f0f0f0;
 +        width: 750px;
@@ -886,7 +888,7 @@ index 0000000..0dd5189
 +        margin-left: auto;
 +        margin-right: auto;
 +      }
-+      
++
 +      #content {
 +        float: left;
 +        background-color: white;
@@ -895,7 +897,7 @@ index 0000000..0dd5189
 +        padding: 25px;
 +        width: 500px;
 +      }
-+      
++
 +      #sidebar {
 +        float: right;
 +        width: 175px;
@@ -904,7 +906,7 @@ index 0000000..0dd5189
 +      #footer {
 +        clear: both;
 +      }
-+      
++
 +
 +      #header, #about, #getting-started {
 +        padding-left: 75px;
@@ -924,14 +926,14 @@ index 0000000..0dd5189
 +        font-weight: normal;
 +        font-size: 16px;
 +      }
-+      
-+      
++
++
 +      #about h3 {
 +        margin: 0;
 +        margin-bottom: 10px;
 +        font-size: 14px;
 +      }
-+      
++
 +      #about-content {
 +        background-color: #ffd;
 +        border: 1px solid #fc0;
@@ -950,7 +952,7 @@ index 0000000..0dd5189
 +      }
 +      #about-content td.name  {color: #555}
 +      #about-content td.value {color: #000}
-+      
++
 +      #about-content.failure {
 +        background-color: #fcc;
 +        border: 1px solid #f00;
@@ -959,8 +961,8 @@ index 0000000..0dd5189
 +        margin: 0;
 +        padding: 10px;
 +      }
-+      
-+      
++
++
 +      #getting-started {
 +        border-top: 1px solid #ccc;
 +        margin-top: 25px;
@@ -996,8 +998,8 @@ index 0000000..0dd5189
 +        color: #555;
 +        font-size: 13px;
 +      }
-+      
-+      
++
++
 +      #search {
 +        margin: 0;
 +        padding-top: 10px;
@@ -1009,8 +1011,8 @@ index 0000000..0dd5189
 +        margin: 2px;
 +      }
 +      #search-text {width: 170px}
-+      
-+      
++
++
 +      #sidebar ul {
 +        margin-left: 0;
 +        padding-left: 0;
@@ -1027,7 +1029,7 @@ index 0000000..0dd5189
 +      #sidebar ul.links li {
 +        margin-bottom: 5px;
 +      }
-+      
++
 +    </style>
 +    <script type="text/javascript" src="javascripts/prototype.js"></script>
 +    <script type="text/javascript" src="javascripts/effects.js"></script>
@@ -1040,11 +1042,11 @@ index 0000000..0dd5189
 +            onComplete: function() {new Effect.BlindDown('about-content', {duration: 0.25})}
 +          });
 +        } else {
-+          new Effect[Element.visible('about-content') ? 
++          new Effect[Element.visible('about-content') ?
 +            'BlindUp' : 'BlindDown']('about-content', {duration: 0.25});
 +        }
 +      }
-+      
++
 +      window.onload = function() {
 +        $('search-text').value = '';
 +        $('search').onsubmit = function() {
@@ -1064,7 +1066,7 @@ index 0000000..0dd5189
 +              <input type="submit" value="Search" /> the Rails site
 +            </form>
 +          </li>
-+        
++
 +          <li>
 +            <h3>Join the community</h3>
 +            <ul class="links">
@@ -1073,7 +1075,7 @@ index 0000000..0dd5189
 +              <li><a href="http://wiki.rubyonrails.org/">Wiki</a></li>
 +            </ul>
 +          </li>
-+          
++
 +          <li>
 +            <h3>Browse the documentation</h3>
 +            <ul class="links">
@@ -1096,17 +1098,17 @@ index 0000000..0dd5189
 +          <h3><a href="rails/info/properties" onclick="about(); return false">About your application&rsquo;s environment</a></h3>
 +          <div id="about-content" style="display: none"></div>
 +        </div>
-+        
++
 +        <div id="getting-started">
 +          <h1>Getting started</h1>
 +          <h2>Here&rsquo;s how to get rolling:</h2>
-+          
-+          <ol>          
++
++          <ol>
 +            <li>
 +              <h2>Use <tt>script/generate</tt> to create your models and controllers</h2>
 +              <p>To see all available options, run it without parameters.</p>
 +            </li>
-+            
++
 +            <li>
 +              <h2>Set up a default route and remove or rename this file</h2>
 +              <p>Routes are set up in config/routes.rb.</p>
@@ -1119,7 +1121,7 @@ index 0000000..0dd5189
 +          </ol>
 +        </div>
 +      </div>
-+      
++
 +      <div id="footer">&nbsp;</div>
 +    </div>
 +  </body>
@@ -8665,7 +8667,7 @@ index 0000000..4b60558
 +end
 diff --git a/test/test_helper.rb b/test/test_helper.rb
 new file mode 100644
-index 0000000..b9fe251
+index 0000000..e222496
 --- /dev/null
 +++ b/test/test_helper.rb
 @@ -0,0 +1,38 @@
@@ -8687,7 +8689,7 @@ index 0000000..b9fe251
 +  # don't care one way or the other, switching from MyISAM to InnoDB tables
 +  # is recommended.
 +  #
-+  # The only drawback to using transactional fixtures is when you actually 
++  # The only drawback to using transactional fixtures is when you actually
 +  # need to test transactions.  Since your test is bracketed by a transaction,
 +  # any transactions started in your code will be automatically rolled back.
 +  self.use_transactional_fixtures = true

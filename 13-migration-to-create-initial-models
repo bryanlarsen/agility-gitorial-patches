@@ -1,11 +1,12 @@
-
+migration-to-create-initial-models
 
 From: Bryan Larsen <bryan@larsen.st>
 
 Now watch how Hobo can create a single migration for all of these:
+
     $ ./script/generate hobo_migration
-	
-Fire up the app. It's not a polished UI of course, but we do actually have a working application. Make sure you are logged in as an administrator (e.g. the user who signed up first), and spend a few minutes populating the app with projects, stories and tasks. 
+
+Fire up the app. It's not a polished UI of course, but we do actually have a working application. Make sure you are logged in as an administrator (e.g. the user who signed up first), and spend a few minutes populating the app with projects, stories and tasks.
 
 With some more very simple changes, and without even touching the views, we can get surprisingly close to a decent UI.
 ---
@@ -18,7 +19,7 @@ With some more very simple changes, and without even touching the views, we can 
 
 diff --git a/db/migrate/20090415015828_hobo_migration_initial_models.rb b/db/migrate/20090415015828_hobo_migration_initial_models.rb
 new file mode 100644
-index 0000000..b72ff4c
+index 0000000..9299558
 --- /dev/null
 +++ b/db/migrate/20090415015828_hobo_migration_initial_models.rb
 @@ -0,0 +1,39 @@
@@ -30,20 +31,20 @@ index 0000000..b72ff4c
 +      t.integer  :user_id
 +      t.integer  :task_id
 +    end
-+    
++
 +    create_table :projects do |t|
 +      t.string   :name
 +      t.datetime :created_at
 +      t.datetime :updated_at
 +    end
-+    
++
 +    create_table :tasks do |t|
 +      t.string   :description
 +      t.datetime :created_at
 +      t.datetime :updated_at
 +      t.integer  :story_id
 +    end
-+    
++
 +    create_table :stories do |t|
 +      t.string   :title
 +      t.text     :body
@@ -62,7 +63,7 @@ index 0000000..b72ff4c
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index ba10294..dd3f5dd 100644
+index dbb428f..60aa706 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,7 +9,36 @@

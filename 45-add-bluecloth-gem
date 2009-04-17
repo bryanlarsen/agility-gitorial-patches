@@ -1,6 +1,8 @@
-You may need to install the relevant ruby gem: either BlueCloth (markdown) or RedCloth (textile)
+add-bluecloth-gem
 
 From: Bryan Larsen <bryan@larsen.st>
+
+You may need to install the relevant ruby gem: either BlueCloth (markdown) or RedCloth (textile)
 
 SHOW_PATCH
 ---

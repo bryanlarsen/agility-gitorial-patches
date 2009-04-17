@@ -1,6 +1,8 @@
-Finally, let's add a handy list of "Your Projects" to the home page. Edit the content-body section of `app/views/front/index.dryml` to be:
+add-your-projects-to-front
 
 From: Bryan Larsen <bryan@larsen.st>
+
+Finally, let's add a handy list of "Your Projects" to the home page. Edit the content-body section of `app/views/front/index.dryml` to be:
 
 SHOW_PATCH
 ---
@@ -10,7 +12,7 @@ SHOW_PATCH
 
 
 diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
-index ef5c3a5..b1a397f 100644
+index 3e9c57a..312ad1f 100644
 --- a/app/views/front/index.dryml
 +++ b/app/views/front/index.dryml
 @@ -13,7 +13,9 @@
@@ -23,4 +25,4 @@ index ef5c3a5..b1a397f 100644
 +      <collection:projects with="&current_user"/>
      </section>
    </content:>
-   
+ 

@@ -1,8 +1,8 @@
-The hobo command sets up the Rakefile to use the gem.   Let's fix it so that it works with the plugin by removing the `require 'hobo/tasks/rails'` line.
+fix-rakefile
 
 From: Bryan Larsen <bryan@larsen.st>
 
-
+The hobo command sets up the Rakefile to use the gem.   Let's fix it so that it works with the plugin by removing the `require 'hobo/tasks/rails'` line.
 ---
 
  Rakefile |    2 --

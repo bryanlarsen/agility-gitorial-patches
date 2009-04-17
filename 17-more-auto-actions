@@ -1,8 +1,9 @@
-
+more-auto-actions
 
 From: Bryan Larsen <bryan@larsen.st>
 
 We'll now continue and configure the available actions for all of the controllers. So far we've seen the black-list style where you list what you *don't* want:
+
     auto_actions :all, :except => :index
 {: .ruby}
 
@@ -15,7 +16,7 @@ There's also a handy shortcut to get just the read-only routes (i.e. the ones th
 
 	auto_actions :read_only
 {: .ruby}
-	
+
 The opposite is handy for things that are manipulated by ajax but never viewed directly:
 
 	auto_actions :write_only # short for -- :create, :update, :destroy

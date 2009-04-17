@@ -1,6 +1,8 @@
-# Permissions
+permissions-1
 
 From: Bryan Larsen <bryan@larsen.st>
+
+# Permissions
 
 So far we've only done two things to our app: created some models & controllers, and specified which actions are available. There's one more thing we typically do when creating a new Hobo app, before we even touch the view layer. We modify permissions in the model layer.
 
@@ -35,7 +37,7 @@ A permission that says "only signed up users" looks like this:
 {: .ruby}
 
 (Note: there is also `acting_user.guest?`)
-	
+
 You might need to sign up a new user so you've got a non-admin to test things with.
 ---
 
@@ -45,7 +47,7 @@ You might need to sign up a new user so you've got a non-admin to test things wi
 
 
 diff --git a/app/models/story.rb b/app/models/story.rb
-index b7d48c9..60c1118 100644
+index 1d3b609..51ae43d 100644
 --- a/app/models/story.rb
 +++ b/app/models/story.rb
 @@ -20,7 +20,7 @@ class Story < ActiveRecord::Base

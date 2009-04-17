@@ -1,6 +1,8 @@
-# Integration Testing
+install-selenium
 
 From: Bryan Larsen <bryan@larsen.st>
+
+# Integration Testing
 
 It's not a real application without tests.  We're going to use [Selenium](http://seleniumhq.org/) to do some integration testing.
 
@@ -16,10 +18,10 @@ We've forked selenium-on-rails to add a couple of helper functions.  Install our
 
 
 diff --git a/.gitmodules b/.gitmodules
-index d22460d..b281856 100644
+index cf8c80d..8eb0a3e 100644
 --- a/.gitmodules
 +++ b/.gitmodules
-@@ -1,3 +1,6 @@
+@@ -4,3 +4,6 @@
  [submodule "vendor/plugins/acts_as_list"]
  	path = vendor/plugins/acts_as_list
  	url = git://github.com/rails/acts_as_list.git

@@ -1,8 +1,8 @@
-The hobo command generates a setup designed to be used with the hobo gem.  If you wish to use the plugin, comment out `config.gem 'hobo'` in *config/environment.rb*.
+fix-hobo-command
 
 From: Bryan Larsen <bryan@larsen.st>
 
-
+The hobo command generates a setup designed to be used with the hobo gem.  If you wish to use the plugin, comment out `config.gem 'hobo'` in *config/environment.rb*.
 ---
 
  config/environment.rb |    4 ++--

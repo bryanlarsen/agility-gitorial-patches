@@ -1,8 +1,10 @@
-
+migrate-project-memberships
 
 From: Bryan Larsen <bryan@larsen.st>
 
-Run the migration generator to have the required foreign keys added to the database:
+Run the migration generator to have the required foreign keys added to
+the database:
+
     $ ./script/generate hobo_migration
 ---
 
@@ -33,7 +35,7 @@ index 0000000..82a17a6
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index 4aca9d3..afca1d1 100644
+index 2ddcbb0..e97f3f7 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,7 +9,14 @@

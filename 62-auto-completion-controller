@@ -1,6 +1,8 @@
-## A form with auto-completion
+auto-completion-controller
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## A form with auto-completion
 
 Now we'll create the form to add a new person to the project. We'll set it up so that you can type the user's name, with auto-completion, in order to add someone to the project.
 
@@ -16,11 +18,11 @@ You can read this as: create an auto-complete action called '`new_member_name`' 
 
 
 diff --git a/app/controllers/projects_controller.rb b/app/controllers/projects_controller.rb
-index d15495d..61cca48 100644
+index caa8d5a..4f11ceb 100644
 --- a/app/controllers/projects_controller.rb
 +++ b/app/controllers/projects_controller.rb
 @@ -6,6 +6,11 @@ class ProjectsController < ApplicationController
-   
+ 
    auto_actions_for :owner, [:new, :create]
  
 +  autocomplete :new_member_name do
@@ -30,4 +32,4 @@ index d15495d..61cca48 100644
 +
    def show
      @project = find_instance
-     @stories = 
+     @stories =

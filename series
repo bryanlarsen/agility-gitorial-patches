@@ -1,4 +1,4 @@
-# This series applies on GIT commit 60332d9823e90815c98482cb0d334f648e1cc75d
+# This series applies on GIT commit 09edfaaf7ccaf8d064f36d60e9daa78fe6410f03
 01-intro
 02-gitignore
 03-blank-rails-template

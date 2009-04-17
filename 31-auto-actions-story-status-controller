@@ -1,6 +1,8 @@
-Whenever you create a new model + controller with Hobo, get into the habit of thinking about permissions and controller actions. In this case, we probably want only admins to be able to manage the permissions. As for actions, we probably only want the write actions, and the index page:
+auto-actions-story-status-controller
 
 From: Bryan Larsen <bryan@larsen.st>
+
+Whenever you create a new model + controller with Hobo, get into the habit of thinking about permissions and controller actions. In this case, we probably want only admins to be able to manage the permissions. As for actions, we probably only want the write actions, and the index page:
 
 SHOW_PATCH
 ---

@@ -1,19 +1,21 @@
-Next, remove the 'status' field from the `fields do ... end` block in the Story model. Then add an association with the StoryStatus model:
+story-status-belongs-to-story
 
 From: Bryan Larsen <bryan@larsen.st>
+
+Next, remove the 'status' field from the `fields do ... end` block in the Story model. Then add an association with the StoryStatus model:
 
 SHOW_PATCH
 ---
 
- app/models/story.rb |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ app/models/story.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 
 diff --git a/app/models/story.rb b/app/models/story.rb
-index 9b13886..6bacbdf 100644
+index 9f5c5b3..6bacbdf 100644
 --- a/app/models/story.rb
 +++ b/app/models/story.rb
-@@ -5,12 +5,12 @@ class Story < ActiveRecord::Base
+@@ -5,11 +5,11 @@ class Story < ActiveRecord::Base
    fields do
      title  :string
      body   :text
@@ -22,9 +24,7 @@ index 9b13886..6bacbdf 100644
    end
  
    belongs_to :project
--      
 +  belongs_to :status, :class_name => "StoryStatus"
-+
+ 
    has_many :tasks, :dependent => :destroy
  
-   # --- Permissions --- #

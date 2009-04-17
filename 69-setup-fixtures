@@ -1,6 +1,8 @@
-We're going to seed our integration tests using "fixture sets".  These
+setup-fixtures
 
 From: Bryan Larsen <bryan@larsen.st>
+
+We're going to seed our integration tests using "fixture sets".  These
 
 are separate directories so that they do not interfere with our unit
 tests and so that we can have separate fixtures for separate tests.

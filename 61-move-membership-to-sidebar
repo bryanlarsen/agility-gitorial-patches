@@ -1,6 +1,8 @@
-## The view layer
+move-membership-to-sidebar
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## The view layer
 
 We would like the list of project memberships to appear in a side-bar on the project show page, so the page will now display two collections: stories and memberships. We can tell Rapid that these are the two collections we are interested in using Hobo's [*View Hints*](/manual/viewhints). Edit the file `app/viewhints/project_hints.rb` to look like this:
 

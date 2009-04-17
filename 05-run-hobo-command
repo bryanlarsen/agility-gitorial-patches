@@ -1,8 +1,10 @@
-To run the hobo command when it's installed as a plugin instead of a gem:
+run-hobo-plugin
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ ./vendor/plugins/hobo/hobo/bin/hobo --no-rails
+To run the hobo command when it's installed as a plugin instead of a gem:
+
+    $ ./vendor/plugins/hobo/hobo/bin/hobo --no-rails
 ---
 
  Rakefile                            |    2 +
@@ -74,7 +76,7 @@ index 0000000..286b2a6
 @@ -0,0 +1 @@
 +Hobo::ModelRouter.reload_routes_on_every_request = true
 diff --git a/config/routes.rb b/config/routes.rb
-index 4f3d9d2..94b4715 100644
+index 1784d62..240ab81 100644
 --- a/config/routes.rb
 +++ b/config/routes.rb
 @@ -1,4 +1,7 @@
@@ -87,12 +89,12 @@ index 4f3d9d2..94b4715 100644
    # Sample of regular route:
 diff --git a/public/javascripts/dryml-support.js b/public/javascripts/dryml-support.js
 new file mode 100644
-index 0000000..57fdff0
+index 0000000..867db71
 --- /dev/null
 +++ b/public/javascripts/dryml-support.js
 @@ -0,0 +1,132 @@
 +Event.addBehavior({
-+    'body:click' : function(event) { 
++    'body:click' : function(event) {
 +        if (event.shiftKey && event.altKey) {
 +            Dryml.click(event)
 +            Event.stop(event)
@@ -215,7 +217,7 @@ index 0000000..57fdff0
 +    },
 +
 +    removeMenu: function() {
-+        if (Dryml.menu) { 
++        if (Dryml.menu) {
 +            $("dryml-menu-style").remove()
 +            Dryml.menu.remove()
 +            Dryml.menu = null

@@ -1,6 +1,8 @@
-We have a problem -- the membership card doesn't display the user's name. There are two ways we could fix this. We could either customise the global membership card using `<extend tag="card" for="Membership">` in `application.dryml`, or we could customise *this particular usage* of the membership card. Let's do the latter. Modify the `<collection:memberships>` as follows:
+removing-members-2
 
 From: Bryan Larsen <bryan@larsen.st>
+
+We have a problem -- the membership card doesn't display the user's name. There are two ways we could fix this. We could either customise the global membership card using `<extend tag="card" for="Membership">` in `application.dryml`, or we could customise *this particular usage* of the membership card. Let's do the latter. Modify the `<collection:memberships>` as follows:
 
 SHOW_PATCH
 ---
@@ -10,17 +12,17 @@ SHOW_PATCH
 
 
 diff --git a/app/views/projects/show.dryml b/app/views/projects/show.dryml
-index 3f12a7a..f155d8c 100644
+index 16ad0f3..89f327d 100644
 --- a/app/views/projects/show.dryml
 +++ b/app/views/projects/show.dryml
 @@ -12,7 +12,9 @@
-   
+ 
    <aside:>
      <h2>Project Members</h2>
 -    <collection:memberships part="members"/>
 +    <collection:memberships part="members">
 +      <card><heading:><a:user/></heading:></card>
 +    </collection>
-     
+ 
      <form:memberships.new update="members" reset-form refocus-form>
        <div>

@@ -1,6 +1,8 @@
-You'll notice a slight glitch -- the tasks position has been added to the new-task and edit-task forms. We don't want that. We'll fix it by customising the Task form.
+remove-position-from-task-form
 
 From: Bryan Larsen <bryan@larsen.st>
+
+You'll notice a slight glitch -- the tasks position has been added to the new-task and edit-task forms. We don't want that. We'll fix it by customising the Task form.
 
 In `application.dryml` add:
 

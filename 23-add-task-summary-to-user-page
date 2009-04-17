@@ -1,6 +1,8 @@
-## Add a task summary to the user's home page
+add-task-summary-to-user-page
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## Add a task summary to the user's home page
 
 Now that each task provides links to the assigned users, the user's page is not looking great. Rapid has rendered cards for the task-assignments but there's no meaningful content in them. What we'd like to see there is a list of all the tasks the user has been assigned to. Having them grouped by story would be helpful too.
 

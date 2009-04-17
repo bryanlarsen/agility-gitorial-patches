@@ -1,20 +1,32 @@
-You can optionally install hobo as a plugin with:
+add-hobo-plugin
 
 From: Bryan Larsen <bryan@larsen.st>
 
-$ git submodule add git://github.com/tablatom/hobo.git vendor/plugins/hobo
+You can optionally install hobo as a plugin with:
+
+    $ git submodule add git://github.com/tablatom/hobo.git vendor/plugins/hobo
 ---
 
+ .gitmodules         |    3 +++
  vendor/plugins/hobo |    1 +
- 1 files changed, 1 insertions(+), 0 deletions(-)
- create mode 120000 vendor/plugins/hobo
+ 2 files changed, 4 insertions(+), 0 deletions(-)
+ create mode 100644 .gitmodules
+ create mode 160000 vendor/plugins/hobo
 
 
+diff --git a/.gitmodules b/.gitmodules
+new file mode 100644
+index 0000000..e545789
+--- /dev/null
++++ b/.gitmodules
+@@ -0,0 +1,3 @@
++[submodule "vendor/plugins/hobo"]
++	path = vendor/plugins/hobo
++	url = git://github.com/bryanlarsen/hobo.git
 diff --git a/vendor/plugins/hobo b/vendor/plugins/hobo
-new file mode 120000
-index 0000000..7a2802c
+new file mode 160000
+index 0000000..857f229
 --- /dev/null
 +++ b/vendor/plugins/hobo
 @@ -0,0 +1 @@
-+../../../hobo-blarsen
-\ No newline at end of file
++Subproject commit 857f22990c147030e4eba3f5befcdab2228332a5

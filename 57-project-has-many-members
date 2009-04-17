@@ -1,6 +1,8 @@
-Let's do the other ends of those two belongs-to associations. In the Project model:
+project-has-many-members
 
 From: Bryan Larsen <bryan@larsen.st>
+
+Let's do the other ends of those two belongs-to associations. In the Project model:
 
 SHOW_PATCH
 ---

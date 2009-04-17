@@ -1,17 +1,19 @@
-## Improve the project page with a searchable, sortable table
+searchable-sortable-table
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## Improve the project page with a searchable, sortable table
 
 The project page is currently workable, but we can easily improve it a lot. Rapid provides a tag `<table-plus>` which renders a table with support for sorting by clicking on the headings, and a built-in search bar for filtering the rows displayed. Searching and sorting are done server-side so we need to modify the controller as well as the view for this enhancement.
 
 As with the user's show-page, to get started put a simple call to `<show-page/>` in `app/views/projects/show.dryml`
 
 To see what this page is doing, take a look at `<def tag="show-page" for="Project">` in `pages.dryml` (in `app/views/taglibs/auto/rapid`). Notice this tag:
-    
+
     <collection:stories param/>
 {: .dryml}
 
-    
+
 That's the part we want to replace with the table. Note that when a `param` attribute doesn't give a name, the name defaults to the same name as the tag. Here's how we would replace that `<collection>` with a simple list of links:
 
 	<show-page>

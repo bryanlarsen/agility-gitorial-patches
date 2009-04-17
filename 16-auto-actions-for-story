@@ -1,9 +1,11 @@
-Create a story and you'll see the story has the same issue with it's task - there's no way to create one. Again we can add the `auto_actions_for` declaration to the tasks controller, but this time we'll only ask for a `create` action and not a `new` action:
+auto-actions-for-story
 
 From: Bryan Larsen <bryan@larsen.st>
 
+Create a story and you'll see the story has the same issue with it's task - there's no way to create one. Again we can add the `auto_actions_for` declaration to the tasks controller, but this time we'll only ask for a `create` action and not a `new` action:
+
 SHOW_PATCH
-    
+
 Hobo's page generator can cope with the lack of a 'New Task' page -- it gives you an in-line form on the story page.
 ---
 

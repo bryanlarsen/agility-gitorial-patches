@@ -1,6 +1,8 @@
-# Removing actions
+remove-project-actions
 
 From: Bryan Larsen <bryan@larsen.st>
+
+# Removing actions
 
 By default Hobo has given us a full set of restful actions for every single model/controller pair. Many of these routes are inappropriate for our application. For example, why would we want an index page listing every Task in the database? We only really want to see tasks listed against stories and users. We need to disable the routes we don't want.
 

@@ -1,6 +1,8 @@
-# Markdown / Textile formatting of stories
+markdown-formatting-of-stories
 
 From: Bryan Larsen <bryan@larsen.st>
+
+# Markdown / Textile formatting of stories
 
 We'll wrap up this section with a really easy one. Hobo renders model fields based on their type. You can add your own custom types and there's a bunch built-in, including textile and markdown formatted strings.
 

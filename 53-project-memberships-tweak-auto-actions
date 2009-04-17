@@ -1,6 +1,8 @@
-First remove the actions we don't need on the `ProjectMembershipsController`:
+project-memberships-tweak-auto-actions
 
 From: Bryan Larsen <bryan@larsen.st>
+
+First remove the actions we don't need on the `ProjectMembershipsController`:
 
 SHOW_PATCH
 ---

@@ -1,6 +1,8 @@
-Now there is a status selector on the 'story/edit' page. It would be nice though if we had an ajaxified editor right on the story 'show' page. Edit `app/views/stories/show.dryml` to be:
+story-status-ajaxified
 
 From: Bryan Larsen <bryan@larsen.st>
+
+Now there is a status selector on the 'story/edit' page. It would be nice though if we had an ajaxified editor right on the story 'show' page. Edit `app/views/stories/show.dryml` to be:
 
 SHOW_PATCH
 

@@ -1,6 +1,8 @@
-Record a test using the [Selenium IDE Firefox extension](http://seleniumhq.org/projects/ide/).  We are going to use the [rselenese format](http://wiki.openqa.org/display/SIDE/SeleniumOnRails), which you must add to Selenium IDE.  (Options|Options|Formats|Add)
+record-a-test
 
 From: Bryan Larsen <bryan@larsen.st>
+
+Record a test using the [Selenium IDE Firefox extension](http://seleniumhq.org/projects/ide/).  We are going to use the [rselenese format](http://wiki.openqa.org/display/SIDE/SeleniumOnRails), which you must add to Selenium IDE.  (Options|Options|Formats|Add)
 
 Record a small test, perhaps just the process of creating a new
 account.  Make sure and add some verify's, which you can find in your

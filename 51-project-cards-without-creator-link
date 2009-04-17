@@ -1,9 +1,10 @@
-One thing you'll notice is that the project cards have a link to the project owner. In general that's quite useful, but in this context it doesn't make much sense. DRYML is very good at favouring context over consistency -- we can remove that link very easily:
+project-cards-without-creator-link
 
 From: Bryan Larsen <bryan@larsen.st>
 
-SHOW_PATCH
+One thing you'll notice is that the project cards have a link to the project owner. In general that's quite useful, but in this context it doesn't make much sense. DRYML is very good at favouring context over consistency -- we can remove that link very easily:
 
+SHOW_PATCH
 ---
 
  app/views/front/index.dryml |    2 +-
@@ -11,7 +12,7 @@ SHOW_PATCH
 
 
 diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
-index b1a397f..670c62e 100644
+index 312ad1f..a4565b9 100644
 --- a/app/views/front/index.dryml
 +++ b/app/views/front/index.dryml
 @@ -15,7 +15,7 @@
@@ -22,4 +23,4 @@ index b1a397f..670c62e 100644
 +      <collection:projects with="&current_user"><card without-creator-link/></collection>
      </section>
    </content:>
-   
+ 

@@ -1,6 +1,8 @@
-## Run the app
+initial-migration
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## Run the app
 
 With Hobo, you get a bare-bones application immediately. Let's create the database and then run the app. We first need to use the migration generator to create the basic database:
 
@@ -51,11 +53,11 @@ index 0000000..3f919c9
 +end
 diff --git a/db/schema.rb b/db/schema.rb
 new file mode 100644
-index 0000000..ba10294
+index 0000000..dbb428f
 --- /dev/null
 +++ b/db/schema.rb
 @@ -0,0 +1,28 @@
-+# This file is auto-generated from the current state of the database. Instead of editing this file, 
++# This file is auto-generated from the current state of the database. Instead of editing this file,
 +# please use the migrations feature of Active Record to incrementally modify your database, and
 +# then regenerate this schema definition.
 +#

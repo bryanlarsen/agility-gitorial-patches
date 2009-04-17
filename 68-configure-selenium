@@ -1,6 +1,8 @@
-To configure selenium-on-rails, move
+configure-selenium
 
 From: Bryan Larsen <bryan@larsen.st>
+
+To configure selenium-on-rails, move
 
 vendor/plugins/selenium-on-rails/test/fixtures/config.yml to
 config/selenium.yml and edit the file appropriately.

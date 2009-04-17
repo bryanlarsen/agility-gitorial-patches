@@ -1,6 +1,8 @@
-The field declarations have been created by the generators, but not the associations. Go ahead and add the associations, just below the `fields do ... end` declaration in each model, as follows:
+add-initial-associations
 
 From: Bryan Larsen <bryan@larsen.st>
+
+The field declarations have been created by the generators, but not the associations. Go ahead and add the associations, just below the `fields do ... end` declaration in each model, as follows:
 
 SHOW_PATCH
 ---
@@ -26,7 +28,7 @@ index 7dc4ebc..a6f4e3b 100644
    # --- Permissions --- #
  
 diff --git a/app/models/story.rb b/app/models/story.rb
-index 7f2e550..b7d48c9 100644
+index 7f2e550..1d3b609 100644
 --- a/app/models/story.rb
 +++ b/app/models/story.rb
 @@ -9,6 +9,9 @@ class Story < ActiveRecord::Base
@@ -34,7 +36,7 @@ index 7f2e550..b7d48c9 100644
    end
  
 +  belongs_to :project
-+      
++
 +  has_many :tasks, :dependent => :destroy
  
    # --- Permissions --- #
@@ -68,7 +70,7 @@ index 486f72f..b420c68 100644
    # --- Permissions --- #
  
 diff --git a/app/models/user.rb b/app/models/user.rb
-index 26c449f..881e477 100644
+index 58cb5e3..91cd3dd 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
 @@ -9,6 +9,9 @@ class User < ActiveRecord::Base

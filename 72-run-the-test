@@ -1,8 +1,9 @@
-
+run-the-test
 
 From: Bryan Larsen <bryan@larsen.st>
 
 Now you can run your test.  In one terminal type:
+
     $ RAILS_ENV=test rake db:migrate
     $ script/server -e test -p 3001
 

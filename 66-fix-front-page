@@ -1,6 +1,8 @@
-## Final steps
+fix-front-page
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## Final steps
 
 There's just a couple of things to do to round this part of the tutorial off. Firstly, you might have noticed there's no place to create a new project at the moment. There's also no place that list "Projects you have joined". We'll add both of those to the front page, in the place we currently have a list of "Your projects". Replace that entire `<section class="content-body">` with the following DRYML:
 
@@ -14,7 +16,7 @@ Notice how we set the context on the entire section to be the current user (`wit
 
 
 diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
-index 670c62e..d2f16a7 100644
+index a4565b9..1afca65 100644
 --- a/app/views/front/index.dryml
 +++ b/app/views/front/index.dryml
 @@ -13,9 +13,14 @@
@@ -26,11 +28,11 @@ index 670c62e..d2f16a7 100644
        <h3>Your Projects</h3>
 -      <collection:projects with="&current_user"><card without-creator-link/></collection>
 +      <collection:projects><card without-creator-link/></collection>
-+      
++
 +      <a:projects action="new">New Project</a>
-+      
++
 +      <h3>Projects you have joined</h3>
 +      <collection:joined-projects><card without-creator-link/></collection>
      </section>
    </content:>
-   
+ 

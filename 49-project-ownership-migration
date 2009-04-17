@@ -1,8 +1,9 @@
-
+project-ownership-migration
 
 From: Bryan Larsen <bryan@larsen.st>
 
 Run the migration generator to see the effect on the app:
+
     $ ./script/generate hobo_migration
 ---
 
@@ -28,7 +29,7 @@ index 0000000..56d099a
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index 1ef74ee..4aca9d3 100644
+index 5fa3dbf..2ddcbb0 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,12 +9,13 @@

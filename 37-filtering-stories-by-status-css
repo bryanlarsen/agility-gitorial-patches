@@ -1,8 +1,8 @@
-To make the filter look right, add this to `public/stylesheets/application.css`
+filtering-stories-by-status-css
 
 From: Bryan Larsen <bryan@larsen.st>
 
-
+To make the filter look right, add this to `public/stylesheets/application.css`
 ---
 
  public/stylesheets/application.css |    2 ++

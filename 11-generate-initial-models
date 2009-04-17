@@ -1,6 +1,8 @@
-## The models
+generate-initial-models
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## The models
 
 Let's review what we want this app to do:
 
@@ -23,7 +25,7 @@ Sounds to me like we just sketched a first-cut of our models. We'll start with:
 	has many users (through task-assignments)
  * `User` (we'll stick with the standard fields provided by Hobo)
 	has many tasks (through task-assignments)
-	
+
 Hopefully the connection between the goal and those models is clear. If not, you'll probably find it gets easier once you've done it a few times. Before long you'll be throwing models into your app without even stopping to write the names down. Of course -- chances are you've got something wrong, made a bad decision. So? Just throw them away and create some new ones when the time comes. We're sketching here!
 
 Here's how we create these with a Hobo generator:
@@ -31,9 +33,9 @@ Here's how we create these with a Hobo generator:
 	$ ./script/generate hobo_model_resource project name:string
 	$ ./script/generate hobo_model_resource story   title:string body:text status:string
 	$ ./script/generate hobo_model_resource task    description:string
-	
+
 Task assignments are just a back-end model. They don't need a controller, so:
-	
+
 	$ ./script/generate hobo_model task_assignment
 ---
 

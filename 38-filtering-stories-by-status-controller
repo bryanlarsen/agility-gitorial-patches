@@ -1,9 +1,11 @@
-If you try to use the filter widget, you'll see it adds a `status` parameter in the query string. We need to pick that up and do something useful with it in the Projects controller at `app/controllers/projects_controller.rb`. Happily, we can leverage the `apply_scopes` method we earlier used in the `show` method for searching and sorting to also handle filtering by adding a `:status_is` argument:
+filtering-stories-by-status-controller
 
 From: Bryan Larsen <bryan@larsen.st>
 
+If you try to use the filter widget, you'll see it adds a `status` parameter in the query string. We need to pick that up and do something useful with it in the Projects controller at `app/controllers/projects_controller.rb`. Happily, we can leverage the `apply_scopes` method we earlier used in the `show` method for searching and sorting to also handle filtering by adding a `:status_is` argument:
+
 SHOW_PATCH
-	
+
 Status filtering should now be working.
 
 (To do: explain the scope being used there)
@@ -14,12 +16,12 @@ Status filtering should now be working.
 
 
 diff --git a/app/controllers/projects_controller.rb b/app/controllers/projects_controller.rb
-index 77a314b..8b1700d 100644
+index a14339c..3a75081 100644
 --- a/app/controllers/projects_controller.rb
 +++ b/app/controllers/projects_controller.rb
 @@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
      @project = find_instance
-     @stories = 
+     @stories =
        @project.stories.apply_scopes(:search    => [params[:search], :title],
 +                                    :status_is => params[:status],
                                      :order_by  => parse_sort_param(:title, :status))

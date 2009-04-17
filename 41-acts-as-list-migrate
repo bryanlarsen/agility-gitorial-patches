@@ -1,10 +1,12 @@
-
+acts-as-list-migrate
 
 From: Bryan Larsen <bryan@larsen.st>
 
-The migration generator knows about `acts_as_list`, so you can just run it and you'll get the new position column on Task.
+The migration generator knows about `acts_as_list`, so you can just
+run it and you'll get the new position column on Task.
+
     $ ./script/generate hobo_migration
-	
+
 And that's it!
 ---
 
@@ -30,7 +32,7 @@ index 0000000..71db2f6
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index 73b4af1..1ef74ee 100644
+index ba767d1..5fa3dbf 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,7 +9,7 @@

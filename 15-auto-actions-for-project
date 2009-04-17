@@ -1,14 +1,16 @@
-Here's another similar trick. Browse to one of your projects. You'll see the page says "No stories to display" but there's no way to add one. Hobo has support for this but we need to switch it on. Add the following declaration to the stories controller:
+auto-actions-for-project
 
 From: Bryan Larsen <bryan@larsen.st>
 
+Here's another similar trick. Browse to one of your projects. You'll see the page says "No stories to display" but there's no way to add one. Hobo has support for this but we need to switch it on. Add the following declaration to the stories controller:
+
 SHOW_PATCH
-    
+
 This creates nested routes and their corresponding actions:
 
  - `/project/123/stories/new` routed to `StoriesController#new_for_project`
  - `/project/123/stories` (POST) routed to `StoriesController#create_for_project`
- 
+
 Hobo's page generators will respond to the existence of these routes and add a "New Story" link to the project page, and an appropriate "New Story" page.
 ---
 

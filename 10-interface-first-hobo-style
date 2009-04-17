@@ -1,8 +1,10 @@
-## Interface first Hobo style
+interface-first-hobo-style
 
 From: Bryan Larsen <bryan@larsen.st>
 
-The next thing we're going to do is sketch out our models. If you're a fully signed up devotee of the Rails Way, that should ring a few alarm bells. What happened to [interface first][]? We do believe in Interface First. Absolutely. But for Hobos, interface first means first priority, not first task. 
+## Interface first Hobo style
+
+The next thing we're going to do is sketch out our models. If you're a fully signed up devotee of the Rails Way, that should ring a few alarm bells. What happened to [interface first][]? We do believe in Interface First. Absolutely. But for Hobos, interface first means first priority, not first task.
 
 [Interface First]: http://gettingreal.37signals.com/ch09_Interface_First.php
 

@@ -1,6 +1,8 @@
-# Granting write access to others
+rest-of-tutorial
 
 From: Bryan Larsen <bryan@larsen.st>
+
+# Granting write access to others
 
 It's not enough just to allow others to view your projects, you need to allow some people to make changes, too. The goal of this part of the tutorial is to add a "Contributor" checkbox next to each person in the side-bar.
 
@@ -8,14 +10,14 @@ Implementing this is left as an exercise for the reader. The steps are:
 1. Add a boolean `contributor` field to the `ProjectMembership` model.
 2. Modify the permissions of stories and tasks so that users with `contributor=true` on their project membership have update permission for the project.
 3. Use the `<editor>` tag to create an ajax editor for the `contributor` field in the ProjectMembership card.
-	
+
 That's all the hints we're going to give you for this one -- good luck!
 
 Ok, one more hint, here's some associations that might be handy in the Project model:
 
 	has_many :contributor_memberships, :class_name => "ProjectMembership", :scope => :contributor
 	has_many :contributors, :through => :contributor_memberships, :source => :user
-{: .ruby}	
+{: .ruby}
 
 And a helper method that might come in handy when implementing your permission methods:
 
@@ -44,7 +46,7 @@ The current `users/show` page could be improved a lot. For example, it doesn't g
 
 **NOTE: This section is a bit out of date. It will mostly work but there might be some style glitches**
 
-The default Hobo theme “Clean” provides comprehensive but minimal styling for all of Hobo’s generic pages and tags. When styling your app you have a choice between creating your own theme from scratch or tweaking an existing theme to suit your needs. The Clean theme has been designed with this in mind; it can be adapted to look very different with only a small amount of effort. 
+The default Hobo theme “Clean” provides comprehensive but minimal styling for all of Hobo’s generic pages and tags. When styling your app you have a choice between creating your own theme from scratch or tweaking an existing theme to suit your needs. The Clean theme has been designed with this in mind; it can be adapted to look very different with only a small amount of effort.
 
 In this section we will adapt our existing theme to create a new look for our app. We will make our changes in `public/stylesheets/application.css`, which is initially empty. This stylesheet is applied after our theme stylesheet so we can override the theme's styles here instead of editing the theme stylesheet directly. This approach means that we can upgrade the theme in the future with minimal effort, although it also means that our stylesheets will be bigger than they could be, so the approach is better suited to small and medium sized projects. For larger projects it might be better to create a new theme, perhaps based on an existing one, or do away with themes altogether and do all the styling in the `application.css` stylesheet.
 
@@ -63,7 +65,7 @@ The `<view>` tag applied to a "Project" name will output:
 
 The `<card>` tag applied to a "Project" will output:
 `<div class="card project linkable">`
-  
+
 With these classes it becomes very easy to style specific elements on the page. For example:
 
 `.card.project` - Style all "project" cards
@@ -72,7 +74,7 @@ With these classes it becomes very easy to style specific elements on the page. 
 
 We'll now add some styling to `public/stylesheets/application.css` to make our Agility app look a bit different.
 
-The first thing we'll do is switch from a "boxed in" look to an horizontally open style. To do this we'll use a background image to draw a horizontal top banner across the whole page and change the page background colour to white: 
+The first thing we'll do is switch from a "boxed in" look to an horizontally open style. To do this we'll use a background image to draw a horizontal top banner across the whole page and change the page background colour to white:
 
     html, body {
     	background-image: url(/images/header.png);

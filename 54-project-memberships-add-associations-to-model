@@ -1,26 +1,26 @@
-Next, add the associations to the model:
+project-memberships-add-associations-to-model
 
 From: Bryan Larsen <bryan@larsen.st>
+
+Next, add the associations to the model:
 
 SHOW_PATCH
 ---
 
- app/models/project_membership.rb |    4 +++-
- 1 files changed, 3 insertions(+), 1 deletions(-)
+ app/models/project_membership.rb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
 
 
 diff --git a/app/models/project_membership.rb b/app/models/project_membership.rb
-index b0a4acb..2179383 100644
+index b0a4acb..f5e6703 100644
 --- a/app/models/project_membership.rb
 +++ b/app/models/project_membership.rb
-@@ -6,7 +6,9 @@ class ProjectMembership < ActiveRecord::Base
+@@ -6,6 +6,8 @@ class ProjectMembership < ActiveRecord::Base
      timestamps
    end
  
--
 +  belongs_to :project
 +  belongs_to :user
-+  
+ 
    # --- Permissions --- #
  
-   def create_permitted?

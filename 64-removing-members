@@ -1,6 +1,8 @@
-## Removing members
+removing-members
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## Removing members
 
 The sidebar we just implemented has an obvious draw-back -- there's no way to remove members. In typical RESTful style, removing a member is achieved by deleting a membership. What we'd like is a delete button on each card that removes the membership. That means what we really want are *Membership* cards in the sidebar (at the moment they are User cards). So, in `projects/show.dryml`, change:
 
@@ -12,15 +14,15 @@ SHOW_PATCH
 
 
 diff --git a/app/views/projects/show.dryml b/app/views/projects/show.dryml
-index 1424fdb..3f12a7a 100644
+index 62cdb26..16ad0f3 100644
 --- a/app/views/projects/show.dryml
 +++ b/app/views/projects/show.dryml
 @@ -12,7 +12,7 @@
-   
+ 
    <aside:>
      <h2>Project Members</h2>
 -    <collection:members part="members"/>
 +    <collection:memberships part="members"/>
-     
+ 
      <form:memberships.new update="members" reset-form refocus-form>
        <div>

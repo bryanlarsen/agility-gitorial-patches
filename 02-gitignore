@@ -1,8 +1,8 @@
-Our first git checkin will create our .gitignore
+gitignore
 
 From: Bryan Larsen <bryan@larsen.st>
 
-
+Our first git checkin will create our .gitignore
 ---
 
  .gitignore |    7 +++++++

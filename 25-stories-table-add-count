@@ -1,8 +1,8 @@
-We could also add a column showing the number of tasks in a story. Change to `fields="this, tasks.count, status"` and see that a column is added with a readable title "Tasks Count".
+stories-table-add-count
 
 From: Bryan Larsen <bryan@larsen.st>
 
-
+We could also add a column showing the number of tasks in a story. Change to `fields="this, tasks.count, status"` and see that a column is added with a readable title "Tasks Count".
 ---
 
  app/views/projects/show.dryml |    2 +-

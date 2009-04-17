@@ -1,6 +1,8 @@
-Note that users now have two collections of projects: `projects` are the projects that users own, and `joined_projects` are the projects they have joined as members.
+view-permission-based-on-project-membership
 
 From: Bryan Larsen <bryan@larsen.st>
+
+Note that users now have two collections of projects: `projects` are the projects that users own, and `joined_projects` are the projects they have joined as members.
 
 We can now define view permission on projects, stories and tasks according to project membership.
 
@@ -14,7 +16,7 @@ SHOW_PATCH
 
 
 diff --git a/app/models/project.rb b/app/models/project.rb
-index 781ea28..2882d8a 100644
+index 781ea28..48ff93e 100644
 --- a/app/models/project.rb
 +++ b/app/models/project.rb
 @@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
@@ -22,7 +24,7 @@ index 781ea28..2882d8a 100644
  
    def view_permitted?(field)
 -    true
-+    acting_user.administrator? || acting_user == owner || acting_user.in?(members) 
++    acting_user.administrator? || acting_user == owner || acting_user.in?(members)
    end
  
  end

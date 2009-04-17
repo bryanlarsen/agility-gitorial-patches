@@ -1,6 +1,8 @@
-## Have a configurable set of statuses
+generate-story-status-model
 
 From: Bryan Larsen <bryan@larsen.st>
+
+## Have a configurable set of statuses
 
 In order to support management of the statuses available, we'll create a StoryStatus model
 

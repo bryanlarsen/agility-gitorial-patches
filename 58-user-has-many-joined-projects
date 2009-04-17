@@ -1,6 +1,8 @@
-And in the User model (remember that User already has an association called `projects` so we need a new name):
+user-has-many-joined-projects
 
 From: Bryan Larsen <bryan@larsen.st>
+
+And in the User model (remember that User already has an association called `projects` so we need a new name):
 
 SHOW_PATCH
 ---
@@ -10,7 +12,7 @@ SHOW_PATCH
 
 
 diff --git a/app/models/user.rb b/app/models/user.rb
-index 6784e69..e147df8 100644
+index 7604dfc..610f21e 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
 @@ -12,6 +12,8 @@ class User < ActiveRecord::Base
