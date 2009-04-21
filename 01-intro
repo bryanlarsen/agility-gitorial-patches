@@ -5,8 +5,6 @@ From: Bryan Larsen <bryan@larsen.st>
 The Agility Tutorial - A simple story manager
 {: .document-title}
 
-The full source code for the Agility app is available at [http://github.com/tablatom/agility](http://github.com/tablatom/agility/tree/master).
-
 Contents
 {: .contents-heading}
 
@@ -33,8 +31,42 @@ For more info on Hobo please see [hobocentral.net](http://hobocentral.net)
 
 ## This is a gitorial
 
-This is a 'gitorial', a tutorial made with git.  This means you can
-follow along.  You can check out the [application at
+This is a 'gitorial', a tutorial made with git.  However, we highly
+recommend that you treat this as you would any other tutorial.  The
+more that you put into the tutorial, the more you will get out of it.
+
+Code changes in this gitorial are displayed in a modified *patch*
+format.  When you see one of these, they indicate how you should
+modify the code in your version of this project.   Lines that have a
+"+" in the left hand column and are coloured green indicate lines that
+you should add to your project.   Lines to remove have a "-" in the
+left hand column and are coloured red.
+
+On the other hand, if you see something that looks like code but has a
+"$" in the left hand column -- those aren't patches!  Those are
+commands that you can type into your command terminal.
+
+If you are a little bit lazy and have `git` installed, you can use git
+to follow along.   People who aren't lazy can skip the rest of this
+section and jump the the [next chapter](#blank-rails-template)
+
+### Using patch
+
+The patches we have displayed are simplified for on-screen viewing.
+However, there is a link beside each entry (TBD FIXME) you can click
+on to download the raw patch.  To apply the raw patch from your
+project's root directory:
+
+    patch -p1 < patch-file
+
+### Using git checkout
+
+If you use git to follow the gitorial, you will not be able to make
+any modifications to your project -- they will be overwritten every
+time you switch to the next step.   Using git is a great way to look
+at a small section of the gitorial.
+
+Check out the [application from
 github](http://github.com/bryanlarsen/agility-gitorial/tree/master):
 
     $ git clone git://github.com/bryanlarsen/agility-gitorial.git
@@ -43,19 +75,28 @@ github](http://github.com/bryanlarsen/agility-gitorial/tree/master):
 
 Then you can switch to any point in the tutorial:
 
-    $ git checkout -b gitoriral-001
+    $ git checkout -b gitorial-001
 
 To keep the gitorial clean, updates to the gitorial **rewrite
 history**.  That means that you cannot `git pull`.  If you wish to
 update to a later version, you must `git clone` the repository again
 and move any changes you have made from your old clone to the new one.
 
-The "real" history is kept in our [source
+
+### Using stacked git
+
+We used [Stacked Git](http://www.procode.org/stgit/) to develop this
+gitorial.  It's a great tool to follow this gitorial.
+
+Instructions for using github are in the README in our [source
 repository](http://github.com/bryanlarsen/agility-gitorial-patches/tree/master).
+
+### Using our test version of agility
 
 There is a [version of
 agility](http://github.com/tablatom/agility/tree/master) that is not
-in gitorial format.  This tree is mainly used for integration testing Hobo.
+in gitorial format.  This tree is mainly used for integration testing
+Hobo.
 ---
 
  README |   23 +++++++++++++++++++++++

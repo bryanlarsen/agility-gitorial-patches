@@ -17,10 +17,35 @@ To recreate the gitorial from this patchset:
     stg init
     stg import -i -s ../series
 
-You'll have to issue that last command repeatedly because stg import chokes on empty patches.
+You'll have to issue that last command repeatedly because stg import
+chokes on empty patches.
 
 Then load the plugins:
 
     git submodule update --init
 
-You can tag the gitorial using [gitorial-bulk-tag](http://github.com/bryanlarsen/gitorial-tools/tree/master)
+Start from the top of the tutorial:
+
+    stg pop -a
+
+View the current stage of the tutorial with
+
+    stg show
+
+And then switch to the next stage with
+
+    stg push
+
+Navigate through the tutorial by using `stg push`, `stg pop` and `stg
+goto`.  Other useful commands are `stg help`, `stg series`, and `stg
+edit`.
+
+Once you have completed the gitorial, you can export any changes:
+
+    stg export -n -d ..
+
+Please send your changes to [me](mailto:bryan@larsen.st) so I can
+update the gitorial for everybody!
+
+More tools that were used to develop this gitorial are [available from
+github](http://github.com/bryanlarsen/gitorial-tools/tree/master)
