@@ -2,31 +2,6 @@ rest-of-tutorial
 
 From: Bryan Larsen <bryan@larsen.st>
 
-# Granting write access to others
-
-It's not enough just to allow others to view your projects, you need to allow some people to make changes, too. The goal of this part of the tutorial is to add a "Contributor" checkbox next to each person in the side-bar.
-
-Implementing this is left as an exercise for the reader. The steps are:
-1. Add a boolean `contributor` field to the `ProjectMembership` model.
-2. Modify the permissions of stories and tasks so that users with `contributor=true` on their project membership have update permission for the project.
-3. Use the `<editor>` tag to create an ajax editor for the `contributor` field in the ProjectMembership card.
-
-That's all the hints we're going to give you for this one -- good luck!
-
-Ok, one more hint, here's some associations that might be handy in the Project model:
-
-	has_many :contributor_memberships, :class_name => "ProjectMembership", :scope => :contributor
-	has_many :contributors, :through => :contributor_memberships, :source => :user
-{: .ruby}
-
-And a helper method that might come in handy when implementing your permission methods:
-
-	def accepts_changes_from?(user)
-	  user.administrator? || user == owner || user.in?(contributors)
-	end
-{: .ruby}
-
-
 # Ideas for extending the application
 
 ## Milestones

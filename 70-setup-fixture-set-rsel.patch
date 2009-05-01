@@ -2,9 +2,7 @@ setup-fixture-set-rsel
 
 From: Bryan Larsen <bryan@larsen.st>
 
-We'll first create a file that we can include from our tests to load
-
-the fixture set:
+We'll first create a file that we can include from our tests to load the fixture set:
 
 SHOW_PATCH
 ---

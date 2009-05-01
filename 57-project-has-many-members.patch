@@ -12,7 +12,7 @@ SHOW_PATCH
 
 
 diff --git a/app/models/project.rb b/app/models/project.rb
-index 0f811c2..781ea28 100644
+index f3a877a..53abe22 100644
 --- a/app/models/project.rb
 +++ b/app/models/project.rb
 @@ -8,6 +8,8 @@ class Project < ActiveRecord::Base

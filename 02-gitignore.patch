@@ -2,7 +2,11 @@ gitignore
 
 From: Bryan Larsen <bryan@larsen.st>
 
-Our first git checkin will create our .gitignore
+### Housekeeping
+
+Because this is a gitorial, we will sometimes have to create steps
+that you can ignore.  In this case, we're creating a .gitignore to
+make our life easier.  You can do so, or not, as you wish.
 ---
 
  .gitignore |    7 +++++++

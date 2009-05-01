@@ -9,12 +9,12 @@ SHOW_PATCH
 Note that in the `create_permitted?` method, we assert that `owner_is? acting_user`. This is very often found in conjunction with `:creator => true`. Together, these mean that the current user can create their own projects only, and the "Owner" form field will be automatically removed from the new project form.
 ---
 
- app/models/project.rb |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
+ app/models/project.rb |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
 
 diff --git a/app/models/project.rb b/app/models/project.rb
-index 5554c17..0f811c2 100644
+index 5554c17..f3a877a 100644
 --- a/app/models/project.rb
 +++ b/app/models/project.rb
 @@ -14,15 +14,15 @@ class Project < ActiveRecord::Base
@@ -30,9 +30,8 @@ index 5554c17..0f811c2 100644
 +    acting_user.administrator? || (owner_is?(acting_user) && !owner_changed?)
    end
  
--  def destroy_permitted?
+   def destroy_permitted?
 -    acting_user.administrator?
-+  def delete_permitted?
 +    acting_user.administrator? || owner_is?(acting_user)
    end
  

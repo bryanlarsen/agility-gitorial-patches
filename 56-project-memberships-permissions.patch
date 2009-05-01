@@ -5,12 +5,12 @@ From: Bryan Larsen <bryan@larsen.st>
 Then permissions -- only the project owner (and admins) can manipulate these project memberships:
 ---
 
- app/models/project_membership.rb |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
+ app/models/project_membership.rb |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
 
 diff --git a/app/models/project_membership.rb b/app/models/project_membership.rb
-index f5e6703..7d8601b 100644
+index f5e6703..b7cc12e 100644
 --- a/app/models/project_membership.rb
 +++ b/app/models/project_membership.rb
 @@ -12,15 +12,15 @@ class ProjectMembership < ActiveRecord::Base
@@ -26,9 +26,8 @@ index f5e6703..7d8601b 100644
 +    acting_user.administrator? || project.owner_is?(acting_user)
    end
  
--  def destroy_permitted?
+   def destroy_permitted?
 -    acting_user.administrator?
-+  def delete_permitted?
 +    acting_user.administrator? || project.owner_is?(acting_user)
    end
  

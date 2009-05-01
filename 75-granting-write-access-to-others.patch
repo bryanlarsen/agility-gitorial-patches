@@ -1,0 +1,153 @@
+granting-write-access-to-others
+
+From: Bryan Larsen <bryan@larsen.st>
+
+It's not enough just to allow others to view your projects, you need to allow some people to make changes, too. The goal of this part of the tutorial is to add a "Contributor" checkbox next to each person in the side-bar.
+
+Implementing this is left as an exercise for the reader. The steps are:
+
+1. Add a boolean `contributor` field to the `ProjectMembership` model.
+2. Modify the permissions of stories and tasks so that users with `contributor=true` on their project membership have update permission for the project.
+3. Use the `<editor>` tag to create an ajax editor for the `contributor` field in the ProjectMembership card.
+
+That's all the hints we're going to give you for this one -- good luck!
+
+Ok, one more hint, here's some associations that might be handy in the Project model:
+
+    has_many :contributor_memberships, :class_name => "ProjectMembership", :scope => :contributor
+    has_many :contributors, :through => :contributor_memberships, :source => :user
+{: .ruby}
+
+And a helper method that might come in handy when implementing your permission methods:
+
+    def accepts_changes_from?(user)
+       user.administrator? || user == owner || user.in?(contributors)
+    end
+{: .ruby}
+---
+
+ app/models/project.rb                              |   10 +++++++++-
+ app/models/project_membership.rb                   |    1 +
+ app/models/story.rb                                |    2 +-
+ app/views/taglibs/application.dryml                |   12 +++++++++++-
+ .../20090501142707_hobo_migration_contributors.rb  |    9 +++++++++
+ db/schema.rb                                       |    5 +++--
+ 6 files changed, 34 insertions(+), 5 deletions(-)
+ create mode 100644 db/migrate/20090501142707_hobo_migration_contributors.rb
+
+
+diff --git a/app/models/project.rb b/app/models/project.rb
+index be59f11..2bb860c 100644
+--- a/app/models/project.rb
++++ b/app/models/project.rb
+@@ -13,6 +13,14 @@ class Project < ActiveRecord::Base
+ 
+   belongs_to :owner, :class_name => "User", :creator => true
+ 
++  has_many :contributor_memberships, :class_name => "ProjectMembership", :scope => :contributor
++  has_many :contributors, :through => :contributor_memberships, :source => :user
++
++  # permission helper
++  def accepts_changes_from?(user)
++    user.administrator? || user == owner || user.in?(contributors)
++  end
++  
+   # --- Permissions --- #
+ 
+   def create_permitted?
+@@ -20,7 +28,7 @@ class Project < ActiveRecord::Base
+   end
+ 
+   def update_permitted?
+-    acting_user.administrator? || (owner_is?(acting_user) && !owner_changed?)
++    acting_user.administrator? || ((owner_is?(acting_user) || accepts_changes_from? (acting_user)) && !owner_changed?)
+   end
+ 
+   def destroy_permitted?
+diff --git a/app/models/project_membership.rb b/app/models/project_membership.rb
+index b7cc12e..33c2285 100644
+--- a/app/models/project_membership.rb
++++ b/app/models/project_membership.rb
+@@ -3,6 +3,7 @@ class ProjectMembership < ActiveRecord::Base
+   hobo_model # Don't put anything above this
+ 
+   fields do
++    contributor :boolean, :default => false
+     timestamps
+   end
+ 
+diff --git a/app/models/story.rb b/app/models/story.rb
+index e2967b0..a57828c 100644
+--- a/app/models/story.rb
++++ b/app/models/story.rb
+@@ -20,7 +20,7 @@ class Story < ActiveRecord::Base
+   end
+ 
+   def update_permitted?
+-    acting_user.signed_up? && !project_changed?
++    project.updatable_by?(acting_user)
+   end
+ 
+   def destroy_permitted?
+diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
+index f40c604..002eae7 100644
+--- a/app/views/taglibs/application.dryml
++++ b/app/views/taglibs/application.dryml
+@@ -22,4 +22,14 @@
+   <old-form merge>
+     <field-list: fields="description, users"/>
+   </old-form>
+-</extend>
+\ No newline at end of file
++</extend>
++
++<extend tag="card" for="ProjectMembership">
++  <old-card merge>
++    <body:>
++      <span>Contributor?</span>
++      <editor:contributor/>
++    </body:>
++  </old-card>
++</extend>
++
+diff --git a/db/migrate/20090501142707_hobo_migration_contributors.rb b/db/migrate/20090501142707_hobo_migration_contributors.rb
+new file mode 100644
+index 0000000..6561a31
+--- /dev/null
++++ b/db/migrate/20090501142707_hobo_migration_contributors.rb
+@@ -0,0 +1,9 @@
++class HoboMigrationContributors < ActiveRecord::Migration
++  def self.up
++    add_column :project_memberships, :contributor, :boolean, :default => false
++  end
++
++  def self.down
++    remove_column :project_memberships, :contributor
++  end
++end
+diff --git a/db/schema.rb b/db/schema.rb
+index e97f3f7..2889625 100644
+--- a/db/schema.rb
++++ b/db/schema.rb
+@@ -1,4 +1,4 @@
+-# This file is auto-generated from the current state of the database. Instead of editing this file,
++# This file is auto-generated from the current state of the database. Instead of editing this file, 
+ # please use the migrations feature of Active Record to incrementally modify your database, and
+ # then regenerate this schema definition.
+ #
+@@ -9,13 +9,14 @@
+ #
+ # It's strongly recommended to check this file into your version control system.
+ 
+-ActiveRecord::Schema.define(:version => 20090415214215) do
++ActiveRecord::Schema.define(:version => 20090501142707) do
+ 
+   create_table "project_memberships", :force => true do |t|
+     t.datetime "created_at"
+     t.datetime "updated_at"
+     t.integer  "project_id"
+     t.integer  "user_id"
++    t.boolean  "contributor", :default => false
+   end
+ 
+   create_table "projects", :force => true do |t|

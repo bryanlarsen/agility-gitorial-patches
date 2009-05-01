@@ -88,7 +88,8 @@ and move any changes you have made from your old clone to the new one.
 We used [Stacked Git](http://www.procode.org/stgit/) to develop this
 gitorial.  It's a great tool to follow this gitorial.
 
-Instructions for using github are in the README in our [source
+Instructions for using stacked git with this gitorial are in the
+README in our [source
 repository](http://github.com/bryanlarsen/agility-gitorial-patches/tree/master).
 
 ### Using our test version of agility

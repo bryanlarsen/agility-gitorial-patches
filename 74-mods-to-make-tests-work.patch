@@ -2,9 +2,7 @@ mods-to-make-tests-work
 
 From: Bryan Larsen <bryan@larsen.st>
 
-There's one other change we need to make to ensure that our
-
-integration test works:
+There's one other change we need to make to ensure that our integration test works:
 
 SHOW_PATCH
 ---
