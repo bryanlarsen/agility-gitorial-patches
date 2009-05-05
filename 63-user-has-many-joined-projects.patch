@@ -12,7 +12,7 @@ SHOW_PATCH
 
 
 diff --git a/app/models/user.rb b/app/models/user.rb
-index 7604dfc..610f21e 100644
+index 88b6527..6e9a2cb 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
 @@ -12,6 +12,8 @@ class User < ActiveRecord::Base

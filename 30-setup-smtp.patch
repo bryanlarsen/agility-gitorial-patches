@@ -1,0 +1,35 @@
+setup-smtp
+
+From: Bryan Larsen <bryan@larsen.st>
+
+If your web server has Postfix or Sendmail set up to deliver email
+without requiring a password, rails should now be delivering email
+upon activation.  However, most servers will require some email setup,
+so we'll put in a commented block that you can uncomment and adjust if
+you have a mail server available:
+
+SHOW_PATCH
+---
+
+ config/environment.rb |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
+
+
+diff --git a/config/environment.rb b/config/environment.rb
+index 76d8bb3..aff6c32 100644
+--- a/config/environment.rb
++++ b/config/environment.rb
+@@ -41,3 +41,13 @@ Rails::Initializer.run do |config|
+   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+   # config.i18n.default_locale = :de
+ end
++
++#ActionMailer::Base.delivery_method = :smtp
++#ActionMailer::Base.smtp_settings = {
++#   :address => "smtp.example.com",
++#   :port => 25,
++#   :domain => "example.com",
++#   :authentication => :login,
++#   :user_name => "username",
++#   :password => "password",
++#}

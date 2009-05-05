@@ -1,0 +1,27 @@
+story-status-fixture
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Administrator status is required to create story statuses, so we'll
+add a couple to our fixture:
+
+SHOW_PATCH
+---
+
+ test/fixtures/blank/story_statuses.yml |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+ create mode 100644 test/fixtures/blank/story_statuses.yml
+
+
+diff --git a/test/fixtures/blank/story_statuses.yml b/test/fixtures/blank/story_statuses.yml
+new file mode 100644
+index 0000000..ad8ab98
+--- /dev/null
++++ b/test/fixtures/blank/story_statuses.yml
+@@ -0,0 +1,6 @@
++
++discussion:
++  name: discussion
++
++implementation:
++  name: implementation

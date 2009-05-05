@@ -7,26 +7,24 @@ are separate directories so that they do not interfere with our unit
 tests and so that we can have separate fixtures for separate tests.
 
 In our case, we want to test from a blank database, so we'll create a
-blank file for each model:
+blank file for each model with the exception of story_status:
 
     $ mkdir test/fixtures/blank
     $ cd test/fixtures/blank
     $ touch project_memberships.yml projects.yml stories.yml
-    $ touch story_statuses.yml task_assignments.yml tasks.yml users.yml
+    $ touch task_assignments.yml tasks.yml users.yml
 ---
 
  test/fixtures/blank/project_memberships.yml |    0 
  test/fixtures/blank/projects.yml            |    0 
  test/fixtures/blank/stories.yml             |    0 
- test/fixtures/blank/story_statuses.yml      |    0 
  test/fixtures/blank/task_assignments.yml    |    0 
  test/fixtures/blank/tasks.yml               |    0 
  test/fixtures/blank/users.yml               |    0 
- 7 files changed, 0 insertions(+), 0 deletions(-)
+ 6 files changed, 0 insertions(+), 0 deletions(-)
  create mode 100644 test/fixtures/blank/project_memberships.yml
  create mode 100644 test/fixtures/blank/projects.yml
  create mode 100644 test/fixtures/blank/stories.yml
- create mode 100644 test/fixtures/blank/story_statuses.yml
  create mode 100644 test/fixtures/blank/task_assignments.yml
  create mode 100644 test/fixtures/blank/tasks.yml
  create mode 100644 test/fixtures/blank/users.yml
@@ -39,9 +37,6 @@ diff --git a/test/fixtures/blank/projects.yml b/test/fixtures/blank/projects.yml
 new file mode 100644
 index 0000000..e69de29
 diff --git a/test/fixtures/blank/stories.yml b/test/fixtures/blank/stories.yml
-new file mode 100644
-index 0000000..e69de29
-diff --git a/test/fixtures/blank/story_statuses.yml b/test/fixtures/blank/story_statuses.yml
 new file mode 100644
 index 0000000..e69de29
 diff --git a/test/fixtures/blank/task_assignments.yml b/test/fixtures/blank/task_assignments.yml

@@ -1,0 +1,32 @@
+activation-transition
+
+From: Bryan Larsen <bryan@larsen.st>
+
+You'll notice that I also added the `:new_key` option to the creation
+step.  This generates a secret key that can be sent in the activation
+email.
+
+Now we have to add the state transition that will be used to activate
+the account.  We will declare that the transition will be available to
+anybody in possession of the secret key:
+
+SHOW_PATCH
+---
+
+ app/models/user.rb |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/models/user.rb b/app/models/user.rb
+index 07ea3fb..59b2a01 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
+       UserMailer.deliver_activation(self, lifecycle.key)
+     end
+ 
++    transition :activate, { :inactive => :active }, :available_to => :key_holder
++
+     transition :request_password_reset, { :active => :active }, :new_key => true do
+       UserMailer.deliver_forgot_password(self, lifecycle.key)
+     end

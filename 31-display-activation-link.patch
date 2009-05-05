@@ -1,0 +1,36 @@
+display-activation-link
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Approximately 99% of you following this tutorial will not have set up
+email correctly.  So how do you sign up?   One option is to cut and
+paste out of your log files.   However, we'll be doing some
+integration testing later, so we do need something a little more
+convenient.  Just make sure that you revert this change before you go
+to production!
+
+SHOW_PATCH
+---
+
+ app/controllers/users_controller.rb |    9 +++++++++
+ 1 files changed, 9 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb
+index 13d3869..c492518 100644
+--- a/app/controllers/users_controller.rb
++++ b/app/controllers/users_controller.rb
+@@ -4,4 +4,13 @@ class UsersController < ApplicationController
+ 
+   auto_actions :all, :except => [ :index, :new, :create ]
+ 
++  def do_signup
++    hobo_do_signup do
++      secret_path = user_activate_path :id=>this.id, :key => this.lifecycle.key
++      # FIXME: remove this line after you get email working reliably
++      # and before your application leaves its sandbox...
++      flash[:notice] << " The 'secret' link that was just emailed was: <a href='#{secret_path}' id='activation-link'>#{secret_path}</a>."
++    end
++  end
++  
+ end

@@ -1,0 +1,51 @@
+activation-mailer
+
+From: Bryan Larsen <bryan@larsen.st>
+
+We used a method in `UserMailer`, we better define it:
+
+SHOW_PATCH
+---
+
+ app/models/user_mailer.rb            |   11 +++++++++++
+ app/views/user_mailer/activation.erb |    9 +++++++++
+ 2 files changed, 20 insertions(+), 0 deletions(-)
+ create mode 100644 app/views/user_mailer/activation.erb
+
+
+diff --git a/app/models/user_mailer.rb b/app/models/user_mailer.rb
+index 38ea0b1..5fd443c 100644
+--- a/app/models/user_mailer.rb
++++ b/app/models/user_mailer.rb
+@@ -10,5 +10,16 @@ class UserMailer < ActionMailer::Base
+     @sent_on    = Time.now
+     @headers    = {}
+   end
++  
++  def activation(user, key)
++    host = Hobo::Controller.request_host
++    app_name = Hobo::Controller.app_name || host
++    @subject    = "#{app_name} -- activate"
++    @body       = { :user => user, :key => key, :host => host, :app_name => app_name }
++    @recipients = user.email_address
++    @from       = "no-reply@#{host}"
++    @sent_on    = Time.now
++    @headers    = {}
++  end
+ 
+ end
+diff --git a/app/views/user_mailer/activation.erb b/app/views/user_mailer/activation.erb
+new file mode 100644
+index 0000000..d8f0b56
+--- /dev/null
++++ b/app/views/user_mailer/activation.erb
+@@ -0,0 +1,9 @@
++<%= @user %>,
++
++To activate your account for <%= @app_name %>, click on this link:
++
++  <%= user_activate_url :host => @host, :id => @user, :key => @key %>
++
++Thank you,
++
++The <%= @app_name %> team.

@@ -13,17 +13,17 @@ After you've finished, tweak it so that it looks something like this:
 SHOW_PATCH
 ---
 
- test/selenium/create_account.rsel |   14 ++++++++++++++
- 1 files changed, 14 insertions(+), 0 deletions(-)
+ test/selenium/create_account.rsel |   12 ++++++++++++
+ 1 files changed, 12 insertions(+), 0 deletions(-)
  create mode 100644 test/selenium/create_account.rsel
 
 
 diff --git a/test/selenium/create_account.rsel b/test/selenium/create_account.rsel
 new file mode 100644
-index 0000000..312acf6
+index 0000000..18c0ca4
 --- /dev/null
 +++ b/test/selenium/create_account.rsel
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,12 @@
 +
 +include_partial "setup_fixture_set", :set => "blank"
 +open "/"
@@ -36,5 +36,3 @@ index 0000000..312acf6
 +click "//input[@value='Signup']"
 +wait_for_page_to_load "30000"
 +verify_text_present "Thanks for signing up!"
-+verify_text_present "Logged in as Test Use"
-+verify_text_present "New Project"

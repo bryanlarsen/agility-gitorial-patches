@@ -1,0 +1,54 @@
+activation-lifecycle
+
+From: Bryan Larsen <bryan@larsen.st>
+
+# Adding User Activation
+
+It's standard procedure to ask users to verify their email address
+before allowing them to sign into the system.  Not surprisingly, Hobo
+makes this very easy to do.
+
+The default user model does not contain support for activating email
+addresses, but it does contain support for something very similar:
+resetting the password.
+
+If you look inside your `app/models/user.rb` file, you will find this
+functionality inside the *Signup Lifecycle*.
+[Lifecycles](/manual/lifecycles) are the Hobo mechanism for
+implementing state machines.
+
+Currently, there should be only one state inside this state machine.
+This seems like a fairly broad hint that we should another state to
+implement our sign up procedures.  Let's add an `inactive` state to
+counter the `active` state that's present, and make it the default.
+We should also add a block to our creation step to deliver the email.
+
+SHOW_PATCH
+---
+
+ app/models/user.rb |    8 +++++---
+ 1 files changed, 5 insertions(+), 3 deletions(-)
+
+
+diff --git a/app/models/user.rb b/app/models/user.rb
+index 91cd3dd..07ea3fb 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -20,12 +20,14 @@ class User < ActiveRecord::Base
+   # --- Signup lifecycle --- #
+ 
+   lifecycle do
+-
+-    state :active, :default => true
++    state :inactive, :default => true
++    state :active
+ 
+     create :signup, :available_to => "Guest",
+            :params => [:name, :email_address, :password, :password_confirmation],
+-           :become => :active
++           :become => :inactive, :new_key => true do
++      UserMailer.deliver_activation(self, lifecycle.key)
++    end
+ 
+     transition :request_password_reset, { :active => :active }, :new_key => true do
+       UserMailer.deliver_forgot_password(self, lifecycle.key)
