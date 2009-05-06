@@ -39,7 +39,7 @@ And a helper method that might come in handy when implementing your permission m
 
 
 diff --git a/app/models/project.rb b/app/models/project.rb
-index be59f11..cc616f5 100644
+index be59f11..bfc7c8e 100644
 --- a/app/models/project.rb
 +++ b/app/models/project.rb
 @@ -13,6 +13,14 @@ class Project < ActiveRecord::Base
@@ -62,7 +62,7 @@ index be59f11..cc616f5 100644
  
    def update_permitted?
 -    acting_user.administrator? || (owner_is?(acting_user) && !owner_changed?)
-+    acting_user.administrator? || ((owner_is?(acting_user) || accepts_changes_from?(acting_user)) && !owner_changed?)
++    accepts_changes_from?(acting_user) && !owner_changed?
    end
  
    def destroy_permitted?
