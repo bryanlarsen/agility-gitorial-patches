@@ -14,14 +14,13 @@ SHOW_PATCH
 
 
 diff --git a/app/models/user_mailer.rb b/app/models/user_mailer.rb
-index 38ea0b1..5fd443c 100644
+index 76eb31c..a1bd10c 100644
 --- a/app/models/user_mailer.rb
 +++ b/app/models/user_mailer.rb
-@@ -10,5 +10,16 @@ class UserMailer < ActionMailer::Base
-     @sent_on    = Time.now
+@@ -11,4 +11,15 @@ class UserMailer < ActionMailer::Base
      @headers    = {}
    end
-+  
+   
 +  def activation(user, key)
 +    host = Hobo::Controller.request_host
 +    app_name = Hobo::Controller.app_name || host
@@ -32,7 +31,7 @@ index 38ea0b1..5fd443c 100644
 +    @sent_on    = Time.now
 +    @headers    = {}
 +  end
- 
++
  end
 diff --git a/app/views/user_mailer/activation.erb b/app/views/user_mailer/activation.erb
 new file mode 100644

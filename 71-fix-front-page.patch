@@ -16,7 +16,7 @@ Notice how we set the context on the entire section to be the current user (`wit
 
 
 diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
-index a4565b9..1afca65 100644
+index 670c62e..a7ff9bc 100644
 --- a/app/views/front/index.dryml
 +++ b/app/views/front/index.dryml
 @@ -13,9 +13,14 @@
@@ -35,4 +35,4 @@ index a4565b9..1afca65 100644
 +      <collection:joined-projects><card without-creator-link/></collection>
      </section>
    </content:>
- 
+   

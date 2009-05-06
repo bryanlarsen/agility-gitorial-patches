@@ -70,7 +70,7 @@ index 486f72f..b420c68 100644
    # --- Permissions --- #
  
 diff --git a/app/models/user.rb b/app/models/user.rb
-index 58cb5e3..91cd3dd 100644
+index 26c449f..881e477 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
 @@ -9,6 +9,9 @@ class User < ActiveRecord::Base

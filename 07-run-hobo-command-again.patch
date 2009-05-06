@@ -22,20 +22,22 @@ Now that we've fixed config/environment.rb, we can run `hobo` again, and it will
  public/hobothemes/clean/images/pencil.png        |  Bin
  public/hobothemes/clean/images/small_close.png   |  Bin
  public/hobothemes/clean/images/spinner.gif       |  Bin
- public/hobothemes/clean/stylesheets/clean.css    |  321 ++++++++
+ public/hobothemes/clean/stylesheets/clean.css    |  325 ++++++++
  public/hobothemes/clean/stylesheets/rapid-ui.css |   95 ++
  public/index.html                                |  275 -------
  public/javascripts/IE7.js                        |    2 
  public/javascripts/blank.gif                     |  Bin
- public/javascripts/hobo-rapid.js                 |  847 ++++++++++++++++++++++
+ public/javascripts/dryml-support.js              |    4 
+ public/javascripts/hobo-rapid.js                 |  848 ++++++++++++++++++++++
+ public/javascripts/ie7-recalc.js                 |    2 
  public/javascripts/lowpro.js                     |  320 ++++++++
- public/stylesheets/hobo-rapid.css                |   93 ++
+ public/stylesheets/hobo-rapid.css                |   94 ++
  public/stylesheets/reset.css                     |   95 ++
  test/fixtures/users.yml                          |    7 
  test/functional/front_controller_test.rb         |    8 
  test/functional/users_controller_test.rb         |    8 
  test/unit/user_test.rb                           |    8 
- 28 files changed, 1950 insertions(+), 275 deletions(-)
+ 30 files changed, 1960 insertions(+), 277 deletions(-)
  create mode 100644 app/controllers/front_controller.rb
  create mode 100644 app/controllers/users_controller.rb
  create mode 100644 app/helpers/front_helper.rb
@@ -55,6 +57,7 @@ Now that we've fixed config/environment.rb, we can run `hobo` again, and it will
  create mode 100644 public/javascripts/IE7.js
  create mode 100644 public/javascripts/blank.gif
  create mode 100644 public/javascripts/hobo-rapid.js
+ create mode 100644 public/javascripts/ie7-recalc.js
  create mode 100644 public/javascripts/lowpro.js
  create mode 100644 public/stylesheets/hobo-rapid.css
  create mode 100644 public/stylesheets/reset.css
@@ -114,7 +117,7 @@ index 0000000..2310a24
 +end
 diff --git a/app/models/user.rb b/app/models/user.rb
 new file mode 100644
-index 0000000..58cb5e3
+index 0000000..26c449f
 --- /dev/null
 +++ b/app/models/user.rb
 @@ -0,0 +1,57 @@
@@ -132,8 +135,8 @@ index 0000000..58cb5e3
 +  # This gives admin rights to the first sign-up.
 +  # Just remove it if you don't want that
 +  before_create { |user| user.administrator = true if RAILS_ENV != "test" && count == 0 }
-+
-+
++  
++  
 +  # --- Signup lifecycle --- #
 +
 +  lifecycle do
@@ -152,7 +155,7 @@ index 0000000..58cb5e3
 +               :params => [ :password, :password_confirmation ]
 +
 +  end
-+
++  
 +
 +  # --- Permissions --- #
 +
@@ -177,12 +180,12 @@ index 0000000..58cb5e3
 +end
 diff --git a/app/models/user_mailer.rb b/app/models/user_mailer.rb
 new file mode 100644
-index 0000000..38ea0b1
+index 0000000..76eb31c
 --- /dev/null
 +++ b/app/models/user_mailer.rb
 @@ -0,0 +1,14 @@
 +class UserMailer < ActionMailer::Base
-+
++  
 +  def forgot_password(user, key)
 +    host = Hobo::Controller.request_host
 +    app_name = Hobo::Controller.app_name || host
@@ -193,11 +196,11 @@ index 0000000..38ea0b1
 +    @sent_on    = Time.now
 +    @headers    = {}
 +  end
-+
++  
 +end
 diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
 new file mode 100644
-index 0000000..3e9c57a
+index 0000000..ef5c3a5
 --- /dev/null
 +++ b/app/views/front/index.dryml
 @@ -0,0 +1,20 @@
@@ -219,7 +222,7 @@ index 0000000..3e9c57a
 +    <section class="content-body">
 +    </section>
 +  </content:>
-+
++  
 +</page>
 diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
 index 5accb09..07f9ca2 100644
@@ -239,7 +242,7 @@ index 5accb09..07f9ca2 100644
  
 diff --git a/app/views/taglibs/themes/clean/clean.dryml b/app/views/taglibs/themes/clean/clean.dryml
 new file mode 100644
-index 0000000..4022808
+index 0000000..3bb662f
 --- /dev/null
 +++ b/app/views/taglibs/themes/clean/clean.dryml
 @@ -0,0 +1,10 @@
@@ -252,21 +255,21 @@ index 0000000..4022808
 +      <stylesheet name="application" param="app-stylesheet"/>
 +    </stylesheets:>
 +  </old-page>
-+</extend>
++</extend>  
 diff --git a/app/views/user_mailer/forgot_password.erb b/app/views/user_mailer/forgot_password.erb
 new file mode 100644
-index 0000000..fe744e3
+index 0000000..7f93ae9
 --- /dev/null
 +++ b/app/views/user_mailer/forgot_password.erb
 @@ -0,0 +1,10 @@
 +<%= @user %>,
 +
-+If you have forgotten your password for <%= @app_name %>, you can chose
++If you have forgotten your password for <%= @app_name %>, you can choose
 +a new one by clicking on this link:
 +
 +  <%= user_reset_password_url :host => @host, :id => @user, :key => @key %>
 +
-+Thanks very much,
++Thank you,
 +
 +The <%= @app_name %> team.
 diff --git a/config/routes.rb b/config/routes.rb
@@ -420,10 +423,10 @@ HcmV?d00001
 
 diff --git a/public/hobothemes/clean/stylesheets/clean.css b/public/hobothemes/clean/stylesheets/clean.css
 new file mode 100644
-index 0000000..d85c24e
+index 0000000..7c26e51
 --- /dev/null
 +++ b/public/hobothemes/clean/stylesheets/clean.css
-@@ -0,0 +1,321 @@
+@@ -0,0 +1,325 @@
 +/* Graphite */
 +/*html, body {color: #222; background: #222;}
 +.page-header {color: white; background: #444;}
@@ -457,7 +460,7 @@ index 0000000..d85c24e
 +
 +
 +body {
-+	width: 960px;
++	width: 960px;  
 +	margin: 0 auto 20px;
 +	font: 12px "Lucida Grande", "Trebuchet MS", Arial, sans-serif; line-height: 18px;
 +}
@@ -474,13 +477,17 @@ index 0000000..d85c24e
 +a {
 +	border-bottom: 1px dotted #ccc;
 +	color: #222; background: #fafafa;
-+	text-decoration: none;
++	text-decoration: none; 
 +}
 +a:hover {
 +	border-bottom: 1px dotted #aaa;
-+	color: black; background: #f2f2f2;
++	color: black; background: #f2f2f2; 
 +}
 +h1 a, h2 a, h3 a {border: none; background: none;}
++
++pre, code {
++    font-family:  "Courier New", Courier, monospace;
++}
 +
 +input.text, input.string, input.email-address, input.password, input.search, input.integer, input.float, textarea {
 +	border-top:1px solid #7c7c7c;
@@ -503,7 +510,7 @@ index 0000000..d85c24e
 +	margin-top: 10px;
 +}
 +.button:hover {cursor: pointer;}
-+form .actions {height: 100%; overflow: hidden; font-size: 11px;}
++form .actions {_zoom: 1; overflow: hidden; font-size: 11px;}
 +form .actions input { margin: 0; }
 +
 +.flash {
@@ -543,30 +550,30 @@ index 0000000..d85c24e
 +.field-list .input-help { color: #888;}
 +
 +.content-header, .content-body, .content-footer {margin: 0 45px 15px; padding: 0;}
-+.content-header {padding: 5px 0;}
++.content-header {padding: 5px 0;} 
 +.content-body {padding: 15px 0;}
 +.content-footer {padding-bottom: 20px;}
 +
-+.page-header {position: relative; margin-top: 25px; padding: 20px 0 0;}
++.page-header {margin-top: 25px; padding: 0 0 0;}
 +.page-header h1 {
-+	margin: 0; padding: 0 30px 30px;
++	margin: 0; padding: 20px 30px 30px; 
 +	font-family: "Arial Black", Tahoma, Arial, sans-serif; font-size: 36px; letter-spacing: -1.5pt;
 +}
 +.page-header ul {zoom: 1; overflow: hidden;}
 +.page-header li {float: left; margin-left: 0; list-style: none;}
 +
-+.page-header .navigation a,
++.page-header .navigation a, 
 +.page-header .navigation a:hover,
-+.page-header h1 a,
++.page-header h1 a, 
 +.page-header h1 a:hover
 + {border: none; color: white; background: none;}
 +
 +.page-header div.search {
 + 	float: right;
-+ 	padding: 0 30px 8px 15px;
++ 	padding: 0 30px 8px 15px; 
 + }
 +.page-header div.search label {
-+	padding-right: 10px;
++	padding-right: 10px; 
 +	font: bold 9px Arial, sans-serif; text-transform: uppercase; letter-spacing: 1.0pt;
 +}
 +.page-header div.search input {
@@ -574,7 +581,7 @@ index 0000000..d85c24e
 +}
 +#search-results-panel {
 +	position: absolute; top: 35px; right: 25px; z-index: 50;
-+	width: 350px; height: 500px; overflow: auto;
++	width: 350px; height: 500px; overflow: auto; 
 +	padding: 0 20px 20px; border: 1px solid #ddd;
 +	color: black; background: #f2f2f2;
 +}
@@ -591,12 +598,12 @@ index 0000000..d85c24e
 +
 +.account-nav {
 +    float:right;
-+    margin: -42px 5px 0 0;
++    margin: -22px 5px 0 0;
 +	font-size: 11px;
 +}
 +.account-nav li {
-+	float: left;
-+	margin-left: 0; padding-left: 20px;
++	float: left; 
++	margin-left: 0; padding-left: 20px; 
 +	color: #ddd;
 +	list-style: none;
 +}
@@ -623,7 +630,7 @@ index 0000000..d85c24e
 +.login-page .content-header { position: relative; }
 +.login-page .forgot-password {font-size: 11px; margin-left: 160px;}
 +
-+.edit-page .content-header {overflow: hidden; height: 100%;}
++.edit-page .content-header {overflow: hidden; _zoom: 1;}
 +.edit-page .content-header h1 {float: left;}
 +.edit-page .content-header .delete-button {float: right; margin-top: 25px;}
 +form .actions {margin: 30px 0; width: 100%; text-align: center;}
@@ -648,7 +655,7 @@ index 0000000..d85c24e
 +/* styling of generic elements */
 +.creator {font-weight: bold;}
 +.card {
-+	height: 100%; overflow: hidden;
++	overflow: hidden; _zoom: 1;
 +	margin: 10px 0;	padding: 12px; border: 1px solid #e8e8e8;
 +	background: #f5f5f5;
 +	position: relative;
@@ -656,7 +663,7 @@ index 0000000..d85c24e
 +.card h4 {margin-top: 0;}
 +.card a {background: #f5f5f5;}
 +.card .creation-details {
-+	display: block; color: #333; font-size: 11px;
++	display: block; color: #333; font-size: 11px; 
 +}
 +.card .datetime {color: #666;}
 +.card .actions { position:absolute; right: 10px; top: 10px; }
@@ -664,7 +671,7 @@ index 0000000..d85c24e
 +
 +.card.content.with-owner {
 +	padding: 0; margin: 10px 0 30px; border: none;
-+	background: none;
++	background: none; 
 +	font-size: 11px;
 +}
 +.card.content .creation-details {
@@ -684,7 +691,7 @@ index 0000000..d85c24e
 +	padding: 15px 0; margin-bottom: 20px; border-bottom: 1px dotted #888;
 +}
 +
-+.table-plus .header {height: 100%; overflow: hidden;}
++.table-plus .header {_zoom: 1; overflow: hidden;}
 +.table-plus .header a {float: left; margin-right: 20px;}
 +.table-plus div.search {float: right;}
 +.table-plus div.search span {color: #444;}
@@ -711,7 +718,7 @@ index 0000000..d85c24e
 +div.select-many {border-top: 1px dotted #999;}
 +div.select-many .items {margin-bottom: 10px;}
 +div.select-many .item {
-+	overflow:hidden; height: 100%; font-weight: bold;
++	overflow:hidden; _zoom: 1; font-weight: bold;
 +	border-bottom: 1px dotted #999; padding: 5px 10px; /*margin: 5px 25px 5px 0;*/
 +}
 +div.select-many .item span { float: left; }
@@ -727,7 +734,7 @@ index 0000000..d85c24e
 +/* you can delete them if you over-ride it             */
 +
 +.front-page .welcome-message {
-+	padding: 10px 20px 20px; border: 1px solid #e8e8e8;
++	padding: 10px 20px 20px; border: 1px solid #e8e8e8; 
 +	color: #222; background: #eee;
 +}
 +.front-page .welcome-message h2 {
@@ -747,7 +754,7 @@ index 0000000..d85c24e
 +
 diff --git a/public/hobothemes/clean/stylesheets/rapid-ui.css b/public/hobothemes/clean/stylesheets/rapid-ui.css
 new file mode 100644
-index 0000000..e585abb
+index 0000000..6df4a28
 --- /dev/null
 +++ b/public/hobothemes/clean/stylesheets/rapid-ui.css
 @@ -0,0 +1,95 @@
@@ -761,13 +768,13 @@ index 0000000..e585abb
 +	background-repeat: no-repeat;
 +}
 +
-+.inplaceeditor-form input, .inplaceeditor-form textarea,
++.inplaceeditor-form input, .inplaceeditor-form textarea, 
 +table.new-record textarea, table.new-record input {
 +	border: 1px dotted #666;
 +	padding: 3px;	width: 100%;
 +}
 +.inplaceeditor-form, .inplaceeditor-form input {
-+	display: inline;
++	display: inline;	
 +}
 +
 +/**** Admin ****/
@@ -840,7 +847,7 @@ index 0000000..e585abb
 +
 +.field-list input.percentage {width: 25px; display: inline; margin-right: 5px; padding: 1px 3px;}
 +
-+select.dev-user-changer { opacity: 0.3; position: absolute; top: -22px; left: 0; }
++select.dev-user-changer { opacity: 0.3; }
 +select.dev-user-changer:hover { opacity: 1; }
 +
 +.part-wrapper {
@@ -1148,12 +1155,32 @@ wcmZ?wbhEHbWMp7un83&Y1poj4SNzEWWHK`7fcPL81|}vSMh3-y@(c{t0P2MZQ2+n{
 literal 0
 HcmV?d00001
 
+diff --git a/public/javascripts/dryml-support.js b/public/javascripts/dryml-support.js
+index 867db71..57fdff0 100644
+--- a/public/javascripts/dryml-support.js
++++ b/public/javascripts/dryml-support.js
+@@ -1,5 +1,5 @@
+ Event.addBehavior({
+-    'body:click' : function(event) {
++    'body:click' : function(event) { 
+         if (event.shiftKey && event.altKey) {
+             Dryml.click(event)
+             Event.stop(event)
+@@ -122,7 +122,7 @@ var Dryml = {
+     },
+ 
+     removeMenu: function() {
+-        if (Dryml.menu) {
++        if (Dryml.menu) { 
+             $("dryml-menu-style").remove()
+             Dryml.menu.remove()
+             Dryml.menu = null
 diff --git a/public/javascripts/hobo-rapid.js b/public/javascripts/hobo-rapid.js
 new file mode 100644
-index 0000000..573a49f
+index 0000000..0826fa6
 --- /dev/null
 +++ b/public/javascripts/hobo-rapid.js
-@@ -0,0 +1,847 @@
+@@ -0,0 +1,848 @@
 +Object.extend = function(destination) {
 +    $A(arguments).slice(1).each(function (src) {
 +        for (var property in src) {
@@ -1172,7 +1199,7 @@ index 0000000..573a49f
 +    searchRequest: null,
 +    uidCounter: 0,
 +    ipeOldValues: {},
-+    spinnerMinTime: 500, // milliseconds
++    spinnerMinTime: 500, // milliseconds 
 +
 +    uid: function() {
 +        Hobo.uidCounter += 1
@@ -1244,7 +1271,7 @@ index 0000000..573a49f
 +        if (typeof(formAuthToken) != "undefined") {
 +            params.push(formAuthToken.name + "=" + formAuthToken.value)
 +        }
-+
++        
 +        updateParams = Hobo.ajaxUpdateParams(updates, options.resultUpdate)
 +        if (updateParams != "") { params.push(updateParams) }
 +
@@ -1258,7 +1285,7 @@ index 0000000..573a49f
 +        }
 +
 +        if (options.message != false) Hobo.showSpinner(options.message, options.spinnerNextTo)
-+
++        
 +        var complete = function() {
 +            if (options.message != false) Hobo.hideSpinner();
 +            if (options.onComplete) options.onComplete.apply(this, arguments)
@@ -1267,7 +1294,7 @@ index 0000000..573a49f
 +        }
 +        var success = function() {
 +            if (options.onSuccess) options.onSuccess.apply(this, arguments)
-+            if (form && options.resetForm) form.reset();
++            if (form && options.resetForm) form.reset();            
 +        }
 +        if (options.method && options.method.toLowerCase() == "put") {
 +            delete options.method
@@ -1310,7 +1337,7 @@ index 0000000..573a49f
 +            }
 +        }
 +    },
-+
++    
 +    onFieldEditComplete: function(el, newValue) {
 +        el = $(el)
 +        var oldValue = Hobo.ipeOldValues[el.id]
@@ -1357,7 +1384,7 @@ index 0000000..573a49f
 +                    onEnterEditMode: function() {
 +                        var blank_message = el.getAttribute("hobo-blank-message")
 +                        if (el.innerHTML.gsub("&nbsp;", " ") == blank_message) {
-+                            el.innerHTML = ""
++                            el.innerHTML = "" 
 +                        } else {
 +                            Hobo.ipeOldValues[el.id] = el.innerHTML
 +                        }
@@ -1378,7 +1405,7 @@ index 0000000..573a49f
 +        var clear = function() { Hobo.hide(search_results_panel); el.clear() }
 +
 +        // Close window on [Escape]
-+        Event.observe(el, 'keypress', function(ev) {
++        Event.observe(el, 'keypress', function(ev) { 
 +            if (ev.keyCode == 27) clear()
 +        });
 +
@@ -1412,7 +1439,7 @@ index 0000000..573a49f
 +        return urlBase + "/" + Hobo.pluralise(spec.name) + "/" + spec.id + "?_method=PUT"
 +    },
 +
-+
++    
 +    urlForId: function(id) {
 +        var spec = Hobo.parseModelSpec(id)
 +        var url = urlBase + "/" + Hobo.pluralise(spec.name)
@@ -1420,7 +1447,7 @@ index 0000000..573a49f
 +        return url
 +    },
 +
-+
++        
 +    fieldSetParam: function(el, val) {
 +        var spec = Hobo.modelSpecForElement(el)
 +        var res = spec.name + '[' + spec.field + ']=' + encodeURIComponent(val)
@@ -1433,8 +1460,8 @@ index 0000000..573a49f
 +
 +    fadeObjectElement: function(el) {
 +        var fadeEl = Hobo.objectElementFor(el)
-+        new Effect.Fade(fadeEl, { duration: 0.5, afterFinish: function (ef) {
-+            ef.element.remove()
++        new Effect.Fade(fadeEl, { duration: 0.5, afterFinish: function (ef) { 
++            ef.element.remove() 
 +        } });
 +        Hobo.showEmptyMessageAfterLastRemove(fadeEl)
 +    },
@@ -1481,13 +1508,13 @@ index 0000000..573a49f
 +            new Effect.Appear(empty, {delay:0.3})
 +        }
 +    },
-+
++    
 +
 +    getClassData: function(el, name) {
 +        var match = el.className.match(new RegExp("(^| )" + name + "::(\\S+)($| )"))
 +        return match && match[2]
 +    },
-+
++    
 +
 +    getModelId: function(el) {
 +        return Hobo.getClassData(el, 'model')
@@ -1593,8 +1620,8 @@ index 0000000..573a49f
 +
 +        return window.location.href.sub(/(\?.*|$)/, "?" + params.toQueryString())
 +    },
-+
-+
++    
++    
 +    fixSectionGroup: function(e) {
 +	    rows = e.childElements().map(function(e, i) {
 +    	    cells = e.childElements().map(function(e, i) {
@@ -1607,7 +1634,7 @@ index 0000000..573a49f
 +
 +        var attrs = e.outerHTML.match(/<DIV([^>]+)/)[1]
 +
-+	    var table= "<table cellpadding='0' cellspacing='0' border='0' style='border-collapse: collapse; border-spacing: 0'" + attrs + ">" +
++	    var table= "<table cellpadding='0' cellspacing='0' border='0' style='border-collapse: collapse; border-spacing: 0'" + attrs + ">" + 
 +	               rows + "</table>"
 +	    e.outerHTML = table
 +    },
@@ -1643,8 +1670,8 @@ index 0000000..573a49f
 +// Fix Safari in-place-editor bug
 +Ajax.InPlaceEditor.prototype.removeForm = function() {
 +    if (!this._form) return;
-+
-+    if (this._form.parentNode) { try { Element.remove(this._form); } catch (e) {}}
++    
++    if (this._form.parentNode) { try { Element.remove(this._form); } catch (e) {}}    
 +    this._form = null;
 +    this._controls = { };
 +}
@@ -1665,16 +1692,16 @@ index 0000000..573a49f
 +
 +
 +HoboBehavior = Class.create({
-+
++    
 +    initialize: function(mainSelector, features) {
 +        this.mainSelector = mainSelector
 +        this.features = features
 +        this.addEvents(mainSelector, features.events)
 +    },
-+
++    
 +    addEvents: function(parentSelector, events) {
 +        var self = this
-+
++        
 +        for (selector in events) {
 +            fullSelector = parentSelector + ' ' + selector
 +            var rhs = events[selector]
@@ -1684,9 +1711,9 @@ index 0000000..573a49f
 +                this.addEvents(fullSelector, rhs)
 +            }
 +        }
-+
++        
 +    },
-+
++    
 +    addBehavior: function(selector, handler) {
 +        var self = this
 +        behavior = {}
@@ -1696,42 +1723,42 @@ index 0000000..573a49f
 +        }
 +        Event.addBehavior(behavior)
 +    }
-+
++    
 +})
 +
 +
 +new HoboBehavior("ul.input-many", {
-+
++  
 +  events: {
 +      "> li > div.buttons": {
 +          ".add-item:click":    'addOne',
 +          ".remove-item:click": 'removeOne'
 +      }
 +  },
-+
++  
 +  addOne: function(ev, el) {
 +      Event.stop(ev)
 +      var ul = el.up('ul'), li = el.up('li')
-+
++      
 +      var thisItem = li.down('div.input-many-item')
-+      var newItem = "<li style='display:none'><div class='input-many-item'>" +
-+                    thisItem.innerHTML +
-+                    "</div>" +
++      var newItem = "<li style='display:none'><div class='input-many-item'>" + 
++                    thisItem.innerHTML + 
++                    "</div>" + 
 +                    "<div class='buttons' />" +
 +                    "</div></li>"
 +      var newItem = DOM.Builder.fromHTML(newItem)
 +      ul.appendChild(newItem);
 +      this.clearInputs(newItem);
-+
++      
 +      this.updateButtons()
 +      this.updateInputNames()
-+
++      
 +      ul.fire("rapid:add", { element: newItem })
 +      ul.fire("rapid:change", { element: newItem })
-+
++      
 +      new Effect.BlindDown(newItem, {duration: 0.3})
 +  },
-+
++  
 +  removeOne: function(ev, el) {
 +      Event.stop(ev)
 +      var self = this;
@@ -1739,9 +1766,9 @@ index 0000000..573a49f
 +      if (li.parentNode.childElements().length == 1) {
 +          // It's the last one - don't remove it, just clear it
 +          this.clearInputs(li)
-+      } else {
++      } else {      
 +          new Effect.BlindUp(li, { duration: 0.3, afterFinish: function (ef) {
-+              li.remove()
++              li.remove() 
 +              self.updateButtons()
 +              self.updateInputNames()
 +          } });
@@ -1750,7 +1777,7 @@ index 0000000..573a49f
 +      ul.fire("rapid:change")
 +  },
 +
-+
++  
 +  clearInputs: function(item) {
 +      $(item).select('input,select,textarea').each(function(input){
 +          t = input.getAttribute('type')
@@ -1761,7 +1788,7 @@ index 0000000..573a49f
 +          }
 +      })
 +  },
-+
++   
 +  updateButtons: function() {
 +      var removeButton = "<button class='remove-item'>-</button>"
 +      var addButton    = "<button class='add-item'>+</button>"
@@ -1778,10 +1805,10 @@ index 0000000..573a49f
 +      }
 +      Event.addBehavior.reload()
 +  },
-+
++  
 +  updateInputNames: function() {
 +      var prefix = Hobo.getClassData(this.element, 'input-many-prefix')
-+
++      
 +      this.element.selectChildren('li').each(function(li, index) {
 +          li.select('*[name]').each(function(control) {
 +              var changeId = control.id == control.name
@@ -1790,7 +1817,7 @@ index 0000000..573a49f
 +          })
 +      })
 +  }
-+
++  
 +})
 +
 +
@@ -1802,7 +1829,7 @@ index 0000000..573a49f
 +    },
 +
 +    addOne : function() {
-+        var select = this.element.down('select')
++        var select = this.element.down('select') 
 +        var selected = select.options[select.selectedIndex]
 +        if ($F(select) != "") {
 +            var newItem = $(DOM.Builder.fromHTML(this.element.down('.item-proto').innerHTML.strip()))
@@ -1824,13 +1851,13 @@ index 0000000..573a49f
 +
 +    removeOne : function(el) {
 +        var element = this.element
-+        new Effect.BlindUp(el,
++        new Effect.BlindUp(el, 
 +                           { duration: 0.3,
-+                             afterFinish: function (ef) {
-+                                 ef.element.remove()
++                             afterFinish: function (ef) { 
++                                 ef.element.remove() 
 +                                 element.fire("rapid:remove", { element: el })
 +                                 element.fire("rapid:change", { element: el })
-+                                 } } )
++                                 } } ) 
 +        var label = el.down('span').innerHTML
 +        var option = $A(element.getElementsByTagName('option')).find(function(o) { return o.innerHTML == label })
 +        option.disabled = false
@@ -1841,7 +1868,7 @@ index 0000000..573a49f
 +    },
 +
 +    hiddenField: function(item) {
-+        return item.down('input[type=hidden]')
++        return item.down('input[type=hidden]') 
 +        //return item.getElementsByClassName("hidden-field")[0]
 +    }
 +
@@ -1850,7 +1877,7 @@ index 0000000..573a49f
 +
 +NameManyInput = Object.extend(SelectManyInput, {
 +    addOne : function() {
-+        var select = this.element.down('select')
++        var select = this.element.down('select') 
 +        var selected = select.options[select.selectedIndex]
 +        if (selected.value != "") {
 +            var newItem = $(DOM.Builder.fromHTML(this.element.down('.item-proto').innerHTML.strip()))
@@ -1864,7 +1891,7 @@ index 0000000..573a49f
 +    }
 +})
 +
-+
++                              
 +AutocompleteBehavior = Behavior.create({
 +    initialize : function() {
 +        var match     = this.element.className.match(/complete-on::([\S]+)/)
@@ -1875,17 +1902,18 @@ index 0000000..573a49f
 +        var spec = Hobo.parseModelSpec(typedId)
 +        var url = urlBase + "/" + Hobo.pluralise(spec.name) +  "/complete_" + completer
 +        var parameters = spec.id ? "id=" + spec.id : ""
-+        new Ajax.Autocompleter(this.element,
-+                               this.element.next('.completions-popup'),
-+                               url,
++        new Ajax.Autocompleter(this.element, 
++                               this.element.next('.completions-popup'), 
++                               url, 
 +                               {paramName:'query', method:'get', parameters: parameters});
 +    }
 +})
 +
 +
 +
++Event.addBehavior.reassignAfterAjax = true;
 +Event.addBehavior({
-+
++    
 +    'div.section-group' : function() {
 +        if (Prototype.Browser.IE) Hobo.fixSectionGroup(this);
 +    },
@@ -1900,7 +1928,7 @@ index 0000000..573a49f
 +        var paramName = this.getAttribute('name')
 +        var params = {}
 +        var remove = [ 'page' ]
-+	    if ($F(this) == '') {
++	    if ($F(this) == '') { 
 +            remove.push(paramName)
 +        } else {
 +            params[paramName] = $F(this)
@@ -1930,10 +1958,10 @@ index 0000000..573a49f
 +        if (Hobo.makeInPlaceHtmlEditor) {
 +            Hobo.makeInPlaceHtmlEditor(this)
 +        } else {
-+            var options = {
++            var options = { 
 +                rows: 2, handleLineBreaks: false, okButton: true, cancelLink: true, okText: "Save", submitOnBlur: false
 +            }
-+            var ipe = Hobo._makeInPlaceEditor(this, options)
++            var ipe = Hobo._makeInPlaceEditor(this, options) 
 +        }
 +    },
 +
@@ -1943,7 +1971,7 @@ index 0000000..573a49f
 +            Hobo.ajaxSetFieldForElement(el, $F(el))
 +        }
 +    },
-+
++                                            
 +    "input.live-search[type=search]" : function(e) {
 +        var element = this
 +        new Form.Element.Observer(element, 1.0, function() { Hobo.doSearch(element) })
@@ -1953,23 +1981,23 @@ index 0000000..573a49f
 +});
 +
 +ElementSet = Class.create(Enumerable, {
-+
++    
 +    initialize: function(array) {
 +        this.items = array
 +    },
-+
++    
 +    _each: function(fn) {
 +        return this.items.each(fn)
 +    },
-+
++    
 +    selectChildren: function(selector) {
 +        return new ElementSet(this.items.invoke('selectChildren', selector).pluck('items').flatten())
 +    },
-+
++    
 +    child: function(selector) {
 +        return this.selectChildren(selector).first()
 +    },
-+
++    
 +    select: function(selector) {
 +        return new ElementSet(this.items.invoke('select', selector).flatten())
 +    },
@@ -1981,11 +2009,11 @@ index 0000000..573a49f
 +        }
 +        return null
 +    },
-+
++    
 +    size: function() {
 +        return this.items.length
 +    },
-+
++    
 +    first: function() {
 +        return this.items.first()
 +    },
@@ -1993,7 +2021,7 @@ index 0000000..573a49f
 +    last: function() {
 +        return this.items.last()
 +    }
-+
++    
 +})
 +
 +Element.addMethods({
@@ -2001,9 +2029,18 @@ index 0000000..573a49f
 +        return new ElementSet(Selector.matchElements(element.childElements(), selector))
 +    }
 +})
+diff --git a/public/javascripts/ie7-recalc.js b/public/javascripts/ie7-recalc.js
+new file mode 100644
+index 0000000..f07c5a6
+--- /dev/null
++++ b/public/javascripts/ie7-recalc.js
+@@ -0,0 +1,2 @@
++/* IE7/IE8.js - copyright 2004-2008, Dean Edwards */
++(function(){if(!IE7.loaded)return;CLASSES=/\sie7_class\d+/g;IE7.CSS.extend({elements:{},handlers:[],reset:function(){this.removeEventHandlers();var a=this.elements;for(var b in a)a[b].runtimeStyle.cssText="";this.elements={};var a=IE7.Rule.elements;for(var b in a){with(a[b])className=className.replace(CLASSES,"")}IE7.Rule.elements={}},reload:function(){this.rules=[];this.getInlineStyles();this.screen.load();if(this.print)this.print.load();this.refresh();this.trash()},addRecalc:function(b,c,d,e){this.base(b,c,function(a){d(a);IE7.CSS.elements[a.uniqueID]=a},e)},recalc:function(){this.reset();this.base()},addEventHandler:function(a,b,c){a.attachEvent(b,c);this.handlers.push(arguments)},removeEventHandlers:function(){var a;while(a=this.handlers.pop()){a[0].detachEvent(a[1],a[2])}},getInlineStyles:function(){var a=document.getElementsByTagName("style"),b;for(var c=a.length-1;(b=a[c]);c--){if(!b.disabled&&!b.ie7){var d=b.cssText||b.innerHTML;this.styles.push(d);b.cssText=d}}},trash:function(){var a=document.styleSheets,b,c;for(c=0;c<a.length;c++){b=a[c];if(!b.ie7&&!b.cssText){b.cssText=b.cssText}}this.base()},getText:function(a){return a.cssText||this.base(a)}});IE7.CSS.addEventHandler(window,"onunload",function(){IE7.CSS.removeEventHandlers()});IE7.Rule.elements={};IE7.Rule.prototype.extend({add:function(a){this.base(a);IE7.Rule.elements[a.uniqueID]=a}});if(IE7.PseudoElement){IE7.PseudoElement.hash={};IE7.PseudoElement.prototype.extend({create:function(a){var b=this.selector+":"+a.uniqueID;if(!IE7.PseudoElement.hash[b]){IE7.PseudoElement.hash[b]=true;this.base(a)}}})}IE7.HTML.extend({elements:{},addRecalc:function(b,c){this.base(b,function(a){if(!this.elements[a.uniqueID]){c(a);this.elements[a.uniqueID]=a}})}});document.recalc=function(a){if(IE7.CSS.screen){if(a)IE7.CSS.reload();IE7.recalc()}}})();
+\ No newline at end of file
 diff --git a/public/javascripts/lowpro.js b/public/javascripts/lowpro.js
 new file mode 100644
-index 0000000..5e630d1
+index 0000000..f4a979b
 --- /dev/null
 +++ b/public/javascripts/lowpro.js
 @@ -0,0 +1,320 @@
@@ -2012,10 +2049,10 @@ index 0000000..5e630d1
 +LowPro.CompatibleWithPrototype = '1.6';
 +
 +if (Prototype.Version.indexOf(LowPro.CompatibleWithPrototype) != 0 && console && console.warn)
-+  console.warn("This version of Low Pro is tested with Prototype " + LowPro.CompatibleWithPrototype +
++  console.warn("This version of Low Pro is tested with Prototype " + LowPro.CompatibleWithPrototype + 
 +                  " it may not work as expected with this version (" + Prototype.Version + ")");
 +
-+if (!Element.addMethods)
++if (!Element.addMethods) 
 +  Element.addMethods = function(o) { Object.extend(Element.Methods, o) };
 +
 +// Simple utility methods for working with the DOM
@@ -2025,14 +2062,14 @@ index 0000000..5e630d1
 +DOM.Builder = {
 +	tagFunc : function(tag) {
 +	  return function() {
-+	    var attrs, children;
-+	    if (arguments.length>0) {
-+	      if (arguments[0].nodeName ||
-+	        typeof arguments[0] == "string")
-+	        children = arguments;
-+	      else {
-+	        attrs = arguments[0];
-+	        children = Array.prototype.slice.call(arguments, 1);
++	    var attrs, children; 
++	    if (arguments.length>0) { 
++	      if (arguments[0].nodeName || 
++	        typeof arguments[0] == "string") 
++	        children = arguments; 
++	      else { 
++	        attrs = arguments[0]; 
++	        children = Array.prototype.slice.call(arguments, 1); 
 +	      };
 +	    }
 +	    return DOM.Builder.create(tag, attrs, children);
@@ -2041,9 +2078,9 @@ index 0000000..5e630d1
 +	create : function(tag, attrs, children) {
 +		attrs = attrs || {}; children = children || []; tag = tag.toLowerCase();
 +		var el = new Element(tag, attrs);
-+
++	  
 +		for (var i=0; i<children.length; i++) {
-+			if (typeof children[i] == 'string')
++			if (typeof children[i] == 'string') 
 +			  children[i] = document.createTextNode(children[i]);
 +			el.appendChild(children[i]);
 +		}
@@ -2052,14 +2089,14 @@ index 0000000..5e630d1
 +};
 +
 +// Automatically create node builders as $tagName.
-+(function() {
-+	var els = ("p|div|span|strong|em|img|table|tr|td|th|thead|tbody|tfoot|pre|code|" +
-+				     "h1|h2|h3|h4|h5|h6|ul|ol|li|form|input|textarea|legend|fieldset|" +
++(function() { 
++	var els = ("p|div|span|strong|em|img|table|tr|td|th|thead|tbody|tfoot|pre|code|" + 
++				     "h1|h2|h3|h4|h5|h6|ul|ol|li|form|input|textarea|legend|fieldset|" + 
 +				     "select|option|blockquote|cite|br|hr|dd|dl|dt|address|a|button|abbr|acronym|" +
-+				     "script|link|style|bdo|ins|del|object|param|col|colgroup|optgroup|caption|" +
++				     "script|link|style|bdo|ins|del|object|param|col|colgroup|optgroup|caption|" + 
 +				     "label|dfn|kbd|samp|var").split("|");
 +  var el, i=0;
-+	while (el = els[i++])
++	while (el = els[i++]) 
 +	  window['$' + el] = DOM.Builder.tagFunc(el);
 +})();
 +
@@ -2101,28 +2138,28 @@ index 0000000..5e630d1
 +Event.addBehavior = function(rules) {
 +  var ab = this.addBehavior;
 +  Object.extend(ab.rules, rules);
-+
++  
 +  if (!ab.responderApplied) {
 +    Ajax.Responders.register({
-+      onComplete : function() {
-+        if (Event.addBehavior.reassignAfterAjax)
++      onComplete : function() { 
++        if (Event.addBehavior.reassignAfterAjax) 
 +          setTimeout(function() { ab.reload() }, 10);
 +      }
 +    });
 +    ab.responderApplied = true;
 +  }
-+
++  
 +  if (ab.autoTrigger) {
 +    this.onReady(ab.load.bind(ab, rules));
 +  }
-+
++  
 +};
 +
 +Object.extend(Event.addBehavior, {
 +  rules : {}, cache : [],
 +  reassignAfterAjax : false,
 +  autoTrigger : true,
-+
++  
 +  load : function(rules) {
 +    for (var selector in rules) {
 +      var observer = rules[selector];
@@ -2137,7 +2174,7 @@ index 0000000..5e630d1
 +          } else {
 +            if (!element.$$assigned || !element.$$assigned.include(observer)) {
 +              if (observer.attach) observer.attach(element);
-+
++              
 +              else observer.call($(element));
 +              element.$$assigned = element.$$assigned || [];
 +              element.$$assigned.push(observer);
@@ -2147,26 +2184,26 @@ index 0000000..5e630d1
 +      });
 +    }
 +  },
-+
++  
 +  unload : function() {
 +    this.cache.each(function(c) {
 +      Event.stopObserving.apply(Event, c);
 +    });
 +    this.cache = [];
 +  },
-+
++  
 +  reload: function() {
 +    var ab = Event.addBehavior;
-+    ab.unload();
++    ab.unload(); 
 +    ab.load(ab.rules);
 +  },
-+
++  
 +  _wrapObserver: function(observer) {
 +    return function(event) {
-+      if (observer.call(this, event) === false) event.stop();
++      if (observer.call(this, event) === false) event.stop(); 
 +    }
 +  }
-+
++  
 +});
 +
 +Event.observe(window, 'unload', Event.addBehavior.unload.bind(Event.addBehavior));
@@ -2178,15 +2215,15 @@ index 0000000..5e630d1
 +// and their behavior.  Use Behavior.create() to make a new behavior class then use attach() to
 +// glue it to an element.  Each element then gets it's own instance of the behavior and any
 +// methods called onxxx are bound to the relevent event.
-+//
++// 
 +// Usage:
-+//
++// 
 +// var MyBehavior = Behavior.create({
-+//   onmouseover : function() { this.element.addClassName('bong') }
++//   onmouseover : function() { this.element.addClassName('bong') } 
 +// });
 +//
 +// Event.addBehavior({ 'a.rollover' : MyBehavior });
-+//
++// 
 +// If you need to pass additional values to initialize use:
 +//
 +// Event.addBehavior({ 'a.rollover' : MyBehavior(10, { thing : 15 }) })
@@ -2206,7 +2243,7 @@ index 0000000..5e630d1
 +    if (Object.isFunction(properties[0]))
 +      parent = properties.shift();
 +
-+      var behavior = function() {
++      var behavior = function() { 
 +        var behavior = arguments.callee;
 +        if (!this.initialize) {
 +          var args = $A(arguments);
@@ -2216,7 +2253,7 @@ index 0000000..5e630d1
 +            behavior.attach.apply(behavior, initArgs);
 +          };
 +        } else {
-+          var args = (arguments.length == 2 && arguments[1] instanceof Array) ?
++          var args = (arguments.length == 2 && arguments[1] instanceof Array) ? 
 +                      arguments[1] : Array.prototype.slice.call(arguments, 1);
 +
 +          this.element = $(arguments[0]);
@@ -2292,8 +2329,8 @@ index 0000000..5e630d1
 +Remote.Form = Behavior.create(Remote.Base, {
 +  onclick : function(e) {
 +    var sourceElement = e.element();
-+
-+    if (['input', 'button'].include(sourceElement.nodeName.toLowerCase()) &&
++    
++    if (['input', 'button'].include(sourceElement.nodeName.toLowerCase()) && 
 +        sourceElement.type == 'submit')
 +      this._submitButton = sourceElement;
 +  },
@@ -2329,10 +2366,10 @@ index 0000000..5e630d1
 +
 diff --git a/public/stylesheets/hobo-rapid.css b/public/stylesheets/hobo-rapid.css
 new file mode 100644
-index 0000000..95c2bd9
+index 0000000..e00c028
 --- /dev/null
 +++ b/public/stylesheets/hobo-rapid.css
-@@ -0,0 +1,93 @@
+@@ -0,0 +1,94 @@
 +/**** Default styling for Rapid ****/
 +
 +#ajax_progress {
@@ -2367,6 +2404,7 @@ index 0000000..95c2bd9
 +    border:1px solid #888;
 +    margin:0px;
 +    padding:0px;
++    z-index:100;
 +}
 +div.completions_popup ul {
 +    list-style-type:none;
@@ -2428,7 +2466,7 @@ index 0000000..95c2bd9
 +}
 diff --git a/public/stylesheets/reset.css b/public/stylesheets/reset.css
 new file mode 100644
-index 0000000..68651b9
+index 0000000..19baad6
 --- /dev/null
 +++ b/public/stylesheets/reset.css
 @@ -0,0 +1,95 @@
@@ -2462,7 +2500,7 @@ index 0000000..68651b9
 +	font-weight: inherit;
 +	font-style: inherit;
 +	font-size: 100%;
-+	vertical-align: baseline;
++	vertical-align: baseline;    
 +}
 +
 +em {

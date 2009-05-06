@@ -12,7 +12,7 @@ SHOW_PATCH
 
 
 diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
-index 312ad1f..a4565b9 100644
+index b1a397f..670c62e 100644
 --- a/app/views/front/index.dryml
 +++ b/app/views/front/index.dryml
 @@ -15,7 +15,7 @@
@@ -23,4 +23,4 @@ index 312ad1f..a4565b9 100644
 +      <collection:projects with="&current_user"><card without-creator-link/></collection>
      </section>
    </content:>
- 
+   
