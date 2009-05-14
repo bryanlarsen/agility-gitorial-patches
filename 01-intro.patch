@@ -47,15 +47,17 @@ On the other hand, if you see something that looks like code but has a
 commands that you can type into your command terminal.
 
 If you are a little bit lazy and have `git` installed, you can use git
-to follow along.   People who aren't lazy can skip the rest of this
-section and jump the the [next chapter](#blank-rails-template)
+to follow along and avoid having to type everything in this tutorial.
+We think that you will get more out of this tutorial if you do type
+everything, so those of you who aren't lazy should skip the rest of
+this section and jump the the [next chapter](#blank-rails-template)
 
 ### Using patch
 
 The patches we have displayed are simplified for on-screen viewing.
-However, there is a link beside each entry (TBD FIXME) you can click
-on to download the raw patch.  To apply the raw patch from your
-project's root directory:
+However, there is a link beside each entry you can click on to
+download the raw patch.  To apply the raw patch from your project's
+root directory:
 
     patch -p1 < patch-file
 
@@ -81,7 +83,6 @@ To keep the gitorial clean, updates to the gitorial **rewrite
 history**.  That means that you cannot `git pull`.  If you wish to
 update to a later version, you must `git clone` the repository again
 and move any changes you have made from your old clone to the new one.
-
 
 ### Using stacked git
 

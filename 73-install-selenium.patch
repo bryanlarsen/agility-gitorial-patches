@@ -18,7 +18,7 @@ We've forked selenium-on-rails to add a couple of helper functions.  Install our
 
 
 diff --git a/.gitmodules b/.gitmodules
-index cf8c80d..8eb0a3e 100644
+index 686818e..cdaf2ed 100644
 --- a/.gitmodules
 +++ b/.gitmodules
 @@ -4,3 +4,6 @@
