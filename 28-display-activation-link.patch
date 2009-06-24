@@ -12,24 +12,26 @@ to production!
 SHOW_PATCH
 ---
 
- app/controllers/users_controller.rb |    9 +++++++++
- 1 files changed, 9 insertions(+), 0 deletions(-)
+ app/controllers/users_controller.rb |   11 +++++++++++
+ 1 files changed, 11 insertions(+), 0 deletions(-)
 
 
 diff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb
-index 13d3869..c492518 100644
+index 13d3869..4839bd0 100644
 --- a/app/controllers/users_controller.rb
 +++ b/app/controllers/users_controller.rb
-@@ -4,4 +4,13 @@ class UsersController < ApplicationController
+@@ -4,4 +4,15 @@ class UsersController < ApplicationController
  
    auto_actions :all, :except => [ :index, :new, :create ]
  
 +  def do_signup
 +    hobo_do_signup do
-+      secret_path = user_activate_path :id=>this.id, :key => this.lifecycle.key
-+      # FIXME: remove this line after you get email working reliably
-+      # and before your application leaves its sandbox...
-+      flash[:notice] << " The 'secret' link that was just emailed was: <a href='#{secret_path}' id='activation-link'>#{secret_path}</a>."
++      if errors.blank?
++        secret_path = user_activate_path :id=>this.id, :key => this.lifecycle.key
++        # FIXME: remove this line after you get email working reliably
++        # and before your application leaves its sandbox...
++        flash[:notice] << " The 'secret' link that was just emailed was: <a href='#{secret_path}' id='activation-link'>#{secret_path}</a>."
++      end
 +    end
 +  end
 +  

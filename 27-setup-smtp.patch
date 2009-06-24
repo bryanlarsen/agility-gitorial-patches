@@ -11,18 +11,21 @@ you have a mail server available:
 SHOW_PATCH
 ---
 
- config/environment.rb |   10 ++++++++++
- 1 files changed, 10 insertions(+), 0 deletions(-)
+ config/environment.rb |   12 +++++++++++-
+ 1 files changed, 11 insertions(+), 1 deletions(-)
 
 
 diff --git a/config/environment.rb b/config/environment.rb
-index 76d8bb3..aff6c32 100644
+index f95dfb7..d231893 100644
 --- a/config/environment.rb
 +++ b/config/environment.rb
-@@ -41,3 +41,13 @@ Rails::Initializer.run do |config|
+@@ -40,4 +40,14 @@ Rails::Initializer.run do |config|
+   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
    # config.i18n.default_locale = :de
- end
+-end
+\ No newline at end of file
++end
 +
 +#ActionMailer::Base.delivery_method = :smtp
 +#ActionMailer::Base.smtp_settings = {

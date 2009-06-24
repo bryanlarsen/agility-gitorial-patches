@@ -42,7 +42,7 @@ edit`.
 
 Once you have completed the gitorial, you can export any changes:
 
-    stg export -n -d ..
+    stg export -n -epatch -d ..
 
 Please send your changes to [me](mailto:bryan@larsen.st) so I can
 update the gitorial for everybody!

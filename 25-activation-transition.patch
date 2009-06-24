@@ -18,11 +18,11 @@ SHOW_PATCH
 
 
 diff --git a/app/models/user.rb b/app/models/user.rb
-index 8a219cd..e4745b2 100644
+index c8c4659..98e8eba 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
 @@ -29,6 +29,8 @@ class User < ActiveRecord::Base
-       UserMailer.deliver_activation(self, lifecycle.key)
+       UserMailer.deliver_activation(self, lifecycle.key) if user.blank?
      end
  
 +    transition :activate, { :inactive => :active }, :available_to => :key_holder

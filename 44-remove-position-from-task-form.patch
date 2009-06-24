@@ -14,7 +14,7 @@ SHOW_PATCH
 
 
 diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
-index 3d515db..f40c604 100644
+index 437cdba..e2bc28c 100644
 --- a/app/views/taglibs/application.dryml
 +++ b/app/views/taglibs/application.dryml
 @@ -16,4 +16,10 @@

@@ -1,0 +1,35 @@
+gitignore
+
+From: Bryan Larsen <bryan@larsen.st>
+
+OUTPUT_FILE: agility.markdown
+
+### Housekeeping
+
+Because this is a gitorial, we will sometimes have to create steps
+that you can ignore.  In this case, we're creating a .gitignore file to
+make our life easier.  If you're using git you probably want one.  Otherwise, this file
+is unnecessary.
+---
+
+ .gitignore |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
+ create mode 100644 .gitignore
+
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..09aa993
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,10 @@
++tmp/*
++log/*.log
++db/*.sqlite3
++app/views/taglibs/auto
++db/data.yml
++patches-*/*
++.stgit-edit.txt
++vendor/plugins/hobo/*
++vendor/plugins/acts_as_list/*
++vendor/plugins/selenium-on-rails/*

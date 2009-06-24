@@ -29,12 +29,12 @@ The `<extend>` tag is used to extend any tag that's already defined. The body of
 
 
 diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
-index 07f9ca2..3d515db 100644
+index 92c7ebe..437cdba 100644
 --- a/app/views/taglibs/application.dryml
 +++ b/app/views/taglibs/application.dryml
 @@ -8,4 +8,12 @@
  
- <def tag="app-name">Agility Gitorial</def>
+ <def tag="app-name">Agility</def>
  
 -
 +<extend tag="card" for="Task">

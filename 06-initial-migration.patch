@@ -2,6 +2,8 @@ initial-migration
 
 From: Bryan Larsen <bryan@larsen.st>
 
+OUTPUT_FILE: agility.markdown
+
 ## Run the app
 
 With Hobo, you get a bare-bones application immediately. Let's create the database and then run the app. We first need to use the migration generator to create the basic database:

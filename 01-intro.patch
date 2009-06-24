@@ -2,6 +2,8 @@ intro
 
 From: Bryan Larsen <bryan@larsen.st>
 
+OUTPUT_FILE: agility.markdown
+
 The Agility Tutorial - A simple story manager
 {: .document-title}
 
@@ -31,9 +33,17 @@ For more info on Hobo please see [hobocentral.net](http://hobocentral.net)
 
 ## This is a gitorial
 
-This is a 'gitorial', a tutorial made with git.  However, we highly
-recommend that you treat this as you would any other tutorial.  The
-more that you put into the tutorial, the more you will get out of it.
+This is a 'gitorial', a tutorial made with [git](http://git-scm.org).
+However, we highly recommend that you treat this as you would any
+other tutorial.  The more that you put into the tutorial, the more you
+will get out of it.  If you wish to use 'git' to follow along, see the
+[sidebar](gitorial).  Using git will allow you to skip ahead
+in the tutorial and to use git to double check your code for errors.
+We do not recommend learning git and Hobo simultaneously, though.
+
+[sidebar: using git with the tutorial](gitorial)
+
+### How code is displayed in this tutorial
 
 Code changes in this gitorial are displayed in a modified *patch*
 format.  When you see one of these, they indicate how you should
@@ -45,60 +55,6 @@ left hand column and are coloured red.
 On the other hand, if you see something that looks like code but has a
 "$" in the left hand column -- those aren't patches!  Those are
 commands that you can type into your command terminal.
-
-If you are a little bit lazy and have `git` installed, you can use git
-to follow along and avoid having to type everything in this tutorial.
-We think that you will get more out of this tutorial if you do type
-everything, so those of you who aren't lazy should skip the rest of
-this section and jump the the [next chapter](#blank-rails-template)
-
-### Using patch
-
-The patches we have displayed are simplified for on-screen viewing.
-However, there is a link beside each entry you can click on to
-download the raw patch.  To apply the raw patch from your project's
-root directory:
-
-    patch -p1 < patch-file
-
-### Using git checkout
-
-If you use git to follow the gitorial, you will not be able to make
-any modifications to your project -- they will be overwritten every
-time you switch to the next step.   Using git is a great way to look
-at a small section of the gitorial.
-
-Check out the [application from
-github](http://github.com/bryanlarsen/agility-gitorial/tree/master):
-
-    $ git clone git://github.com/bryanlarsen/agility-gitorial.git
-    $ cd agility-gitorial
-    $ git submodule update --init
-
-Then you can switch to any point in the tutorial:
-
-    $ git checkout -b gitorial-001
-
-To keep the gitorial clean, updates to the gitorial **rewrite
-history**.  That means that you cannot `git pull`.  If you wish to
-update to a later version, you must `git clone` the repository again
-and move any changes you have made from your old clone to the new one.
-
-### Using stacked git
-
-We used [Stacked Git](http://www.procode.org/stgit/) to develop this
-gitorial.  It's a great tool to follow this gitorial.
-
-Instructions for using stacked git with this gitorial are in the
-README in our [source
-repository](http://github.com/bryanlarsen/agility-gitorial-patches/tree/master).
-
-### Using our test version of agility
-
-There is a [version of
-agility](http://github.com/tablatom/agility/tree/master) that is not
-in gitorial format.  This tree is mainly used for integration testing
-Hobo.
 ---
 
  README |   23 +++++++++++++++++++++++
