@@ -12,7 +12,7 @@ Some things to note:
 
  - The `<form>` tag has `update="members"`. The presence of this attribute turns the form into an ajax form. Submitting the form will cause the "members" part to be updated.
 
- - The `<name-one>` tag creates an input field for the user association with auto-completion. The `complete-target` and `completer` attributes are used to determine the URL of the completer action.
+ - The `<name-one>` tag creates an input field for the user association with auto-completion.
 ---
 
  app/views/projects/show.dryml |   13 +++++++++++++
@@ -20,7 +20,7 @@ Some things to note:
 
 
 diff --git a/app/views/projects/show.dryml b/app/views/projects/show.dryml
-index 2e397ff..62cdb26 100644
+index 2e397ff..85d9355 100644
 --- a/app/views/projects/show.dryml
 +++ b/app/views/projects/show.dryml
 @@ -9,4 +9,17 @@
@@ -35,7 +35,7 @@ index 2e397ff..62cdb26 100644
 +    <form:memberships.new update="members" reset-form refocus-form>
 +      <div>
 +        Add a member:
-+        <name-one:user complete-target="&@project" completer="new_member_name"/>
++        <name-one:user/>
 +      </div>
 +    </form>
 +  </aside:>

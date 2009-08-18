@@ -14,7 +14,7 @@ SHOW_PATCH
 
 
 diff --git a/app/views/projects/show.dryml b/app/views/projects/show.dryml
-index 62cdb26..16ad0f3 100644
+index 85d9355..d15c65e 100644
 --- a/app/views/projects/show.dryml
 +++ b/app/views/projects/show.dryml
 @@ -12,7 +12,7 @@

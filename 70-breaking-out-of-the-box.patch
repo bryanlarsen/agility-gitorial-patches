@@ -1,0 +1,100 @@
+breaking-out-of-the-box
+
+From: Bryan Larsen <bryan@larsen.st>
+
+# Breaking out of the Box
+
+Up until now, we've highlighted cool features of Hobo, and made
+everything look easy.  You can't blame us, can you?
+
+Hobo makes the first 90% of your application really easy, but we
+cannot anticipate everything.  That last 10% is what makes your
+application special, and cannot be included in any toolkit.
+
+Most rapid application generators put you inside a box -- if you stay
+inside the box, everything is easy.  Some won't let you break out of
+the box, and others make it very difficult.
+
+With Hobo there is no box.  More and more customization is required the
+further you stray away from what has been anticipated, but the border
+is not sharp.
+
+In essence, Hobo and DRYML support five different ways of customizing
+a widget, page or action.
+
+## Parametrization
+
+Most of what you have seen so far in this tutorial has been
+parametrization.  In DRYML you can set the attributes or parameters of
+a tag you invoke, in Ruby you can change the parameters to functions
+you invoke.
+
+## Extension
+
+In DRYML, there is a tag called
+[extend](/manual/dryml-guide#customising_and_extending_tags).  Extend
+allows you to redefine an existing tag while reusing the existing
+definition.  This allows you to add to the tag or change its default
+parametrization.
+
+You saw an example of extension in DRYML in [Customizing
+Views](#customising_views).
+
+## Redefinition
+
+The next level of customization is to redefine a tag or function.
+`app/views/taglibs/application.dryml` gets loaded after the RAPID
+library and the auto-generated DRYML, so if you redefine a tag, your
+definition will be used instead of the library definition.
+
+Perhaps the first thing that many developers customize is the
+navigation bar.  In our little tutorial, we want to remove the "Story
+Status" tab.
+
+The nice thing about redefining a tag is that you can use the existing
+definition for a little bit of cut and paste.  Cutting and pasting is
+generally frowned upon -- DRYML includes "don't repeat yourself",
+after all, but sometimes we do it anyways.  In our case, we'll be
+cutting and pasting from the top of `view/taglibs/auto/rapid/pages.dryml`.
+
+SHOW_PATCH
+
+You will notice that we've removed the StoryStatus line.  We've also
+removed the "param" attributes.  Nobody is going to be parameterzing
+our redefinition, so let's make it a little simpler.
+
+## Defining new tags
+
+Creating new tags is outside of the scope of this tutorial.  Creating
+new tags lets you avoid cutting and pasting, and lets you reuse your
+code throughout your project and into other projects.  For more
+information on DRYML, see the [manual](/manual).
+
+## Replacement
+
+When you want to do something completely different, you can completely
+bypass the existing tags.   `app/views/projects/show.dryml` can
+contain raw HTML with little or no DRYML.  You can also bypass DRYML
+and create `app/views/projects/show.html.erb` and use standard Ruby on
+Rails techniques.  Hobo models and controllers follow standard Rails
+conventions, so completely custom views can be used without defining
+custom controllers and models or vice versa.
+---
+
+ app/views/taglibs/application.dryml |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
+index 5681328..a27de14 100644
+--- a/app/views/taglibs/application.dryml
++++ b/app/views/taglibs/application.dryml
+@@ -33,3 +33,8 @@
+   </old-card>
+ </extend>
+ 
++<def tag="main-nav">
++  <navigation class="main-nav" merge-attrs>
++    <nav-item href="#{base_url}/">Home</nav-item>
++  </navigation>
++</def>

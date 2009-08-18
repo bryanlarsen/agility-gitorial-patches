@@ -3,6 +3,8 @@ filtering-stories-by-status-css
 From: Bryan Larsen <bryan@larsen.st>
 
 To make the filter look right, add this to `public/stylesheets/application.css`
+
+SHOW_PATCH
 ---
 
  public/stylesheets/application.css |    2 ++
