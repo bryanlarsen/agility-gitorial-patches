@@ -28,13 +28,10 @@ And a helper method that might come in handy when implementing your permission m
 
  app/models/project.rb                              |   10 +++++++++-
  app/models/project_membership.rb                   |    1 +
- app/models/story.rb                                |    6 +++---
- app/models/task.rb                                 |    6 +++---
- app/models/task_assignment.rb                      |    8 ++++----
  app/views/taglibs/application.dryml                |   12 +++++++++++-
  .../20090501142707_hobo_migration_contributors.rb  |    9 +++++++++
  db/schema.rb                                       |    5 +++--
- 8 files changed, 43 insertions(+), 14 deletions(-)
+ 5 files changed, 33 insertions(+), 4 deletions(-)
  create mode 100644 db/migrate/20090501142707_hobo_migration_contributors.rb
 
 
@@ -78,80 +75,6 @@ index b7cc12e..33c2285 100644
      timestamps
    end
  
-diff --git a/app/models/story.rb b/app/models/story.rb
-index e2967b0..ccbc04b 100644
---- a/app/models/story.rb
-+++ b/app/models/story.rb
-@@ -16,15 +16,15 @@ class Story < ActiveRecord::Base
-   # --- Permissions --- #
- 
-   def create_permitted?
--    acting_user.administrator?
-+    project.creatable_by?(acting_user)
-   end
- 
-   def update_permitted?
--    acting_user.signed_up? && !project_changed?
-+    project.updatable_by?(acting_user)
-   end
- 
-   def destroy_permitted?
--    acting_user.administrator?
-+    project.destroyable_by?(acting_user)
-   end
- 
-   def view_permitted?(field)
-diff --git a/app/models/task.rb b/app/models/task.rb
-index 90dcc69..da06ef0 100644
---- a/app/models/task.rb
-+++ b/app/models/task.rb
-@@ -17,15 +17,15 @@ class Task < ActiveRecord::Base
-   # --- Permissions --- #
- 
-   def create_permitted?
--    acting_user.administrator?
-+    story.creatable_by?(acting_user)
-   end
- 
-   def update_permitted?
--    acting_user.signed_up? && !story_changed?
-+    story.updatable_by?(acting_user)
-   end
- 
-   def destroy_permitted?
--    acting_user.administrator?
-+    story.destroyable_by?(acting_user)
-   end
- 
-   def view_permitted?(field)
-diff --git a/app/models/task_assignment.rb b/app/models/task_assignment.rb
-index b420c68..8f11a46 100644
---- a/app/models/task_assignment.rb
-+++ b/app/models/task_assignment.rb
-@@ -12,19 +12,19 @@ class TaskAssignment < ActiveRecord::Base
-   # --- Permissions --- #
- 
-   def create_permitted?
--    acting_user.administrator?
-+    task.creatable_by?(acting_user)
-   end
- 
-   def update_permitted?
--    acting_user.administrator?
-+    task.updatable_by?(acting_user)
-   end
- 
-   def destroy_permitted?
--    acting_user.administrator?
-+    task.destroyable_by?(acting_user)
-   end
- 
-   def view_permitted?(field)
--    true
-+    task.viewable_by?(acting_user)
-   end
- 
- end
 diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
 index e2bc28c..5681328 100644
 --- a/app/views/taglibs/application.dryml

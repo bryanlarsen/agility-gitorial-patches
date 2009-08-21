@@ -29,7 +29,7 @@ index 53abe22..be59f11 100644
  
  end
 diff --git a/app/models/story.rb b/app/models/story.rb
-index c10f68b..e2967b0 100644
+index 5843828..ccbc04b 100644
 --- a/app/models/story.rb
 +++ b/app/models/story.rb
 @@ -28,7 +28,7 @@ class Story < ActiveRecord::Base
@@ -42,7 +42,7 @@ index c10f68b..e2967b0 100644
  
  end
 diff --git a/app/models/task.rb b/app/models/task.rb
-index edcf700..90dcc69 100644
+index 3d41bcd..da06ef0 100644
 --- a/app/models/task.rb
 +++ b/app/models/task.rb
 @@ -29,7 +29,7 @@ class Task < ActiveRecord::Base

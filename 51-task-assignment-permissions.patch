@@ -1,0 +1,91 @@
+task-assignment-permissions
+
+From: Bryan Larsen <bryan@larsen.st>
+
+The stories, tasks and task assignments associated with the project
+need permissions similar to that of their containing project.  Let's
+set their permission to check their containing project:
+
+SHOW_PATCH
+---
+
+ app/models/story.rb           |    6 +++---
+ app/models/task.rb            |    6 +++---
+ app/models/task_assignment.rb |    8 ++++----
+ 3 files changed, 10 insertions(+), 10 deletions(-)
+
+
+diff --git a/app/models/story.rb b/app/models/story.rb
+index c10f68b..5843828 100644
+--- a/app/models/story.rb
++++ b/app/models/story.rb
+@@ -16,15 +16,15 @@ class Story < ActiveRecord::Base
+   # --- Permissions --- #
+ 
+   def create_permitted?
+-    acting_user.administrator?
++    project.creatable_by?(acting_user)
+   end
+ 
+   def update_permitted?
+-    acting_user.signed_up? && !project_changed?
++    project.updatable_by?(acting_user)
+   end
+ 
+   def destroy_permitted?
+-    acting_user.administrator?
++    project.destroyable_by?(acting_user)
+   end
+ 
+   def view_permitted?(field)
+diff --git a/app/models/task.rb b/app/models/task.rb
+index edcf700..3d41bcd 100644
+--- a/app/models/task.rb
++++ b/app/models/task.rb
+@@ -17,15 +17,15 @@ class Task < ActiveRecord::Base
+   # --- Permissions --- #
+ 
+   def create_permitted?
+-    acting_user.administrator?
++    story.creatable_by?(acting_user)
+   end
+ 
+   def update_permitted?
+-    acting_user.signed_up? && !story_changed?
++    story.updatable_by?(acting_user)
+   end
+ 
+   def destroy_permitted?
+-    acting_user.administrator?
++    story.destroyable_by?(acting_user)
+   end
+ 
+   def view_permitted?(field)
+diff --git a/app/models/task_assignment.rb b/app/models/task_assignment.rb
+index b420c68..8f11a46 100644
+--- a/app/models/task_assignment.rb
++++ b/app/models/task_assignment.rb
+@@ -12,19 +12,19 @@ class TaskAssignment < ActiveRecord::Base
+   # --- Permissions --- #
+ 
+   def create_permitted?
+-    acting_user.administrator?
++    task.creatable_by?(acting_user)
+   end
+ 
+   def update_permitted?
+-    acting_user.administrator?
++    task.updatable_by?(acting_user)
+   end
+ 
+   def destroy_permitted?
+-    acting_user.administrator?
++    task.destroyable_by?(acting_user)
+   end
+ 
+   def view_permitted?(field)
+-    true
++    task.viewable_by?(acting_user)
+   end
+ 
+ end
