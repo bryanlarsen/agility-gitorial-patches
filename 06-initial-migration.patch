@@ -19,20 +19,20 @@ Respond to the prompt with `m` and then give the migration a name. Then:
 You should be able to sign up. In the next section we'll be starting to flesh out the basics of the app.
 ---
 
- .../20090415014217_hobo_migration_initial_users.rb |   21 +++++++++++++++
- db/schema.rb                                       |   28 ++++++++++++++++++++
- 2 files changed, 49 insertions(+), 0 deletions(-)
- create mode 100644 db/migrate/20090415014217_hobo_migration_initial_users.rb
+ db/migrate/20091116224812_initial_migration.rb |   22 ++++++++++++++++++
+ db/schema.rb                                   |   30 ++++++++++++++++++++++++
+ 2 files changed, 52 insertions(+), 0 deletions(-)
+ create mode 100644 db/migrate/20091116224812_initial_migration.rb
  create mode 100644 db/schema.rb
 
 
-diff --git a/db/migrate/20090415014217_hobo_migration_initial_users.rb b/db/migrate/20090415014217_hobo_migration_initial_users.rb
+diff --git a/db/migrate/20091116224812_initial_migration.rb b/db/migrate/20091116224812_initial_migration.rb
 new file mode 100644
-index 0000000..3f919c9
+index 0000000..2dc45a5
 --- /dev/null
-+++ b/db/migrate/20090415014217_hobo_migration_initial_users.rb
-@@ -0,0 +1,21 @@
-+class HoboMigrationInitialUsers < ActiveRecord::Migration
++++ b/db/migrate/20091116224812_initial_migration.rb
+@@ -0,0 +1,22 @@
++class InitialMigration < ActiveRecord::Migration
 +  def self.up
 +    create_table :users do |t|
 +      t.string   :crypted_password, :limit => 40
@@ -47,6 +47,7 @@ index 0000000..3f919c9
 +      t.string   :state, :default => "active"
 +      t.datetime :key_timestamp
 +    end
++    add_index :users, [:state]
 +  end
 +
 +  def self.down
@@ -55,11 +56,11 @@ index 0000000..3f919c9
 +end
 diff --git a/db/schema.rb b/db/schema.rb
 new file mode 100644
-index 0000000..dbb428f
+index 0000000..d406440
 --- /dev/null
 +++ b/db/schema.rb
-@@ -0,0 +1,28 @@
-+# This file is auto-generated from the current state of the database. Instead of editing this file,
+@@ -0,0 +1,30 @@
++# This file is auto-generated from the current state of the database. Instead of editing this file, 
 +# please use the migrations feature of Active Record to incrementally modify your database, and
 +# then regenerate this schema definition.
 +#
@@ -70,7 +71,7 @@ index 0000000..dbb428f
 +#
 +# It's strongly recommended to check this file into your version control system.
 +
-+ActiveRecord::Schema.define(:version => 20090415014217) do
++ActiveRecord::Schema.define(:version => 20091116224812) do
 +
 +  create_table "users", :force => true do |t|
 +    t.string   "crypted_password",          :limit => 40
@@ -85,5 +86,7 @@ index 0000000..dbb428f
 +    t.string   "state",                                   :default => "active"
 +    t.datetime "key_timestamp"
 +  end
++
++  add_index "users", ["state"], :name => "index_users_on_state"
 +
 +end

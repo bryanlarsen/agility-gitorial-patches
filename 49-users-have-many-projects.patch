@@ -12,10 +12,10 @@ SHOW_PATCH
 
 
 diff --git a/app/models/user.rb b/app/models/user.rb
-index 98e8eba..661a41d 100644
+index e6894e1..d2bf0ed 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
-@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
+@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
  
    has_many :task_assignments, :dependent => :destroy
    has_many :tasks, :through => :task_assignments

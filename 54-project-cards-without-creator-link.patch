@@ -12,10 +12,10 @@ SHOW_PATCH
 
 
 diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
-index b1a397f..670c62e 100644
+index c9fcfd1..d914e8c 100644
 --- a/app/views/front/index.dryml
 +++ b/app/views/front/index.dryml
-@@ -15,7 +15,7 @@
+@@ -24,7 +24,7 @@
  
      <section class="content-body" if="&logged_in?">
        <h3>Your Projects</h3>

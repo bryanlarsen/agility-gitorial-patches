@@ -24,78 +24,86 @@ The `hobo` command is like the Rails command, it will create a new blank Rails a
 If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-plugin).
 ---
 
- app/controllers/application_controller.rb        |   10 
- app/controllers/front_controller.rb              |   13 
- app/controllers/users_controller.rb              |    7 
- app/helpers/application_helper.rb                |    3 
- app/helpers/front_helper.rb                      |    2 
- app/helpers/users_helper.rb                      |    2 
- app/models/guest.rb                              |    7 
- app/models/user.rb                               |   57 
- app/models/user_mailer.rb                        |   14 
- app/views/front/index.dryml                      |   20 
- app/views/taglibs/application.dryml              |   11 
- app/views/taglibs/themes/clean/clean.dryml       |   10 
- app/views/user_mailer/forgot_password.erb        |   10 
- config/boot.rb                                   |  110 +
- config/database.yml                              |   22 
- config/environment.rb                            |   43 
- config/environments/development.rb               |   17 
- config/environments/production.rb                |   28 
- config/environments/test.rb                      |   28 
- config/initializers/backtrace_silencers.rb       |    7 
- config/initializers/hobo.rb                      |    1 
- config/initializers/inflections.rb               |   10 
- config/initializers/mime_types.rb                |    5 
- config/initializers/new_rails_defaults.rb        |   19 
- config/initializers/session_store.rb             |   15 
- config/locales/en.yml                            |    5 
- config/routes.rb                                 |   49 
- doc/README_FOR_APP                               |    2 
- public/404.html                                  |   30 
- public/422.html                                  |   30 
- public/500.html                                  |   30 
- public/favicon.ico                               |    0 
- public/hobothemes/clean/images/fieldbg.gif       |  Bin
- public/hobothemes/clean/images/pencil.png        |  Bin
- public/hobothemes/clean/images/small_close.png   |  Bin
- public/hobothemes/clean/images/spinner.gif       |  Bin
- public/hobothemes/clean/stylesheets/clean.css    |  325 ++
- public/hobothemes/clean/stylesheets/rapid-ui.css |   95 
- public/images/rails.png                          |  Bin
- public/index.html                                |  275 +
- public/javascripts/IE7.js                        |    2 
- public/javascripts/application.js                |    2 
- public/javascripts/blank.gif                     |  Bin
- public/javascripts/controls.js                   |  963 +++++
- public/javascripts/dragdrop.js                   |  973 +++++
- public/javascripts/dryml-support.js              |  132 +
- public/javascripts/effects.js                    | 1128 ++++++
- public/javascripts/hobo-rapid.js                 |  848 ++++
- public/javascripts/ie7-recalc.js                 |    2 
- public/javascripts/lowpro.js                     |  320 ++
- public/javascripts/prototype.js                  | 4320 ++++++++++++++++++++++
- public/robots.txt                                |    5 
- public/stylesheets/application.css               |    0 
- public/stylesheets/hobo-rapid.css                |   94 
- public/stylesheets/reset.css                     |   95 
- script/about                                     |    4 
- script/console                                   |    3 
- script/dbconsole                                 |    3 
- script/destroy                                   |    3 
- script/generate                                  |    3 
- script/performance/benchmarker                   |    3 
- script/performance/profiler                      |    3 
- script/plugin                                    |    3 
- script/runner                                    |    3 
- script/server                                    |    3 
- test/fixtures/users.yml                          |    7 
- test/functional/front_controller_test.rb         |    8 
- test/functional/users_controller_test.rb         |    8 
- test/performance/browsing_test.rb                |    9 
- test/test_helper.rb                              |   38 
- test/unit/user_test.rb                           |    8 
- 71 files changed, 10305 insertions(+), 0 deletions(-)
+ Rakefile                                           |   12 
+ app/controllers/application_controller.rb          |   10 
+ app/controllers/front_controller.rb                |   19 
+ app/controllers/users_controller.rb                |    7 
+ app/helpers/application_helper.rb                  |    3 
+ app/helpers/front_helper.rb                        |    2 
+ app/helpers/users_helper.rb                        |    2 
+ app/models/guest.rb                                |    7 
+ app/models/user.rb                                 |   61 
+ app/models/user_mailer.rb                          |   14 
+ app/views/front/index.dryml                        |   29 
+ app/views/front/summary.dryml                      |  103 
+ app/views/taglibs/application.dryml                |   11 
+ app/views/taglibs/themes/clean/clean.dryml         |   10 
+ app/views/user_mailer/forgot_password.erb          |   10 
+ config/boot.rb                                     |  110 +
+ config/database.yml                                |   22 
+ config/environment.rb                              |   43 
+ config/environments/development.rb                 |   17 
+ config/environments/production.rb                  |   28 
+ config/environments/test.rb                        |   28 
+ config/initializers/backtrace_silencers.rb         |    7 
+ config/initializers/hobo.rb                        |    1 
+ config/initializers/inflections.rb                 |   10 
+ config/initializers/mime_types.rb                  |    5 
+ config/initializers/new_rails_defaults.rb          |   21 
+ config/initializers/session_store.rb               |   15 
+ config/locales/en.yml                              |    5 
+ config/routes.rb                                   |   49 
+ doc/README_FOR_APP                                 |    2 
+ public/404.html                                    |   30 
+ public/422.html                                    |   30 
+ public/500.html                                    |   30 
+ public/favicon.ico                                 |    0 
+ .../hobothemes/clean/images/101-3B5F87-ACD3E6.png  |  Bin
+ .../hobothemes/clean/images/30-3E547A-242E42.png   |  Bin
+ .../hobothemes/clean/images/30-DBE1E5-FCFEF5.png   |  Bin
+ public/hobothemes/clean/images/300-ACD3E6-fff.png  |  Bin
+ public/hobothemes/clean/images/50-ACD3E6-fff.png   |  Bin
+ public/hobothemes/clean/images/fieldbg.gif         |  Bin
+ public/hobothemes/clean/images/pencil.png          |  Bin
+ public/hobothemes/clean/images/small_close.png     |  Bin
+ public/hobothemes/clean/images/spinner.gif         |  Bin
+ public/hobothemes/clean/stylesheets/clean.css      |  327 ++
+ public/hobothemes/clean/stylesheets/rapid-ui.css   |  100 
+ public/images/rails.png                            |  Bin
+ public/index.html                                  |  275 +
+ public/javascripts/IE7.js                          |    2 
+ public/javascripts/application.js                  |    2 
+ public/javascripts/blank.gif                       |  Bin
+ public/javascripts/controls.js                     |  963 ++++
+ public/javascripts/dragdrop.js                     |  973 +++++
+ public/javascripts/dryml-support.js                |  132 +
+ public/javascripts/effects.js                      | 1128 +++++
+ public/javascripts/hobo-rapid.js                   |  854 ++++
+ public/javascripts/ie7-recalc.js                   |    2 
+ public/javascripts/lowpro.js                       |  339 ++
+ public/javascripts/prototype.js                    | 4320 ++++++++++++++++++++
+ public/robots.txt                                  |    5 
+ public/stylesheets/application.css                 |    0 
+ public/stylesheets/hobo-rapid.css                  |   94 
+ public/stylesheets/reset.css                       |   95 
+ script/about                                       |    4 
+ script/console                                     |    3 
+ script/dbconsole                                   |    3 
+ script/destroy                                     |    3 
+ script/generate                                    |    3 
+ script/performance/benchmarker                     |    3 
+ script/performance/profiler                        |    3 
+ script/plugin                                      |    3 
+ script/runner                                      |    3 
+ script/server                                      |    3 
+ test/fixtures/users.yml                            |    7 
+ test/functional/front_controller_test.rb           |    8 
+ test/functional/users_controller_test.rb           |    8 
+ test/performance/browsing_test.rb                  |    9 
+ test/test_helper.rb                                |   38 
+ test/unit/user_test.rb                             |    8 
+ 78 files changed, 10473 insertions(+), 0 deletions(-)
+ create mode 100644 Rakefile
  create mode 100644 app/controllers/application_controller.rb
  create mode 100644 app/controllers/front_controller.rb
  create mode 100644 app/controllers/users_controller.rb
@@ -106,6 +114,7 @@ If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-
  create mode 100644 app/models/user.rb
  create mode 100644 app/models/user_mailer.rb
  create mode 100644 app/views/front/index.dryml
+ create mode 100644 app/views/front/summary.dryml
  create mode 100644 app/views/taglibs/application.dryml
  create mode 100644 app/views/taglibs/themes/clean/clean.dryml
  create mode 100644 app/views/user_mailer/forgot_password.erb
@@ -128,6 +137,11 @@ If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-
  create mode 100644 public/422.html
  create mode 100644 public/500.html
  create mode 100644 public/favicon.ico
+ create mode 100644 public/hobothemes/clean/images/101-3B5F87-ACD3E6.png
+ create mode 100644 public/hobothemes/clean/images/30-3E547A-242E42.png
+ create mode 100644 public/hobothemes/clean/images/30-DBE1E5-FCFEF5.png
+ create mode 100644 public/hobothemes/clean/images/300-ACD3E6-fff.png
+ create mode 100644 public/hobothemes/clean/images/50-ACD3E6-fff.png
  create mode 100644 public/hobothemes/clean/images/fieldbg.gif
  create mode 100644 public/hobothemes/clean/images/pencil.png
  create mode 100644 public/hobothemes/clean/images/small_close.png
@@ -169,6 +183,24 @@ If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-
  create mode 100644 test/unit/user_test.rb
 
 
+diff --git a/Rakefile b/Rakefile
+new file mode 100644
+index 0000000..d998641
+--- /dev/null
++++ b/Rakefile
+@@ -0,0 +1,12 @@
++# Add your own tasks in files placed in lib/tasks ending in .rake,
++# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
++
++require(File.join(File.dirname(__FILE__), 'config', 'boot'))
++
++require 'rake'
++require 'rake/testtask'
++require 'rake/rdoctask'
++
++require 'tasks/rails'
++
++require 'hobo/tasks/rails'
 diff --git a/app/controllers/application_controller.rb b/app/controllers/application_controller.rb
 new file mode 100644
 index 0000000..6635a3f
@@ -187,15 +219,21 @@ index 0000000..6635a3f
 +end
 diff --git a/app/controllers/front_controller.rb b/app/controllers/front_controller.rb
 new file mode 100644
-index 0000000..92dd511
+index 0000000..86e3201
 --- /dev/null
 +++ b/app/controllers/front_controller.rb
-@@ -0,0 +1,13 @@
+@@ -0,0 +1,19 @@
 +class FrontController < ApplicationController
 +
 +  hobo_controller
 +
 +  def index; end
++
++  def summary
++    if !current_user.administrator?
++      redirect_to user_login_path
++    end
++  end
 +
 +  def search
 +    if params[:query]
@@ -257,25 +295,27 @@ index 0000000..f653f35
 +end
 diff --git a/app/models/user.rb b/app/models/user.rb
 new file mode 100644
-index 0000000..26c449f
+index 0000000..83933fc
 --- /dev/null
 +++ b/app/models/user.rb
-@@ -0,0 +1,57 @@
+@@ -0,0 +1,61 @@
 +class User < ActiveRecord::Base
 +
 +  hobo_user_model # Don't put anything above this
 +
 +  fields do
 +    name :string, :unique
-+    email_address :email_address, :unique, :login => true
++    email_address :email_address, :login => true
 +    administrator :boolean, :default => false
 +    timestamps
 +  end
 +
++  validates_presence_of :name
++
 +  # This gives admin rights to the first sign-up.
 +  # Just remove it if you don't want that
-+  before_create { |user| user.administrator = true if RAILS_ENV != "test" && count == 0 }
-+  
++  before_create { |user| user.administrator = true if !Rails.env.test? && count == 0 }
++
 +  
 +  # --- Signup lifecycle --- #
 +
@@ -286,7 +326,7 @@ index 0000000..26c449f
 +    create :signup, :available_to => "Guest",
 +           :params => [:name, :email_address, :password, :password_confirmation],
 +           :become => :active
-+
++             
 +    transition :request_password_reset, { :active => :active }, :new_key => true do
 +      UserMailer.deliver_forgot_password(self, lifecycle.key)
 +    end
@@ -304,7 +344,9 @@ index 0000000..26c449f
 +  end
 +
 +  def update_permitted?
-+    acting_user.administrator? || (acting_user == self && only_changed?(:crypted_password, :email_address))
++    acting_user.administrator? || 
++      (acting_user == self && only_changed?(:email_address, :crypted_password,
++                                            :current_password, :password, :password_confirmation))
 +    # Note: crypted_password has attr_protected so although it is permitted to change, it cannot be changed
 +    # directly from a form submission.
 +  end
@@ -320,7 +362,7 @@ index 0000000..26c449f
 +end
 diff --git a/app/models/user_mailer.rb b/app/models/user_mailer.rb
 new file mode 100644
-index 0000000..76eb31c
+index 0000000..f42ee62
 --- /dev/null
 +++ b/app/models/user_mailer.rb
 @@ -0,0 +1,14 @@
@@ -336,14 +378,14 @@ index 0000000..76eb31c
 +    @sent_on    = Time.now
 +    @headers    = {}
 +  end
-+  
++
 +end
 diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
 new file mode 100644
-index 0000000..ef5c3a5
+index 0000000..eab8d63
 --- /dev/null
 +++ b/app/views/front/index.dryml
-@@ -0,0 +1,20 @@
+@@ -0,0 +1,29 @@
 +<page title="Home">
 +
 +  <body: class="front-page"/>
@@ -356,6 +398,15 @@ index 0000000..ef5c3a5
 +        <ul>
 +          <li>To customise this page: edit app/views/front/index.dryml</li>
 +        </ul>
++    
++        <% if User.count == 0 -%>
++          <h3 style="margin-top: 20px;">There are no user accounts - please provide the details of the site administrator</h3>
++          <do with="&User.new"><% this.exempt_from_edit_checks = true %>
++            <signup-form/>
++          </do>
++        <% end -%>
++        
++      
 +      </section>
 +    </header>
 +
@@ -364,6 +415,116 @@ index 0000000..ef5c3a5
 +  </content:>
 +  
 +</page>
+diff --git a/app/views/front/summary.dryml b/app/views/front/summary.dryml
+new file mode 100644
+index 0000000..565b7ed
+--- /dev/null
++++ b/app/views/front/summary.dryml
+@@ -0,0 +1,103 @@
++<page>
++  <content:>
++    <div class="content-body">
++    <h2>Application Summary</h2>
++
++    <table class="app-summary">
++      <tr> <th></th><th></th></tr>
++      <tr> <td>Application Name</td>           <td><app-name/></td>         </tr>
++      <tr> <td>Application Location</td>       <td><rails-root/></td>     </tr>
++      <tr> <td>Rails Version</td>              <td><rails-version/></td>    </tr>
++      <tr> <td>Rails Location</td>             <td><rails-location/></td>     </tr>
++      <tr> <td>Mode</td>                       <td><rails-env/></td> </tr>
++    </table>
++
++    <h3>Change Control</h3>
++    <table class="app-summary">      
++      <tr> <th></th><th></th></tr>
++      <tr> <td>Method</td>                 <td><cms-method/></td> </tr>
++      <if test="&cms_method.strip=='git'">
++        <tr> <td>Version</td>                <td><cms-version/></td> </tr>
++        <tr> <td>Date</td>                   <td><cms-last-commit-time/></td> </tr>
++        <tr> <td>Branch</td>                 <td><cms-branch/></td> </tr>
++        <tr> <td>Clean?</td>                 <td><cms-clean/></td></tr>
++      </if>
++    </table>
++
++
++    <h3>Gems</h3>
++    <table class="app-summary">
++      <with-gems>
++        <tr if="&first_item?"><th></th><th>Required</th><th>Installed</th><th>Status</th><th>Dependencies</th></tr>
++        <tr>
++          <td><gem-name/></td>
++          <td><gem-version-required/></td>
++          <td><gem-version/></td>          
++          <td><gem-frozen/></td>
++          <td><gem-dependencies/></td>
++        </tr>
++      </with-gems>
++    </table>
++
++    <h3>Plugins</h3>
++    <table class="app-summary">
++      <with-plugins>
++        <tr if="&first_item?"><th></th><th>Location</th><th>Method</th><th>Clean?</th><th>Version</th></tr>
++        <tr>
++          <td><plugin-name/></td>
++          <td><plugin-location/></td>
++          <td><plugin-method/></td>
++          <td><plugin-clean/></td>
++          <td><plugin-version/></td>
++        </tr>
++      </with-plugins>
++    </table>
++
++    <h3>Environments</h3>
++    <table class="app-summary">
++      <tr><th></th><th colspan='2'>database</th></tr>
++      <with-environments>
++        <tr>
++          <td><environment-name /></td>
++          <td><database-type /></td>
++          <td><database-name /></td>
++        </tr>
++      </with-environments>
++    </table>
++
++    <h2>Models</h2>
++    <table class="app-summary">
++      <tr><th>Class</th><th>Table</th></tr>
++      <with-models>
++        <tr>
++          <td><model-name/></td>
++          <td><model-table-name/></td>
++        </tr>
++      </with-models>
++    </table>        
++    
++    <with-models>
++      <h3 if="&this.try.table_name"><model-name /></h3>
++      <table class="app-summary">
++        <with-model-columns>
++          <tr if="&first_item?"><th>Column</th><th>Type</th></tr>
++          <tr>
++            <td><model-column-name/></td>
++            <td><model-column-type/></td>
++          </tr>
++        </with-model-columns>
++      </table>
++      <table class="app-summary">
++        <with-model-associations>
++          <tr if="&first_item?"><th>Association</th><th>Macro</th><th>Class</th></tr>
++          <tr>
++            <td><model-association-name/></td>
++            <td><model-association-macro/></td>
++            <td><model-association-class-name/></td>
++          </tr>
++        </with-model-associations>
++      </table>
++    </with-models>
++    </div>
++  </content:>
++</page>
+\ No newline at end of file
 diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
 new file mode 100644
 index 0000000..92c7ebe
@@ -415,7 +576,7 @@ index 0000000..7f93ae9
 +The <%= @app_name %> team.
 diff --git a/config/boot.rb b/config/boot.rb
 new file mode 100644
-index 0000000..0ad0f78
+index 0000000..dd5e3b6
 --- /dev/null
 +++ b/config/boot.rb
 @@ -0,0 +1,110 @@
@@ -503,8 +664,8 @@ index 0000000..0ad0f78
 +      end
 +
 +      def load_rubygems
++        min_version = '1.3.2'
 +        require 'rubygems'
-+        min_version = '1.3.1'
 +        unless rubygems_version >= min_version
 +          $stderr.puts %Q(Rails requires RubyGems >= #{min_version} (you have #{rubygems_version}). Please `gem update --system` and try again.)
 +          exit 1
@@ -559,14 +720,14 @@ index 0000000..025d62a
 +  timeout: 5000
 diff --git a/config/environment.rb b/config/environment.rb
 new file mode 100644
-index 0000000..f95dfb7
+index 0000000..d248e6e
 --- /dev/null
 +++ b/config/environment.rb
 @@ -0,0 +1,43 @@
 +# Be sure to restart your server when you modify this file
 +
 +# Specifies gem version of Rails to use when vendor/rails is not present
-+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
++RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 +
 +# Bootstrap the Rails environment, frameworks, and default configuration
 +require File.join(File.dirname(__FILE__), 'boot')
@@ -751,10 +912,10 @@ index 0000000..72aca7e
 +# Mime::Type.register_alias "text/html", :iphone
 diff --git a/config/initializers/new_rails_defaults.rb b/config/initializers/new_rails_defaults.rb
 new file mode 100644
-index 0000000..8ec3186
+index 0000000..c94db0a
 --- /dev/null
 +++ b/config/initializers/new_rails_defaults.rb
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,21 @@
 +# Be sure to restart your server when you modify this file.
 +
 +# These settings change the behavior of Rails 2 apps and will be defaults
@@ -768,6 +929,8 @@ index 0000000..8ec3186
 +  ActiveRecord::Base.store_full_sti_class = true
 +end
 +
++ActionController::Routing.generate_best_match = false
++
 +# Use ISO 8601 format for JSON serialized times and dates.
 +ActiveSupport.use_standard_json_time_format = true
 +
@@ -777,7 +940,7 @@ index 0000000..8ec3186
 \ No newline at end of file
 diff --git a/config/initializers/session_store.rb b/config/initializers/session_store.rb
 new file mode 100644
-index 0000000..0361241
+index 0000000..cbac1e9
 --- /dev/null
 +++ b/config/initializers/session_store.rb
 @@ -0,0 +1,15 @@
@@ -788,8 +951,8 @@ index 0000000..0361241
 +# Make sure the secret is at least 30 characters and all random, 
 +# no regular words or you'll be exposed to dictionary attacks.
 +ActionController::Base.session = {
-+  :key         => '_agility_session',
-+  :secret      => '90d73d7ad64ace3fa4dfa053b112d88d301fc7b6a562b58196789ce4a349a77518277a2138e3d66a74be3096f62f464c0ffccf6a8cf37ec42135f03708181c38'
++  :key         => '_agility-gitorial_session',
++  :secret      => 'b60c745a07c3dd7542b0cc9554309b0a0fcf72eb0da46105abdfe4a6b0ed5ea20322d66d4d8fd5e7f0fa8e8472395bd9245b4faeb239b5aa7b78b09f4663320d'
 +}
 +
 +# Use the database for sessions instead of the cookie-based default,
@@ -810,7 +973,7 @@ index 0000000..f265c06
 \ No newline at end of file
 diff --git a/config/routes.rb b/config/routes.rb
 new file mode 100644
-index 0000000..b6ee4ea
+index 0000000..04281c3
 --- /dev/null
 +++ b/config/routes.rb
 @@ -0,0 +1,49 @@
@@ -859,7 +1022,7 @@ index 0000000..b6ee4ea
 +
 +  # Install the default routes as the lowest priority.
 +  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-+  # consider removing the them or commenting them out if you're using named routes and resources.
++  # consider removing or commenting them out if you're using named routes and resources.
 +  map.connect ':controller/:action/:id'
 +  map.connect ':controller/:action/:id.:format'
 +end
@@ -984,6 +1147,79 @@ index 0000000..ec3bbf0
 diff --git a/public/favicon.ico b/public/favicon.ico
 new file mode 100644
 index 0000000..e69de29
+diff --git a/public/hobothemes/clean/images/101-3B5F87-ACD3E6.png b/public/hobothemes/clean/images/101-3B5F87-ACD3E6.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..3072b06ec80daa5d96d02ff1cd6543d51bd09ab8
+GIT binary patch
+literal 225
+zcmeAS@N?(olHy`uVBq!ia0vp^j6j?!zyu_Nn+{zBQk(@Ik;OpT1B~5HX4?T7lRaG=
+zLp09UPCO`iRDq+}Q*5RAorQ->=A7de-qXCz^=SDQ<9Z>7bDwv;o2?OGQRtB9;#eE!
+zC(>rmw$y#;jRjv$PL8!?ed>^_D&m)>x@c43rNZhn7R;sBb94?a*y8xJu+>&$i81>Q
+zKa*K!W$x>~y>$QD*2kOvEj3@HmhJof<XXw;(w^JzP0e_DdWL4e<gXvjy98{MXBV#v
+UFBeE~2Re_z)78&qol`;+02*vo*Z=?k
+
+literal 0
+HcmV?d00001
+
+diff --git a/public/hobothemes/clean/images/30-3E547A-242E42.png b/public/hobothemes/clean/images/30-3E547A-242E42.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..e48e34f883c732186f6112faf93be40f94c979c3
+GIT binary patch
+literal 150
+zcmeAS@N?(olHy`uVBq!ia0vp^j6f_Wzyu_X((Nw;Db50q$YLPv0mg18v+Y0(PZ!4!
+zj_bW=H}W1(5OBUYS>4i@BiMj<@xeSZ*F{Sd1($wJ`MYB4)_aLn8V?s~+I7$Knjz)q
+s^6}o357Tq&{<q)uIpXOt{U@)k*_6T@8@-kPfo3vzy85}Sb4q9e0ECS(QUCw|
+
+literal 0
+HcmV?d00001
+
+diff --git a/public/hobothemes/clean/images/30-DBE1E5-FCFEF5.png b/public/hobothemes/clean/images/30-DBE1E5-FCFEF5.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..6073aa0a2143650c82b5220f91b1fed8fd0ff1f4
+GIT binary patch
+literal 174
+zcmeAS@N?(olHy`uVBq!ia0vp^j6f_Wzyu_X((Nw;Db50q$YLPv0mg18v+aP41Wy;o
+z5RU7~J8FMFJiOe0ro>XodV?|}Lr=qhDKA<+g1AmA<ay@$^aN?xWFC|6iS_BxkeabX
+z(MEGeS;*mlCkvMSNpZP+;KR)4voE`+iY(r}A*125M4jya)4!h@UTI_qWV2L%8Bi7g
+Pw2Q&h)z4*}Q$iB}AYnZH
+
+literal 0
+HcmV?d00001
+
+diff --git a/public/hobothemes/clean/images/300-ACD3E6-fff.png b/public/hobothemes/clean/images/300-ACD3E6-fff.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..9997e23b608272e64f3f00227faf8237bbab2c87
+GIT binary patch
+literal 446
+zcmV;v0YUzWP)<h;3K|Lk000e1NJLTq0003100Arz0ssI2-J+7g00009a7bBm0000;
+z0000;07l7cJ^%m#a7jc#R7l5_l|fF!Fc3xmkJuI=p++p&##gbo+_NhV!3A;yB&zO8
+zK@_D*frTlaamG$qMM?B0^X7kNu-WwecH6+iVcpQPV|%%SheO*ipi6gu?-&K>FcJ79
+zh!?gE0=p<sRivD%3cMvqy|5L6ScOgrvL+(RRFJ-IuwSZBH!;sn$sQjXD1x1e9rmy&
+zP*|8?iQO9l1UODnnA@lwo1)|b&Y@6t9Z*BL2q=ea2!dv3A(6^4#>{8l&au-KeGeu(
+z7i3<cu<W~Cg@*4o3Ke@L!XXnBk1y3cp?XQKRM=UKFa^s0GcVbLoaY3^5NO{G6g=bg
+z?s#05`Pg+}*>|5uxafN*2<n-~?(qIJtP;wSL!wZm0qNZS_GzJTHuC`vYwWK-uTC$y
+z@72zjZ>Ku@+hMpJZwe6(QZD~ewvG7sK0S_OL(LxOuyDtT%wt%M59gg)ZZjLGv}n;{
+oyg%>1`l-OoygI(wjw`YM03mt15BdVayZ`_I07*qoM6N<$f-4)uLI3~&
+
+literal 0
+HcmV?d00001
+
+diff --git a/public/hobothemes/clean/images/50-ACD3E6-fff.png b/public/hobothemes/clean/images/50-ACD3E6-fff.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..d5c2c842b8ddad30653cfcf6cc532d6011fd83c9
+GIT binary patch
+literal 318
+zcmeAS@N?(olHy`uVBq!ia0vp^j6iH8zyu_nIDgFpQk(@Ik;OpT1B~5HX4?T7A3R+g
+zLnJPj_SyO!b`WU2@8f)!F+(FbAgH)kqLaCRk*lReWRLs8yS}cT&dn~3F3DUi0!^lz
+z2bGSkNv-}n|4@z#<J09opY3gbX~OZWIL&ny%Vrhc`I)|oHRZ~#Qg)kFe3_<y`61@|
+ze}?lZhaJnN-+ekM^T+O+^=BXd$p6f@*>lnwW6{<Rf(eF3?mNQerH>hCX9!g|l+0eX
+z|5kmFlTbz2M~l;U{CZQg&(Bmb;XJeF{qjWztj|ofJ?OOT`L$i&{8QRfUzXKX9`y@V
+zeEBx5mP<J|=K8razg{iMl$jb=d}rH=U*8tYUNG@)-1UXh-*5lD$u;H7oXvY5U1bLP
+Oox#)9&t;ucLK6Vms)qgm
+
+literal 0
+HcmV?d00001
+
 diff --git a/public/hobothemes/clean/images/fieldbg.gif b/public/hobothemes/clean/images/fieldbg.gif
 new file mode 100644
 index 0000000000000000000000000000000000000000..026d52a3b07c8c7b20c6056853353dfce8d70f40
@@ -1122,25 +1358,22 @@ HcmV?d00001
 
 diff --git a/public/hobothemes/clean/stylesheets/clean.css b/public/hobothemes/clean/stylesheets/clean.css
 new file mode 100644
-index 0000000..7c26e51
+index 0000000..62efc54
 --- /dev/null
 +++ b/public/hobothemes/clean/stylesheets/clean.css
-@@ -0,0 +1,325 @@
-+/* Graphite */
-+/*html, body {color: #222; background: #222;}
-+.page-header {color: white; background: #444;}
-+.page-header .main-nav a {background: #666;}
-+.page-header .main-nav a:hover {background: #222;}
-+.content {background: white;}
-+.button {color: white; background: #666;}
-+.button:hover {background-color: #222;}
-+.add-to-collection {background: #f5f5f5;}
-+*/
-+/* Cubicle Blue */
-+html, body {color: #193440; background: #193440;}
-+.page-header {color: white; background: #3F606E;}
-+.page-header .navigation.main-nav a {background: #5B8BA0;}
-+.page-header .navigation.main-nav li.current a {background: #FCFFF4; color: #222;}
+@@ -0,0 +1,327 @@
++html, body {color: #193440; background: url(../images/300-ACD3E6-fff.png) repeat-x #fff; }
++.page-header {color: white; background: url(../images/101-3B5F87-ACD3E6.png) repeat-x #3F606E;}
++.page-header .navigation.main-nav a {
++  background: url(../images/30-3E547A-242E42.png) repeat-x #242E42;
++}
++.page-header .navigation.main-nav li.current a {
++  color: #222;
++  background: url(../images/30-DBE1E5-FCFEF5.png) repeat-x #FCFEF5;
++  border-top: 1px solid white;
++  border-left: 1px solid white;
++  border-right: 1px solid white;
++}
 +.page-header .navigation.main-nav a:hover {background: #193440;}
 +.section.content {background: #FCFFF5;}
 +.button {color: white; background: #5B8BA0;}
@@ -1216,7 +1449,7 @@ index 0000000..7c26e51
 +	margin: 0 40px 10px; padding: 10px 30px; border-width: 2px 0;
 +	color: white;
 +}
-+.flash.notice {background: #92ab6e;}
++.flash.notice {background: #4E6A8F;}
 +.flash.error {background: #BC1C3D;}
 +.section.with-flash { padding-top: 20px; }
 +
@@ -1434,7 +1667,8 @@ index 0000000..7c26e51
 +
 +.front-page .welcome-message {
 +	padding: 10px 20px 20px; border: 1px solid #e8e8e8; 
-+	color: #222; background: #eee;
++	color: #222;
++	background: url(../images/50-ACD3E6-fff.png) repeat-x #fff;
 +}
 +.front-page .welcome-message h2 {
 +	font-size: 18px; line-height: 27px;
@@ -1451,12 +1685,16 @@ index 0000000..7c26e51
 +ul.check-many { list-style-type: none; margin-left: 0px;}
 +ul.check-many li input { vertical-align: -20%;}
 +
++/* rapid-summary */
++table.app-summary { border: 1px solid; border-collapse: collapse; }
++table.app-summary td { padding: 2px;  border: 1px dotted #bbb; }
++table.app-summary th { padding: 2px; border-bottom: 1px solid; background: #acd3e6; }
 diff --git a/public/hobothemes/clean/stylesheets/rapid-ui.css b/public/hobothemes/clean/stylesheets/rapid-ui.css
 new file mode 100644
-index 0000000..6df4a28
+index 0000000..d4801bf
 --- /dev/null
 +++ b/public/hobothemes/clean/stylesheets/rapid-ui.css
-@@ -0,0 +1,95 @@
+@@ -0,0 +1,100 @@
 +.hidden {display: none;}
 +
 +.in-place-textfield-bhv, .in-place-textarea-bhv, .in-place-html-textarea-bhv {
@@ -1551,6 +1789,11 @@ index 0000000..6df4a28
 +
 +.part-wrapper {
 +    display: inline;  /* don't mess up layout when wrapping something */
++}
++
++optgroup.disabled-option {
++    color: #ccc;
++    height: 1em;
 +}
 \ No newline at end of file
 diff --git a/public/images/rails.png b/public/images/rails.png
@@ -5225,10 +5468,10 @@ index 0000000..5a639d2
 \ No newline at end of file
 diff --git a/public/javascripts/hobo-rapid.js b/public/javascripts/hobo-rapid.js
 new file mode 100644
-index 0000000..0826fa6
+index 0000000..4d2d3db
 --- /dev/null
 +++ b/public/javascripts/hobo-rapid.js
-@@ -0,0 +1,848 @@
+@@ -0,0 +1,854 @@
 +Object.extend = function(destination) {
 +    $A(arguments).slice(1).each(function (src) {
 +        for (var property in src) {
@@ -5859,9 +6102,11 @@ index 0000000..0826fa6
 +      
 +      this.element.selectChildren('li').each(function(li, index) {
 +          li.select('*[name]').each(function(control) {
-+              var changeId = control.id == control.name
-+              control.name   = control.name.sub(new RegExp("^" + RegExp.escape(prefix) + "\[[0-9]+\]"), prefix + '[' + index +']')
-+              if (changeId) control.id = control.name
++              if(control.name) {
++                  var changeId = control.id == control.name;
++                  control.name   = control.name.sub(new RegExp("^" + RegExp.escape(prefix) + "\[[0-9]+\]"), prefix + '[' + index +']');
++                  if (changeId) control.id = control.name;
++              }
 +          })
 +      })
 +  }
@@ -5884,7 +6129,9 @@ index 0000000..0826fa6
 +            this.element.down('.items').appendChild(newItem);
 +            newItem.down('span').innerHTML = selected.innerHTML
 +            this.itemAdded(newItem, selected)
-+            selected.disabled = true
++            var optgroup = new Element("optgroup", {alt:selected.value, label:selected.text})
++            optgroup.addClassName("disabled-option")
++            selected.replace(optgroup)
 +            select.value = ""
 +            Event.addBehavior.reload()
 +            this.element.fire("rapid:add", { element: newItem })
@@ -5907,8 +6154,10 @@ index 0000000..0826fa6
 +                                 element.fire("rapid:change", { element: el })
 +                                 } } ) 
 +        var label = el.down('span').innerHTML
-+        var option = $A(element.getElementsByTagName('option')).find(function(o) { return o.innerHTML == label })
-+        option.disabled = false
++        var optgroup = element.down("optgroup[label="+label+"]")
++        var option = new Element("option", {value:optgroup.readAttribute("alt")})
++        option.innerHTML = optgroup.readAttribute("label")
++        optgroup.replace(option)
 +    },
 +
 +    itemAdded: function(item, option) {
@@ -5986,7 +6235,7 @@ index 0000000..0826fa6
 +
 +    '.autocompleter' : AutocompleteBehavior(),
 +
-+    '.string.in-place-edit, .datetime.in-place-edit, .date.in-place-edit, .integer.in-place-edit, .float.in-place-edit, big-integer.in-place-edit' :
++    '.string.in-place-edit, .datetime.in-place-edit, .date.in-place-edit, .integer.in-place-edit, .float.in-place-edit, .decimal.in-place-edit' :
 +     function (ev) {
 +
 +         var ipe = Hobo._makeInPlaceEditor(this)
@@ -6088,15 +6337,15 @@ index 0000000..f07c5a6
 \ No newline at end of file
 diff --git a/public/javascripts/lowpro.js b/public/javascripts/lowpro.js
 new file mode 100644
-index 0000000..f4a979b
+index 0000000..6ee5c87
 --- /dev/null
 +++ b/public/javascripts/lowpro.js
-@@ -0,0 +1,320 @@
+@@ -0,0 +1,339 @@
 +LowPro = {};
 +LowPro.Version = '0.5';
 +LowPro.CompatibleWithPrototype = '1.6';
 +
-+if (Prototype.Version.indexOf(LowPro.CompatibleWithPrototype) != 0 && console && console.warn)
++if (Prototype.Version.indexOf(LowPro.CompatibleWithPrototype) != 0 && window.console && window.console.warn)
 +  console.warn("This version of Low Pro is tested with Prototype " + LowPro.CompatibleWithPrototype + 
 +                  " it may not work as expected with this version (" + Prototype.Version + ")");
 +
@@ -6109,19 +6358,19 @@ index 0000000..f4a979b
 +// DOMBuilder for prototype
 +DOM.Builder = {
 +	tagFunc : function(tag) {
-+	  return function() {
-+	    var attrs, children; 
-+	    if (arguments.length>0) { 
-+	      if (arguments[0].nodeName || 
-+	        typeof arguments[0] == "string") 
-+	        children = arguments; 
-+	      else { 
-+	        attrs = arguments[0]; 
-+	        children = Array.prototype.slice.call(arguments, 1); 
-+	      };
-+	    }
-+	    return DOM.Builder.create(tag, attrs, children);
-+	  };
++    return function() {
++     var attrs, children;
++     if (arguments.length>0) {
++       if (arguments[0].constructor == Object) {
++         attrs = arguments[0];
++         children = Array.prototype.slice.call(arguments, 1);
++       } else {
++         children = arguments;
++       };
++       children = $A(children).flatten()
++     }
++     return DOM.Builder.create(tag, attrs, children);
++    };
 +  },
 +	create : function(tag, attrs, children) {
 +		attrs = attrs || {}; children = children || []; tag = tag.toLowerCase();
@@ -6203,6 +6452,14 @@ index 0000000..f4a979b
 +  
 +};
 +
++Event.delegate = function(rules) {
++  return function(e) {
++      var element = $(e.element());
++      for (var selector in rules)
++        if (element.match(selector)) return rules[selector].apply(this, $A(arguments));
++    }
++}
++
 +Object.extend(Event.addBehavior, {
 +  rules : {}, cache : [],
 +  reassignAfterAjax : false,
@@ -6216,9 +6473,9 @@ index 0000000..f4a979b
 +        var match = sel.match(/^([^:]*)(?::(.*)$)?/), css = match[1], event = match[2];
 +        $$(css).each(function(element) {
 +          if (event) {
-+            observer = Event.addBehavior._wrapObserver(observer);
-+            $(element).observe(event, observer);
-+            Event.addBehavior.cache.push([element, event, observer]);
++            var wrappedObserver = Event.addBehavior._wrapObserver(observer);
++            $(element).observe(event, wrappedObserver);
++            Event.addBehavior.cache.push([element, event, wrappedObserver]);
 +          } else {
 +            if (!element.$$assigned || !element.$$assigned.include(observer)) {
 +              if (observer.attach) observer.attach(element);
@@ -6292,7 +6549,6 @@ index 0000000..f4a979b
 +      parent = properties.shift();
 +
 +      var behavior = function() { 
-+        var behavior = arguments.callee;
 +        if (!this.initialize) {
 +          var args = $A(arguments);
 +
@@ -6339,12 +6595,16 @@ index 0000000..f4a979b
 +      return new this(element, Array.prototype.slice.call(arguments, 1));
 +    },
 +    _bindEvents : function(bound) {
-+      for (var member in bound)
-+        if (member.match(/^on(.+)/) && typeof bound[member] == 'function')
-+          bound.element.observe(RegExp.$1, Event.addBehavior._wrapObserver(bound[member].bindAsEventListener(bound)));
++      for (var member in bound) {
++        var matches = member.match(/^on(.+)/);
++        if (matches && typeof bound[member] == 'function')
++          bound.element.observe(matches[1], Event.addBehavior._wrapObserver(bound[member].bindAsEventListener(bound)));
++      }
 +    }
 +  }
 +};
++
++
 +
 +Remote = Behavior.create({
 +  initialize: function(options) {
@@ -6358,11 +6618,19 @@ index 0000000..f4a979b
 +    this.options = Object.extend({
 +      evaluateScripts : true
 +    }, options || {});
++    
++    this._bindCallbacks();
 +  },
 +  _makeRequest : function(options) {
 +    if (options.update) new Ajax.Updater(options.update, options.url, options);
 +    else new Ajax.Request(options.url, options);
 +    return false;
++  },
++  _bindCallbacks: function() {
++    $w('onCreate onComplete onException onFailure onInteractive onLoading onLoaded onSuccess').each(function(cb) {
++      if (Object.isFunction(this.options[cb]))
++        this.options[cb] = this.options[cb].bind(this);
++    }.bind(this));
 +  }
 +}
 +
@@ -10956,95 +11224,94 @@ index 0000000..19baad6
 +h6 { font-size: 10px;}
 diff --git a/script/about b/script/about
 new file mode 100755
-index 0000000..ed8deb0
+index 0000000..1eeb6eb
 --- /dev/null
 +++ b/script/about
 @@ -0,0 +1,4 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../config/boot'
++require File.expand_path('../../config/boot',  __FILE__)
 +$LOAD_PATH.unshift "#{RAILTIES_PATH}/builtin/rails_info"
 +require 'commands/about'
-\ No newline at end of file
 diff --git a/script/console b/script/console
 new file mode 100755
-index 0000000..498077a
+index 0000000..235a1f2
 --- /dev/null
 +++ b/script/console
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../config/boot'
++require File.expand_path('../../config/boot',  __FILE__)
 +require 'commands/console'
 diff --git a/script/dbconsole b/script/dbconsole
 new file mode 100755
-index 0000000..caa60ce
+index 0000000..83c8436
 --- /dev/null
 +++ b/script/dbconsole
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../config/boot'
++require File.expand_path('../../config/boot',  __FILE__)
 +require 'commands/dbconsole'
 diff --git a/script/destroy b/script/destroy
 new file mode 100755
-index 0000000..a4df765
+index 0000000..88d295f
 --- /dev/null
 +++ b/script/destroy
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../config/boot'
++require File.expand_path('../../config/boot',  __FILE__)
 +require 'commands/destroy'
 diff --git a/script/generate b/script/generate
 new file mode 100755
-index 0000000..173a9f1
+index 0000000..62a8a4c
 --- /dev/null
 +++ b/script/generate
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../config/boot'
++require File.expand_path('../../config/boot',  __FILE__)
 +require 'commands/generate'
 diff --git a/script/performance/benchmarker b/script/performance/benchmarker
 new file mode 100755
-index 0000000..c842d35
+index 0000000..3bff809
 --- /dev/null
 +++ b/script/performance/benchmarker
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../../config/boot'
++require File.expand_path('../../../config/boot',  __FILE__)
 +require 'commands/performance/benchmarker'
 diff --git a/script/performance/profiler b/script/performance/profiler
 new file mode 100755
-index 0000000..d855ac8
+index 0000000..0764057
 --- /dev/null
 +++ b/script/performance/profiler
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../../config/boot'
++require File.expand_path('../../../config/boot',  __FILE__)
 +require 'commands/performance/profiler'
 diff --git a/script/plugin b/script/plugin
 new file mode 100755
-index 0000000..87cd207
+index 0000000..b82201f
 --- /dev/null
 +++ b/script/plugin
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../config/boot'
++require File.expand_path('../../config/boot',  __FILE__)
 +require 'commands/plugin'
 diff --git a/script/runner b/script/runner
 new file mode 100755
-index 0000000..a4a7cb2
+index 0000000..be4c5d4
 --- /dev/null
 +++ b/script/runner
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../config/boot'
++require File.expand_path('../../config/boot',  __FILE__)
 +require 'commands/runner'
 diff --git a/script/server b/script/server
 new file mode 100755
-index 0000000..3c67f39
+index 0000000..b9fcb71
 --- /dev/null
 +++ b/script/server
 @@ -0,0 +1,3 @@
 +#!/usr/bin/env ruby
-+require File.dirname(__FILE__) + '/../config/boot'
++require File.expand_path('../../config/boot',  __FILE__)
 +require 'commands/server'
 diff --git a/test/fixtures/users.yml b/test/fixtures/users.yml
 new file mode 100644

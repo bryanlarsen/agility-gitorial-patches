@@ -26,13 +26,11 @@ And a helper method that might come in handy when implementing your permission m
 {: .ruby}
 ---
 
- app/models/project.rb                              |   10 +++++++++-
- app/models/project_membership.rb                   |    1 +
- app/views/taglibs/application.dryml                |   12 +++++++++++-
- .../20090501142707_hobo_migration_contributors.rb  |    9 +++++++++
- db/schema.rb                                       |    5 +++--
- 5 files changed, 33 insertions(+), 4 deletions(-)
- create mode 100644 db/migrate/20090501142707_hobo_migration_contributors.rb
+ app/models/project.rb               |   10 +++++++++-
+ app/models/project_membership.rb    |    1 +
+ app/views/taglibs/application.dryml |   12 +++++++++++-
+ db/schema.rb                        |    3 ++-
+ 4 files changed, 23 insertions(+), 3 deletions(-)
 
 
 diff --git a/app/models/project.rb b/app/models/project.rb
@@ -96,37 +94,16 @@ index e2bc28c..5681328 100644
 +  </old-card>
 +</extend>
 +
-diff --git a/db/migrate/20090501142707_hobo_migration_contributors.rb b/db/migrate/20090501142707_hobo_migration_contributors.rb
-new file mode 100644
-index 0000000..6561a31
---- /dev/null
-+++ b/db/migrate/20090501142707_hobo_migration_contributors.rb
-@@ -0,0 +1,9 @@
-+class HoboMigrationContributors < ActiveRecord::Migration
-+  def self.up
-+    add_column :project_memberships, :contributor, :boolean, :default => false
-+  end
-+
-+  def self.down
-+    remove_column :project_memberships, :contributor
-+  end
-+end
 diff --git a/db/schema.rb b/db/schema.rb
-index e97f3f7..2889625 100644
+index 685f365..8739f85 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
-@@ -1,4 +1,4 @@
--# This file is auto-generated from the current state of the database. Instead of editing this file,
-+# This file is auto-generated from the current state of the database. Instead of editing this file, 
- # please use the migrations feature of Active Record to incrementally modify your database, and
- # then regenerate this schema definition.
- #
 @@ -9,13 +9,14 @@
  #
  # It's strongly recommended to check this file into your version control system.
  
--ActiveRecord::Schema.define(:version => 20090415214215) do
-+ActiveRecord::Schema.define(:version => 20090501142707) do
+-ActiveRecord::Schema.define(:version => 20091117002344) do
++ActiveRecord::Schema.define(:version => 20091117002547) do
  
    create_table "project_memberships", :force => true do |t|
      t.datetime "created_at"
@@ -136,4 +113,4 @@ index e97f3f7..2889625 100644
 +    t.boolean  "contributor", :default => false
    end
  
-   create_table "projects", :force => true do |t|
+   add_index "project_memberships", ["project_id"], :name => "index_project_memberships_on_project_id"

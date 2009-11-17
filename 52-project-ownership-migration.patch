@@ -7,37 +7,39 @@ Run the migration generator to see the effect on the app:
     $ ./script/generate hobo_migration
 ---
 
- ...0415213347_hobo_migration_project_membership.rb |    9 +++++++++
- db/schema.rb                                       |    3 ++-
- 2 files changed, 11 insertions(+), 1 deletions(-)
- create mode 100644 db/migrate/20090415213347_hobo_migration_project_membership.rb
+ ...1117002139_hobo_migration_project_membership.rb |   11 +++++++++++
+ db/schema.rb                                       |    5 ++++-
+ 2 files changed, 15 insertions(+), 1 deletions(-)
+ create mode 100644 db/migrate/20091117002139_hobo_migration_project_membership.rb
 
 
-diff --git a/db/migrate/20090415213347_hobo_migration_project_membership.rb b/db/migrate/20090415213347_hobo_migration_project_membership.rb
+diff --git a/db/migrate/20091117002139_hobo_migration_project_membership.rb b/db/migrate/20091117002139_hobo_migration_project_membership.rb
 new file mode 100644
-index 0000000..56d099a
+index 0000000..e1114d7
 --- /dev/null
-+++ b/db/migrate/20090415213347_hobo_migration_project_membership.rb
-@@ -0,0 +1,9 @@
++++ b/db/migrate/20091117002139_hobo_migration_project_membership.rb
+@@ -0,0 +1,11 @@
 +class HoboMigrationProjectMembership < ActiveRecord::Migration
 +  def self.up
 +    add_column :projects, :owner_id, :integer
++    add_index :projects, [:owner_id]
 +  end
 +
 +  def self.down
 +    remove_column :projects, :owner_id
++    remove_index :projects, :name => :index_projects_on_owner_id
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index 5fa3dbf..2ddcbb0 100644
+index f522a93..6bb4d94 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
-@@ -9,12 +9,13 @@
+@@ -9,14 +9,17 @@
  #
  # It's strongly recommended to check this file into your version control system.
  
--ActiveRecord::Schema.define(:version => 20090415190651) do
-+ActiveRecord::Schema.define(:version => 20090415213347) do
+-ActiveRecord::Schema.define(:version => 20091117001917) do
++ActiveRecord::Schema.define(:version => 20091117002139) do
  
    create_table "projects", :force => true do |t|
      t.string   "name"
@@ -46,4 +48,8 @@ index 5fa3dbf..2ddcbb0 100644
 +    t.integer  "owner_id"
    end
  
++  add_index "projects", ["owner_id"], :name => "index_projects_on_owner_id"
++
    create_table "stories", :force => true do |t|
+     t.string   "title"
+     t.text     "body"

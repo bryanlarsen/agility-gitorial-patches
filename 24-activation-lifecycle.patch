@@ -23,18 +23,22 @@ implement our sign up procedures.  Let's add an `inactive` state to
 counter the `active` state that's present, and make it the default.
 We should also add a block to our creation step to deliver the email.
 
+We'll also add another request_password_reset transition becuase
+it is possible that inactivated users will click on the forgot
+password link.
+
 SHOW_PATCH
 ---
 
- app/models/user.rb |    8 +++++---
- 1 files changed, 5 insertions(+), 3 deletions(-)
+ app/models/user.rb |   14 ++++++++++----
+ 1 files changed, 10 insertions(+), 4 deletions(-)
 
 
 diff --git a/app/models/user.rb b/app/models/user.rb
-index 881e477..c8c4659 100644
+index ca07357..d0f38c7 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
-@@ -20,12 +20,14 @@ class User < ActiveRecord::Base
+@@ -22,17 +22,23 @@ class User < ActiveRecord::Base
    # --- Signup lifecycle --- #
  
    lifecycle do
@@ -46,9 +50,19 @@ index 881e477..c8c4659 100644
      create :signup, :available_to => "Guest",
             :params => [:name, :email_address, :password, :password_confirmation],
 -           :become => :active
+-             
 +           :become => :inactive, :new_key => true do
 +      UserMailer.deliver_activation(self, lifecycle.key) if user.blank?
 +    end
- 
++
      transition :request_password_reset, { :active => :active }, :new_key => true do
        UserMailer.deliver_forgot_password(self, lifecycle.key)
+     end
+ 
++    transition :request_password_reset, { :inactive => :inactive }, :new_key => true do
++      UserMailer.deliver_activation(self, lifecycle.key)
++    end
++
+     transition :reset_password, { :active => :active }, :available_to => :key_holder,
+                :params => [ :password, :password_confirmation ]
+ 

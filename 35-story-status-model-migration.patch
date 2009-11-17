@@ -11,17 +11,17 @@ You'll see that the migration generator considers this change to be ambiguous. W
 Once you've done that you'll see that the generated migration includes the creation of the new foreign key and the removal of the old status column.  Press `g` now to generate the migration without running it.
 ---
 
- ...0415174642_hobo_migration_story_status_model.rb |   19 +++++++++++++++++++
- 1 files changed, 19 insertions(+), 0 deletions(-)
- create mode 100644 db/migrate/20090415174642_hobo_migration_story_status_model.rb
+ ...1117001054_hobo_migration_story_status_model.rb |   25 ++++++++++++++++++++
+ 1 files changed, 25 insertions(+), 0 deletions(-)
+ create mode 100644 db/migrate/20091117001054_hobo_migration_story_status_model.rb
 
 
-diff --git a/db/migrate/20090415174642_hobo_migration_story_status_model.rb b/db/migrate/20090415174642_hobo_migration_story_status_model.rb
+diff --git a/db/migrate/20091117001054_hobo_migration_story_status_model.rb b/db/migrate/20091117001054_hobo_migration_story_status_model.rb
 new file mode 100644
-index 0000000..99fd94e
+index 0000000..78bfa22
 --- /dev/null
-+++ b/db/migrate/20090415174642_hobo_migration_story_status_model.rb
-@@ -0,0 +1,19 @@
++++ b/db/migrate/20091117001054_hobo_migration_story_status_model.rb
+@@ -0,0 +1,25 @@
 +class HoboMigrationStoryStatusModel < ActiveRecord::Migration
 +  def self.up
 +    create_table :story_statuses do |t|
@@ -29,15 +29,21 @@ index 0000000..99fd94e
 +      t.datetime :created_at
 +      t.datetime :updated_at
 +    end
-+
++    
++    change_column :users, :state, :string, :limit => 255, :default => "inactive"
++    
 +    add_column :stories, :status_id, :integer
 +    remove_column :stories, :status
++    add_index :stories, [:status_id]
 +  end
 +
 +  def self.down
++    change_column :users, :state, :string, :default => "active"
++    
 +    remove_column :stories, :status_id
 +    add_column :stories, :status, :string
-+
++    remove_index :stories, :name => :index_stories_on_status_id
++    
 +    drop_table :story_statuses
 +  end
 +end

@@ -12,7 +12,7 @@ SHOW_PATCH
 
 
 diff --git a/config/environment.rb b/config/environment.rb
-index d231893..3257ceb 100644
+index 0759173..957216a 100644
 --- a/config/environment.rb
 +++ b/config/environment.rb
 @@ -9,6 +9,8 @@ require File.join(File.dirname(__FILE__), 'boot')

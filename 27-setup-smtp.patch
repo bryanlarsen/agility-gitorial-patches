@@ -16,7 +16,7 @@ SHOW_PATCH
 
 
 diff --git a/config/environment.rb b/config/environment.rb
-index f95dfb7..d231893 100644
+index d248e6e..0759173 100644
 --- a/config/environment.rb
 +++ b/config/environment.rb
 @@ -40,4 +40,14 @@ Rails::Initializer.run do |config|

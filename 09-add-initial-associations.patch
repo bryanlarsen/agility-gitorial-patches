@@ -70,16 +70,16 @@ index 486f72f..b420c68 100644
    # --- Permissions --- #
  
 diff --git a/app/models/user.rb b/app/models/user.rb
-index 26c449f..881e477 100644
+index 83933fc..ca07357 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
-@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
-     timestamps
-   end
+@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
+ 
+   validates_presence_of :name
  
 +  has_many :task_assignments, :dependent => :destroy
 +  has_many :tasks, :through => :task_assignments
 +
    # This gives admin rights to the first sign-up.
    # Just remove it if you don't want that
-   before_create { |user| user.administrator = true if RAILS_ENV != "test" && count == 0 }
+   before_create { |user| user.administrator = true if !Rails.env.test? && count == 0 }
