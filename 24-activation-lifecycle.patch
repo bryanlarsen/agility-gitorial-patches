@@ -35,7 +35,7 @@ SHOW_PATCH
 
 
 diff --git a/app/models/user.rb b/app/models/user.rb
-index ca07357..d0f38c7 100644
+index ca07357..4e3ba1f 100644
 --- a/app/models/user.rb
 +++ b/app/models/user.rb
 @@ -22,17 +22,23 @@ class User < ActiveRecord::Base
@@ -52,7 +52,7 @@ index ca07357..d0f38c7 100644
 -           :become => :active
 -             
 +           :become => :inactive, :new_key => true do
-+      UserMailer.deliver_activation(self, lifecycle.key) if user.blank?
++      UserMailer.deliver_activation(self, lifecycle.key) unless email_address.blank?
 +    end
 +
      transition :request_password_reset, { :active => :active }, :new_key => true do
