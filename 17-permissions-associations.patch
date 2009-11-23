@@ -27,7 +27,7 @@ in [Project Ownership](#project_ownership).
 
 
 diff --git a/app/models/task.rb b/app/models/task.rb
-index 27aaae1..8fad2b5 100644
+index 27aaae1..83055eb 100644
 --- a/app/models/task.rb
 +++ b/app/models/task.rb
 @@ -10,7 +10,7 @@ class Task < ActiveRecord::Base
@@ -35,7 +35,7 @@ index 27aaae1..8fad2b5 100644
  
    has_many :task_assignments, :dependent => :destroy
 -  has_many :users, :through => :task_assignments
-+  has_many :users, :through => :task_assignments, :accessible => true
++  has_many :users, :through => :task_assignments, :accessible => true, :dependent => :destroy
  
    # --- Permissions --- #
  

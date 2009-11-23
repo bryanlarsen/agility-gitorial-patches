@@ -39,7 +39,7 @@ index c10f68b..5843828 100644
  
    def view_permitted?(field)
 diff --git a/app/models/task.rb b/app/models/task.rb
-index edcf700..3d41bcd 100644
+index 76308f0..3a7a404 100644
 --- a/app/models/task.rb
 +++ b/app/models/task.rb
 @@ -17,15 +17,15 @@ class Task < ActiveRecord::Base

@@ -26,12 +26,12 @@ index 6bacbdf..cbf7eb9 100644
    # --- Permissions --- #
  
 diff --git a/app/models/task.rb b/app/models/task.rb
-index 8fad2b5..edcf700 100644
+index 83055eb..76308f0 100644
 --- a/app/models/task.rb
 +++ b/app/models/task.rb
 @@ -12,6 +12,8 @@ class Task < ActiveRecord::Base
    has_many :task_assignments, :dependent => :destroy
-   has_many :users, :through => :task_assignments, :accessible => true
+   has_many :users, :through => :task_assignments, :accessible => true, :dependent => :destroy
  
 +  acts_as_list :scope => :story
 +

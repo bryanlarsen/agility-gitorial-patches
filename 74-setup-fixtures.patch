@@ -7,7 +7,7 @@ are separate directories so that they do not interfere with our unit
 tests and so that we can have separate fixtures for separate tests.
 
 In our case, we want to test from a blank database, so we'll create a
-blank file for each model with the exception of story_status:
+blank file for each model with the exception of `story_status`:
 
     $ mkdir test/fixtures/blank
     $ cd test/fixtures/blank
