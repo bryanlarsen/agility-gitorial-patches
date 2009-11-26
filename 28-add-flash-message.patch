@@ -1,0 +1,32 @@
+add-flash-message
+
+From: Bryan Larsen <bryan@larsen.st>
+
+The default state for a user is now "inactive".  So when users sign up,
+they are no longer automatically logged in.  Let's set a flash message
+so they don't get confused
+
+SHOW_PATCH
+---
+
+ app/controllers/users_controller.rb |    8 ++++++++
+ 1 files changed, 8 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/controllers/users_controller.rb b/app/controllers/users_controller.rb
+index 13d3869..4f33a83 100644
+--- a/app/controllers/users_controller.rb
++++ b/app/controllers/users_controller.rb
+@@ -4,4 +4,12 @@ class UsersController < ApplicationController
+ 
+   auto_actions :all, :except => [ :index, :new, :create ]
+ 
++  def do_signup
++    hobo_do_signup do
++      if this.errors.blank?
++        flash[:notice] << "You must activate your account before you can log in.  Please check your email."
++      end
++    end
++  end  
++
+ end
