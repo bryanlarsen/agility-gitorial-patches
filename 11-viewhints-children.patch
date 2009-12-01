@@ -1,0 +1,42 @@
+viewhints-children
+
+From: Bryan Larsen <bryan@larsen.st>
+
+# Specifying view relationships
+
+If we tell Hobo which has_many relationships are significant, Hobo adjusts to display the list of children on its parent's page.
+
+We added five has_many relationships, but only two of them are significant, for now.  We specify these in the view hints file for the parent.
+
+SHOW_PATCH
+---
+
+ app/viewhints/project_hints.rb |    2 ++
+ app/viewhints/story_hints.rb   |    2 ++
+ 2 files changed, 4 insertions(+), 0 deletions(-)
+
+
+diff --git a/app/viewhints/project_hints.rb b/app/viewhints/project_hints.rb
+index 1f0eb6f..49e3aea 100644
+--- a/app/viewhints/project_hints.rb
++++ b/app/viewhints/project_hints.rb
+@@ -1,5 +1,7 @@
+ class ProjectHints < Hobo::ViewHints
+ 
++  children :stories
++
+   # model_name "My Model"
+   # field_names :field1 => "First Field", :field2 => "Second Field"
+   # field_help :field1 => "Enter what you want in this field"
+diff --git a/app/viewhints/story_hints.rb b/app/viewhints/story_hints.rb
+index 831007f..2af831f 100644
+--- a/app/viewhints/story_hints.rb
++++ b/app/viewhints/story_hints.rb
+@@ -1,5 +1,7 @@
+ class StoryHints < Hobo::ViewHints
+ 
++  children :tasks
++
+   # model_name "My Model"
+   # field_names :field1 => "First Field", :field2 => "Second Field"
+   # field_help :field1 => "Enter what you want in this field"

@@ -12,11 +12,11 @@ In order to support management of the statuses available, we'll create a StorySt
  app/controllers/story_statuses_controller.rb      |    7 +++++
  app/helpers/story_statuses_helper.rb              |    2 +
  app/models/story_status.rb                        |   29 +++++++++++++++++++++
- app/viewhints/story_status_hints.rb               |    4 +++
+ app/viewhints/story_status_hints.rb               |    7 +++++
  test/fixtures/story_statuses.yml                  |    6 ++++
  test/functional/story_statuses_controller_test.rb |    8 ++++++
  test/unit/story_status_test.rb                    |    8 ++++++
- 7 files changed, 64 insertions(+), 0 deletions(-)
+ 7 files changed, 67 insertions(+), 0 deletions(-)
  create mode 100644 app/controllers/story_statuses_controller.rb
  create mode 100644 app/helpers/story_statuses_helper.rb
  create mode 100644 app/models/story_status.rb
@@ -84,13 +84,16 @@ index 0000000..2d01ab7
 +end
 diff --git a/app/viewhints/story_status_hints.rb b/app/viewhints/story_status_hints.rb
 new file mode 100644
-index 0000000..6ec7947
+index 0000000..e5b821c
 --- /dev/null
 +++ b/app/viewhints/story_status_hints.rb
-@@ -0,0 +1,4 @@
+@@ -0,0 +1,7 @@
 +class StoryStatusHints < Hobo::ViewHints
 +
-+
++  # model_name "My Model"
++  # field_names :field1 => "First Field", :field2 => "Second Field"
++  # field_help :field1 => "Enter what you want in this field"
++  # children :primary_collection1, :aside_collection1, :aside_collection2
 +end
 diff --git a/test/fixtures/story_statuses.yml b/test/fixtures/story_statuses.yml
 new file mode 100644

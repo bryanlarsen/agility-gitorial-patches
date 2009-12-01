@@ -1,0 +1,12 @@
+story-status-model-migration-run
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Run your modified migration:
+
+    $ rake:db_migrate
+---
+
+ 0 files changed, 0 insertions(+), 0 deletions(-)
+
+

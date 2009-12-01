@@ -13,17 +13,19 @@ It is very common for websites to present information in a hierarchy, and this `
 Refresh any project page and you should see the collection, which will be empty of course, in a side-bar.
 ---
 
- app/viewhints/project_hints.rb |    3 +--
- 1 files changed, 1 insertions(+), 2 deletions(-)
+ app/viewhints/project_hints.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 
 diff --git a/app/viewhints/project_hints.rb b/app/viewhints/project_hints.rb
-index c0c7e8c..21a1a45 100644
+index 49e3aea..b1cfaf9 100644
 --- a/app/viewhints/project_hints.rb
 +++ b/app/viewhints/project_hints.rb
-@@ -1,4 +1,3 @@
+@@ -1,6 +1,6 @@
  class ProjectHints < Hobo::ViewHints
--
--
+ 
+-  children :stories
 +  children :stories, :memberships
- end
+ 
+   # model_name "My Model"
+   # field_names :field1 => "First Field", :field2 => "Second Field"

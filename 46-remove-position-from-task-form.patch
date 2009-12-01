@@ -14,18 +14,17 @@ SHOW_PATCH
 
 
 diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
-index 437cdba..e2bc28c 100644
+index c9548da..e2bc28c 100644
 --- a/app/views/taglibs/application.dryml
 +++ b/app/views/taglibs/application.dryml
-@@ -16,4 +16,10 @@
-     </div>
+@@ -17,3 +17,9 @@
      </append-body:>
    </old-card>
-+</extend>
+ </extend>
 +
 +<extend tag="form" for="Task">
 +  <old-form merge>
 +    <field-list: fields="description, users"/>
 +  </old-form>
- </extend>
++</extend>
 \ No newline at end of file

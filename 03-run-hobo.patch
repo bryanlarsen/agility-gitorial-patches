@@ -36,7 +36,7 @@ If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-
  app/models/user_mailer.rb                          |   14 
  app/views/front/index.dryml                        |   29 
  app/views/front/summary.dryml                      |  103 
- app/views/taglibs/application.dryml                |   11 
+ app/views/taglibs/application.dryml                |    9 
  app/views/taglibs/themes/clean/clean.dryml         |   10 
  app/views/user_mailer/forgot_password.erb          |   10 
  config/boot.rb                                     |  110 +
@@ -53,6 +53,7 @@ If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-
  config/initializers/session_store.rb               |   15 
  config/locales/en.yml                              |    5 
  config/routes.rb                                   |   49 
+ db/seeds.rb                                        |    7 
  doc/README_FOR_APP                                 |    2 
  public/404.html                                    |   30 
  public/422.html                                    |   30 
@@ -77,8 +78,8 @@ If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-
  public/javascripts/dragdrop.js                     |  973 +++++
  public/javascripts/dryml-support.js                |  132 +
  public/javascripts/effects.js                      | 1128 +++++
- public/javascripts/hobo-rapid.js                   |  854 ++++
- public/javascripts/ie7-recalc.js                   |    2 
+ public/javascripts/hobo-rapid.js                   |  863 ++++
+ public/javascripts/ie7-recalc.js                   |  166 +
  public/javascripts/lowpro.js                       |  339 ++
  public/javascripts/prototype.js                    | 4320 ++++++++++++++++++++
  public/robots.txt                                  |    5 
@@ -101,7 +102,7 @@ If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-
  test/performance/browsing_test.rb                  |    9 
  test/test_helper.rb                                |   38 
  test/unit/user_test.rb                             |    8 
- 77 files changed, 10198 insertions(+), 0 deletions(-)
+ 78 files changed, 10376 insertions(+), 0 deletions(-)
  create mode 100644 Rakefile
  create mode 100644 app/controllers/application_controller.rb
  create mode 100644 app/controllers/front_controller.rb
@@ -131,6 +132,7 @@ If you wish to use hobo as a plugin instead of a gem, see the [sidebar](hobo-as-
  create mode 100644 config/initializers/session_store.rb
  create mode 100644 config/locales/en.yml
  create mode 100644 config/routes.rb
+ create mode 100644 db/seeds.rb
  create mode 100644 doc/README_FOR_APP
  create mode 100644 public/404.html
  create mode 100644 public/422.html
@@ -525,10 +527,10 @@ index 0000000..565b7ed
 \ No newline at end of file
 diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
 new file mode 100644
-index 0000000..92c7ebe
+index 0000000..46a7a29
 --- /dev/null
 +++ b/app/views/taglibs/application.dryml
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,9 @@
 +<include src="rapid" plugin="hobo"/>
 +
 +<include src="taglibs/auto/rapid/cards"/>
@@ -538,8 +540,6 @@ index 0000000..92c7ebe
 +<set-theme name="clean"/>
 +
 +<def tag="app-name">Agility</def>
-+
-+
 diff --git a/app/views/taglibs/themes/clean/clean.dryml b/app/views/taglibs/themes/clean/clean.dryml
 new file mode 100644
 index 0000000..3bb662f
@@ -938,7 +938,7 @@ index 0000000..c94db0a
 \ No newline at end of file
 diff --git a/config/initializers/session_store.rb b/config/initializers/session_store.rb
 new file mode 100644
-index 0000000..cbac1e9
+index 0000000..43f047b
 --- /dev/null
 +++ b/config/initializers/session_store.rb
 @@ -0,0 +1,15 @@
@@ -949,8 +949,8 @@ index 0000000..cbac1e9
 +# Make sure the secret is at least 30 characters and all random, 
 +# no regular words or you'll be exposed to dictionary attacks.
 +ActionController::Base.session = {
-+  :key         => '_agility-gitorial_session',
-+  :secret      => 'b60c745a07c3dd7542b0cc9554309b0a0fcf72eb0da46105abdfe4a6b0ed5ea20322d66d4d8fd5e7f0fa8e8472395bd9245b4faeb239b5aa7b78b09f4663320d'
++  :key         => '_agility_session',
++  :secret      => 'e59cb998eddcd8e05117294501c12453ef266b86151ac7a9ba59274270079d07d130728d2201e35f77231ea449290e7e7a49c378ee9d2dd4295186b4ac7ad68d'
 +}
 +
 +# Use the database for sessions instead of the cookie-based default,
@@ -1024,6 +1024,19 @@ index 0000000..04281c3
 +  map.connect ':controller/:action/:id'
 +  map.connect ':controller/:action/:id.:format'
 +end
+diff --git a/db/seeds.rb b/db/seeds.rb
+new file mode 100644
+index 0000000..3174d0c
+--- /dev/null
++++ b/db/seeds.rb
+@@ -0,0 +1,7 @@
++# This file should contain all the record creation needed to seed the database with its default values.
++# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
++#
++# Examples:
++#   
++#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
++#   Major.create(:name => 'Daley', :city => cities.first)
 diff --git a/doc/README_FOR_APP b/doc/README_FOR_APP
 new file mode 100644
 index 0000000..fe41f5c
@@ -5184,10 +5197,10 @@ index 0000000..5a639d2
 \ No newline at end of file
 diff --git a/public/javascripts/hobo-rapid.js b/public/javascripts/hobo-rapid.js
 new file mode 100644
-index 0000000..4d2d3db
+index 0000000..62bd2d6
 --- /dev/null
 +++ b/public/javascripts/hobo-rapid.js
-@@ -0,0 +1,854 @@
+@@ -0,0 +1,863 @@
 +Object.extend = function(destination) {
 +    $A(arguments).slice(1).each(function (src) {
 +        for (var property in src) {
@@ -5383,6 +5396,7 @@ index 0000000..4d2d3db
 +                    onLeaveHover: null,
 +                    callback: function(form, val) {
 +                        old = val
++                        el.setAttribute("hobo-edit-text", val)
 +                        return (Hobo.fieldSetParam(el, val) + "&" + updateParams)
 +                    },
 +                    onFailure: function(_, resp) {
@@ -5390,6 +5404,10 @@ index 0000000..4d2d3db
 +                    },
 +                    onEnterEditMode: function() {
 +                        var blank_message = el.getAttribute("hobo-blank-message")
++                        var editable_text = el.getAttribute("hobo-edit-text")
++                        if (editable_text) {
++                            el.innerHTML = editable_text
++                        }
 +                        if (el.innerHTML.gsub("&nbsp;", " ") == blank_message) {
 +                            el.innerHTML = "" 
 +                        } else {
@@ -5975,6 +5993,10 @@ index 0000000..4d2d3db
 +                rows: 2, handleLineBreaks: false, okButton: true, cancelLink: true, okText: "Save", submitOnBlur: false
 +            }
 +            var ipe = Hobo._makeInPlaceEditor(this, options) 
++            ipe.getText = function() {
++                // Be careful!  we're not calling unescapeHTML() here!
++                return this.element.innerHTML
++            }
 +        }
 +    },
 +
@@ -6044,13 +6066,176 @@ index 0000000..4d2d3db
 +})
 diff --git a/public/javascripts/ie7-recalc.js b/public/javascripts/ie7-recalc.js
 new file mode 100644
-index 0000000..f07c5a6
+index 0000000..1f4b89c
 --- /dev/null
 +++ b/public/javascripts/ie7-recalc.js
-@@ -0,0 +1,2 @@
-+/* IE7/IE8.js - copyright 2004-2008, Dean Edwards */
-+(function(){if(!IE7.loaded)return;CLASSES=/\sie7_class\d+/g;IE7.CSS.extend({elements:{},handlers:[],reset:function(){this.removeEventHandlers();var a=this.elements;for(var b in a)a[b].runtimeStyle.cssText="";this.elements={};var a=IE7.Rule.elements;for(var b in a){with(a[b])className=className.replace(CLASSES,"")}IE7.Rule.elements={}},reload:function(){this.rules=[];this.getInlineStyles();this.screen.load();if(this.print)this.print.load();this.refresh();this.trash()},addRecalc:function(b,c,d,e){this.base(b,c,function(a){d(a);IE7.CSS.elements[a.uniqueID]=a},e)},recalc:function(){this.reset();this.base()},addEventHandler:function(a,b,c){a.attachEvent(b,c);this.handlers.push(arguments)},removeEventHandlers:function(){var a;while(a=this.handlers.pop()){a[0].detachEvent(a[1],a[2])}},getInlineStyles:function(){var a=document.getElementsByTagName("style"),b;for(var c=a.length-1;(b=a[c]);c--){if(!b.disabled&&!b.ie7){var d=b.cssText||b.innerHTML;this.styles.push(d);b.cssText=d}}},trash:function(){var a=document.styleSheets,b,c;for(c=0;c<a.length;c++){b=a[c];if(!b.ie7&&!b.cssText){b.cssText=b.cssText}}this.base()},getText:function(a){return a.cssText||this.base(a)}});IE7.CSS.addEventHandler(window,"onunload",function(){IE7.CSS.removeEventHandlers()});IE7.Rule.elements={};IE7.Rule.prototype.extend({add:function(a){this.base(a);IE7.Rule.elements[a.uniqueID]=a}});if(IE7.PseudoElement){IE7.PseudoElement.hash={};IE7.PseudoElement.prototype.extend({create:function(a){var b=this.selector+":"+a.uniqueID;if(!IE7.PseudoElement.hash[b]){IE7.PseudoElement.hash[b]=true;this.base(a)}}})}IE7.HTML.extend({elements:{},addRecalc:function(b,c){this.base(b,function(a){if(!this.elements[a.uniqueID]){c(a);this.elements[a.uniqueID]=a}})}});document.recalc=function(a){if(IE7.CSS.screen){if(a)IE7.CSS.reload();IE7.recalc()}}})();
-\ No newline at end of file
+@@ -0,0 +1,166 @@
++
++// =========================================================================
++// ie7-recalc.js
++// =========================================================================
++
++(function() {
++  /* ---------------------------------------------------------------------
++  
++    This allows refreshing of IE7 style rules. If you modify the DOM
++    you can update IE7 by calling document.recalc().
++  
++    This should be the LAST module included.
++  
++  --------------------------------------------------------------------- */
++  
++  if (!IE7.loaded) return;
++  
++  // remove all IE7 classes from an element
++  CLASSES = /\sie7_class\d+/g;
++  
++  IE7.CSS.extend({
++    // store for elements that have style properties calculated
++    elements: {},
++    handlers: [],
++    
++    // clear IE7 classes and styles
++    reset: function() {
++      this.removeEventHandlers();
++      // reset IE7 classes here
++      var elements = this.elements;
++      for (var i in elements) elements[i].runtimeStyle.cssText = "";
++      this.elements = {};
++      // reset runtimeStyle here
++      var elements = IE7.Rule.elements;
++      for (var i in elements) {
++        with (elements[i]) className = className.replace(CLASSES, "");
++      }
++      IE7.Rule.elements = {};
++    },
++    
++    reload: function() {
++      this.rules = [];
++      this.getInlineStyles();
++      this.screen.load();
++      if (this.print) this.print.load();
++      this.refresh();
++      this.trash();
++    },
++    
++    addRecalc: function(propertyName, test, handler, replacement) {
++      // call the ancestor method to add a wrapped recalc method
++      this.base(propertyName, test, function(element) {
++        // execute the original recalc method
++        handler(element);
++        // store a reference to this element so we can clear its style later
++        IE7.CSS.elements[element.uniqueID] = element;
++      }, replacement);
++    },
++    
++    recalc: function() {
++      // clear IE7 styles and classes
++      this.reset();
++      // execute the ancestor method to perform recalculations
++      this.base();
++    },
++    
++    addEventHandler: function(element, type, handler) {
++      element.attachEvent(type, handler);
++      // store the handler so it can be detached later
++      this.handlers.push(arguments);
++    },
++    
++    removeEventHandlers: function() {
++      var handler;
++       while (handler = this.handlers.pop()) {
++         handler[0].detachEvent(handler[1], handler[2]);
++       }
++    },
++    
++    getInlineStyles: function() {
++      // load inline styles
++      var styleSheets = document.getElementsByTagName("style"), styleSheet;
++      for (var i = styleSheets.length - 1; (styleSheet = styleSheets[i]); i--) {
++        if (!styleSheet.disabled && !styleSheet.ie7) {
++          var cssText = styleSheet.cssText || styleSheet.innerHTML;
++          this.styles.push(cssText);
++          styleSheet.cssText = cssText;
++        }
++      }
++    },
++    
++    trash: function() {
++      // trash the old style sheets
++      var styleSheets = document.styleSheets, styleSheet, i;
++      for (i = 0; i < styleSheets.length; i++) {
++        styleSheet = styleSheets[i];
++        if (!styleSheet.ie7 && !styleSheet.cssText && styleSheet.cssText != '') {
++          styleSheet.cssText = styleSheet.cssText;
++        }
++      }
++      this.base();
++    },
++    
++    getText: function(styleSheet) {
++      return styleSheet.cssText || this.base(styleSheet);
++    }
++  });
++  
++  // remove event handlers (they eat memory)
++  IE7.CSS.addEventHandler(window, "onunload", function() {
++     IE7.CSS.removeEventHandlers();
++  });
++  
++  // store all elements with an IE7 class assigned
++  IE7.Rule.elements = {};
++
++  IE7.Rule.prototype.extend({
++    add: function(element) {
++      // execute the ancestor "add" method
++      this.base(element);
++      // store a reference to this element so we can clear its classes later
++      IE7.Rule.elements[element.uniqueID] = element;
++    }
++  });
++
++  // store created pseudo elements
++  if (IE7.PseudoElement) {
++    IE7.PseudoElement.hash = {};
++  
++    IE7.PseudoElement.prototype.extend({
++      create: function(target) {
++        var key = this.selector + ":" + target.uniqueID;
++        if (!IE7.PseudoElement.hash[key]) {
++          IE7.PseudoElement.hash[key] = true;
++          this.base(target);
++        }
++      }
++    });
++  }
++  
++  IE7.HTML.extend({
++    elements: {},
++    
++    addRecalc: function(selector, handler) {
++      // call the ancestor method to add a wrapped recalc method
++      this.base(selector, function(element) {
++        if (!this.elements[element.uniqueID]) {
++          // execute the original recalc method
++          handler(element);
++          // store a reference to this element so that
++          //  it is not "fixed" again
++          this.elements[element.uniqueID] = element;
++        }
++      });
++    }
++  });
++  
++  // allow refreshing of IE7 fixes
++  document.recalc = function(reload) {
++    if (IE7.CSS.screen) {
++      if (reload) IE7.CSS.reload();
++      IE7.recalc();
++    }
++  };
++
++})();
 diff --git a/public/javascripts/lowpro.js b/public/javascripts/lowpro.js
 new file mode 100644
 index 0000000..6ee5c87

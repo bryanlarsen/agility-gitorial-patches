@@ -24,19 +24,19 @@ The `<extend>` tag is used to extend any tag that's already defined. The body of
  * DRYML has a multi-purpose `<else>` tag. When used with repeat, it provides a default for the case when the collection is empty.
 ---
 
- app/views/taglibs/application.dryml |   10 +++++++++-
- 1 files changed, 9 insertions(+), 1 deletions(-)
+ app/views/taglibs/application.dryml |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
 
 
 diff --git a/app/views/taglibs/application.dryml b/app/views/taglibs/application.dryml
-index 92c7ebe..437cdba 100644
+index 46a7a29..c9548da 100644
 --- a/app/views/taglibs/application.dryml
 +++ b/app/views/taglibs/application.dryml
-@@ -8,4 +8,12 @@
+@@ -7,3 +7,13 @@
+ <set-theme name="clean"/>
  
  <def tag="app-name">Agility</def>
- 
--
++
 +<extend tag="card" for="Task">
 +  <old-card merge>
 +    <append-body:>
@@ -46,4 +46,3 @@ index 92c7ebe..437cdba 100644
 +    </append-body:>
 +  </old-card>
 +</extend>
-\ No newline at end of file

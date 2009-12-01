@@ -26,11 +26,13 @@ And a helper method that might come in handy when implementing your permission m
 {: .ruby}
 ---
 
- app/models/project.rb               |   10 +++++++++-
- app/models/project_membership.rb    |    1 +
- app/views/taglibs/application.dryml |   12 +++++++++++-
- db/schema.rb                        |    3 ++-
- 4 files changed, 23 insertions(+), 3 deletions(-)
+ app/models/project.rb                              |   10 +++++++++-
+ app/models/project_membership.rb                   |    1 +
+ app/views/taglibs/application.dryml                |   12 +++++++++++-
+ ...01135804_hobo_migration_project_contributors.rb |    9 +++++++++
+ db/schema.rb                                       |    3 ++-
+ 5 files changed, 32 insertions(+), 3 deletions(-)
+ create mode 100644 db/migrate/20091201135804_hobo_migration_project_contributors.rb
 
 
 diff --git a/app/models/project.rb b/app/models/project.rb
@@ -94,16 +96,31 @@ index e2bc28c..5681328 100644
 +  </old-card>
 +</extend>
 +
+diff --git a/db/migrate/20091201135804_hobo_migration_project_contributors.rb b/db/migrate/20091201135804_hobo_migration_project_contributors.rb
+new file mode 100644
+index 0000000..cd4429a
+--- /dev/null
++++ b/db/migrate/20091201135804_hobo_migration_project_contributors.rb
+@@ -0,0 +1,9 @@
++class HoboMigrationProjectContributors < ActiveRecord::Migration
++  def self.up
++    add_column :project_memberships, :contributor, :boolean, :default => false
++  end
++
++  def self.down
++    remove_column :project_memberships, :contributor
++  end
++end
 diff --git a/db/schema.rb b/db/schema.rb
-index 685f365..8739f85 100644
+index 1a958c2..72bae99 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,13 +9,14 @@
  #
  # It's strongly recommended to check this file into your version control system.
  
--ActiveRecord::Schema.define(:version => 20091117002344) do
-+ActiveRecord::Schema.define(:version => 20091117002547) do
+-ActiveRecord::Schema.define(:version => 20091201135345) do
++ActiveRecord::Schema.define(:version => 20091201135804) do
  
    create_table "project_memberships", :force => true do |t|
      t.datetime "created_at"

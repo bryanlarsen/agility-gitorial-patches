@@ -7,17 +7,17 @@ Run the migration generator to see the effect on the app:
     $ ./script/generate hobo_migration
 ---
 
- ...1117002139_hobo_migration_project_membership.rb |   11 +++++++++++
+ ...1201135235_hobo_migration_project_membership.rb |   11 +++++++++++
  db/schema.rb                                       |    5 ++++-
  2 files changed, 15 insertions(+), 1 deletions(-)
- create mode 100644 db/migrate/20091117002139_hobo_migration_project_membership.rb
+ create mode 100644 db/migrate/20091201135235_hobo_migration_project_membership.rb
 
 
-diff --git a/db/migrate/20091117002139_hobo_migration_project_membership.rb b/db/migrate/20091117002139_hobo_migration_project_membership.rb
+diff --git a/db/migrate/20091201135235_hobo_migration_project_membership.rb b/db/migrate/20091201135235_hobo_migration_project_membership.rb
 new file mode 100644
 index 0000000..e1114d7
 --- /dev/null
-+++ b/db/migrate/20091117002139_hobo_migration_project_membership.rb
++++ b/db/migrate/20091201135235_hobo_migration_project_membership.rb
 @@ -0,0 +1,11 @@
 +class HoboMigrationProjectMembership < ActiveRecord::Migration
 +  def self.up
@@ -31,15 +31,15 @@ index 0000000..e1114d7
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index f522a93..6bb4d94 100644
+index 128439e..c434f2d 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,14 +9,17 @@
  #
  # It's strongly recommended to check this file into your version control system.
  
--ActiveRecord::Schema.define(:version => 20091117001917) do
-+ActiveRecord::Schema.define(:version => 20091117002139) do
+-ActiveRecord::Schema.define(:version => 20091201134811) do
++ActiveRecord::Schema.define(:version => 20091201135235) do
  
    create_table "projects", :force => true do |t|
      t.string   "name"

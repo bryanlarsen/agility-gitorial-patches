@@ -1,0 +1,94 @@
+story-status-model-migration
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Now run the migration generator
+
+    $ ./script/generate hobo_migration
+
+You'll see that the migration generator considers this change to be ambiguous. Whenever there are columns removed *and* columns added, the migration generator can't tell whether you're actually removing one column and adding another, or if you are renaming the old column. It's also pretty fussy about what it makes you type. We really don't want to play fast and lose with your precious data, so to confirm that you want to drop the 'status' column, you have to type in full: "drop status".
+
+Once you've done that you'll see that the generated migration includes the creation of the new foreign key and the removal of the old status column.  Press `g` now to generate the migration without running it.
+---
+
+ ...1201134408_hobo_migration_story_status_model.rb |   25 ++++++++++++++++++++
+ db/schema.rb                                       |   13 ++++++++--
+ 2 files changed, 35 insertions(+), 3 deletions(-)
+ create mode 100644 db/migrate/20091201134408_hobo_migration_story_status_model.rb
+
+
+diff --git a/db/migrate/20091201134408_hobo_migration_story_status_model.rb b/db/migrate/20091201134408_hobo_migration_story_status_model.rb
+new file mode 100644
+index 0000000..8571591
+--- /dev/null
++++ b/db/migrate/20091201134408_hobo_migration_story_status_model.rb
+@@ -0,0 +1,25 @@
++class HoboMigrationStoryStatusModel < ActiveRecord::Migration
++  def self.up
++    create_table :story_statuses do |t|
++      t.string   :name
++      t.datetime :created_at
++      t.datetime :updated_at
++    end
++
++    change_column :users, :state, :string, :limit => 255, :default => "inactive"
++
++    add_column :stories, :status_id, :integer
++    remove_column :stories, :status
++    add_index :stories, [:status_id]
++  end
++
++  def self.down
++    change_column :users, :state, :string, :default => "active"
++
++    remove_column :stories, :status_id
++    add_column :stories, :status, :string
++    remove_index :stories, :name => :index_stories_on_status_id
++
++    drop_table :story_statuses
++  end
++end
+diff --git a/db/schema.rb b/db/schema.rb
+index 32cb2cf..82cee64 100644
+--- a/db/schema.rb
++++ b/db/schema.rb
+@@ -9,7 +9,7 @@
+ #
+ # It's strongly recommended to check this file into your version control system.
+ 
+-ActiveRecord::Schema.define(:version => 20091201020837) do
++ActiveRecord::Schema.define(:version => 20091201134408) do
+ 
+   create_table "projects", :force => true do |t|
+     t.string   "name"
+@@ -20,13 +20,20 @@ ActiveRecord::Schema.define(:version => 20091201020837) do
+   create_table "stories", :force => true do |t|
+     t.string   "title"
+     t.text     "body"
+-    t.string   "status"
+     t.datetime "created_at"
+     t.datetime "updated_at"
+     t.integer  "project_id"
++    t.integer  "status_id"
+   end
+ 
+   add_index "stories", ["project_id"], :name => "index_stories_on_project_id"
++  add_index "stories", ["status_id"], :name => "index_stories_on_status_id"
++
++  create_table "story_statuses", :force => true do |t|
++    t.string   "name"
++    t.datetime "created_at"
++    t.datetime "updated_at"
++  end
+ 
+   create_table "task_assignments", :force => true do |t|
+     t.datetime "created_at"
+@@ -57,7 +64,7 @@ ActiveRecord::Schema.define(:version => 20091201020837) do
+     t.boolean  "administrator",                           :default => false
+     t.datetime "created_at"
+     t.datetime "updated_at"
+-    t.string   "state",                                   :default => "active"
++    t.string   "state",                                   :default => "inactive"
+     t.datetime "key_timestamp"
+   end
+ 

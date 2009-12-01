@@ -11,17 +11,17 @@ Fire up the app. It's not a polished UI of course, but we do actually have a wor
 With some more very simple changes, and without even touching the views, we can get surprisingly close to a decent UI.
 ---
 
- ...20091116230523_hobo_migration_initial_models.rb |   43 ++++++++++++++++++++
+ ...20091201020837_hobo_migration_initial_models.rb |   43 ++++++++++++++++++++
  db/schema.rb                                       |   38 +++++++++++++++++-
  2 files changed, 80 insertions(+), 1 deletions(-)
- create mode 100644 db/migrate/20091116230523_hobo_migration_initial_models.rb
+ create mode 100644 db/migrate/20091201020837_hobo_migration_initial_models.rb
 
 
-diff --git a/db/migrate/20091116230523_hobo_migration_initial_models.rb b/db/migrate/20091116230523_hobo_migration_initial_models.rb
+diff --git a/db/migrate/20091201020837_hobo_migration_initial_models.rb b/db/migrate/20091201020837_hobo_migration_initial_models.rb
 new file mode 100644
-index 0000000..3e026ed
+index 0000000..f7f95ac
 --- /dev/null
-+++ b/db/migrate/20091116230523_hobo_migration_initial_models.rb
++++ b/db/migrate/20091201020837_hobo_migration_initial_models.rb
 @@ -0,0 +1,43 @@
 +class HoboMigrationInitialModels < ActiveRecord::Migration
 +  def self.up
@@ -33,13 +33,13 @@ index 0000000..3e026ed
 +    end
 +    add_index :task_assignments, [:user_id]
 +    add_index :task_assignments, [:task_id]
-+    
++
 +    create_table :projects do |t|
 +      t.string   :name
 +      t.datetime :created_at
 +      t.datetime :updated_at
 +    end
-+    
++
 +    create_table :tasks do |t|
 +      t.string   :description
 +      t.datetime :created_at
@@ -47,7 +47,7 @@ index 0000000..3e026ed
 +      t.integer  :story_id
 +    end
 +    add_index :tasks, [:story_id]
-+    
++
 +    create_table :stories do |t|
 +      t.string   :title
 +      t.text     :body
@@ -67,15 +67,15 @@ index 0000000..3e026ed
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index d406440..156f72c 100644
+index 10ba9ae..32cb2cf 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,7 +9,43 @@
  #
  # It's strongly recommended to check this file into your version control system.
  
--ActiveRecord::Schema.define(:version => 20091116224812) do
-+ActiveRecord::Schema.define(:version => 20091116230523) do
+-ActiveRecord::Schema.define(:version => 20091201020248) do
++ActiveRecord::Schema.define(:version => 20091201020837) do
 +
 +  create_table "projects", :force => true do |t|
 +    t.string   "name"

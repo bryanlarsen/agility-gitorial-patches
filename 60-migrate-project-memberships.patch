@@ -8,17 +8,17 @@ the database:
     $ ./script/generate hobo_migration
 ---
 
- ...117002344_hobo_migration_project_memberships.rb |   16 ++++++++++++++++
+ ...201135345_hobo_migration_project_memberships.rb |   16 ++++++++++++++++
  db/schema.rb                                       |   12 +++++++++++-
  2 files changed, 27 insertions(+), 1 deletions(-)
- create mode 100644 db/migrate/20091117002344_hobo_migration_project_memberships.rb
+ create mode 100644 db/migrate/20091201135345_hobo_migration_project_memberships.rb
 
 
-diff --git a/db/migrate/20091117002344_hobo_migration_project_memberships.rb b/db/migrate/20091117002344_hobo_migration_project_memberships.rb
+diff --git a/db/migrate/20091201135345_hobo_migration_project_memberships.rb b/db/migrate/20091201135345_hobo_migration_project_memberships.rb
 new file mode 100644
 index 0000000..e6c7e1f
 --- /dev/null
-+++ b/db/migrate/20091117002344_hobo_migration_project_memberships.rb
++++ b/db/migrate/20091201135345_hobo_migration_project_memberships.rb
 @@ -0,0 +1,16 @@
 +class HoboMigrationProjectMemberships < ActiveRecord::Migration
 +  def self.up
@@ -37,15 +37,15 @@ index 0000000..e6c7e1f
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index 6bb4d94..685f365 100644
+index c434f2d..1a958c2 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,7 +9,17 @@
  #
  # It's strongly recommended to check this file into your version control system.
  
--ActiveRecord::Schema.define(:version => 20091117002139) do
-+ActiveRecord::Schema.define(:version => 20091117002344) do
+-ActiveRecord::Schema.define(:version => 20091201135235) do
++ActiveRecord::Schema.define(:version => 20091201135345) do
 +
 +  create_table "project_memberships", :force => true do |t|
 +    t.datetime "created_at"

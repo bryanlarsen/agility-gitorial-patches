@@ -19,18 +19,18 @@ Respond to the prompt with `m` and then give the migration a name. Then:
 You should be able to sign up. In the next section we'll be starting to flesh out the basics of the app.
 ---
 
- db/migrate/20091116224812_initial_migration.rb |   22 ++++++++++++++++++
+ db/migrate/20091201020248_initial_migration.rb |   22 ++++++++++++++++++
  db/schema.rb                                   |   30 ++++++++++++++++++++++++
  2 files changed, 52 insertions(+), 0 deletions(-)
- create mode 100644 db/migrate/20091116224812_initial_migration.rb
+ create mode 100644 db/migrate/20091201020248_initial_migration.rb
  create mode 100644 db/schema.rb
 
 
-diff --git a/db/migrate/20091116224812_initial_migration.rb b/db/migrate/20091116224812_initial_migration.rb
+diff --git a/db/migrate/20091201020248_initial_migration.rb b/db/migrate/20091201020248_initial_migration.rb
 new file mode 100644
 index 0000000..2dc45a5
 --- /dev/null
-+++ b/db/migrate/20091116224812_initial_migration.rb
++++ b/db/migrate/20091201020248_initial_migration.rb
 @@ -0,0 +1,22 @@
 +class InitialMigration < ActiveRecord::Migration
 +  def self.up
@@ -56,7 +56,7 @@ index 0000000..2dc45a5
 +end
 diff --git a/db/schema.rb b/db/schema.rb
 new file mode 100644
-index 0000000..d406440
+index 0000000..10ba9ae
 --- /dev/null
 +++ b/db/schema.rb
 @@ -0,0 +1,30 @@
@@ -71,7 +71,7 @@ index 0000000..d406440
 +#
 +# It's strongly recommended to check this file into your version control system.
 +
-+ActiveRecord::Schema.define(:version => 20091116224812) do
++ActiveRecord::Schema.define(:version => 20091201020248) do
 +
 +  create_table "users", :force => true do |t|
 +    t.string   "crypted_password",          :limit => 40

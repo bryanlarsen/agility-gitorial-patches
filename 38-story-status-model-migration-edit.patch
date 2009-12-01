@@ -11,14 +11,14 @@ That's it. The page to manage the story statuses should appear in the main navig
 Now that we've got more structured statuses, let's do something with them...
 ---
 
- ...1117001054_hobo_migration_story_status_model.rb |    3 +++
+ ...1201134408_hobo_migration_story_status_model.rb |    3 +++
  1 files changed, 3 insertions(+), 0 deletions(-)
 
 
-diff --git a/db/migrate/20091117001054_hobo_migration_story_status_model.rb b/db/migrate/20091117001054_hobo_migration_story_status_model.rb
-index 78bfa22..672e2fa 100644
---- a/db/migrate/20091117001054_hobo_migration_story_status_model.rb
-+++ b/db/migrate/20091117001054_hobo_migration_story_status_model.rb
+diff --git a/db/migrate/20091201134408_hobo_migration_story_status_model.rb b/db/migrate/20091201134408_hobo_migration_story_status_model.rb
+index 8571591..08b81fa 100644
+--- a/db/migrate/20091201134408_hobo_migration_story_status_model.rb
++++ b/db/migrate/20091201134408_hobo_migration_story_status_model.rb
 @@ -11,6 +11,9 @@ class HoboMigrationStoryStatusModel < ActiveRecord::Migration
      add_column :stories, :status_id, :integer
      remove_column :stories, :status

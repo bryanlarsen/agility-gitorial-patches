@@ -10,17 +10,17 @@ run it and you'll get the new position column on Task.
 And that's it!
 ---
 
- .../20091117001917_hobo_migration_acts_as_list.rb  |    9 +++++++++
+ .../20091201134811_hobo_migration_acts_as_list.rb  |    9 +++++++++
  db/schema.rb                                       |    3 ++-
  2 files changed, 11 insertions(+), 1 deletions(-)
- create mode 100644 db/migrate/20091117001917_hobo_migration_acts_as_list.rb
+ create mode 100644 db/migrate/20091201134811_hobo_migration_acts_as_list.rb
 
 
-diff --git a/db/migrate/20091117001917_hobo_migration_acts_as_list.rb b/db/migrate/20091117001917_hobo_migration_acts_as_list.rb
+diff --git a/db/migrate/20091201134811_hobo_migration_acts_as_list.rb b/db/migrate/20091201134811_hobo_migration_acts_as_list.rb
 new file mode 100644
 index 0000000..71db2f6
 --- /dev/null
-+++ b/db/migrate/20091117001917_hobo_migration_acts_as_list.rb
++++ b/db/migrate/20091201134811_hobo_migration_acts_as_list.rb
 @@ -0,0 +1,9 @@
 +class HoboMigrationActsAsList < ActiveRecord::Migration
 +  def self.up
@@ -32,19 +32,19 @@ index 0000000..71db2f6
 +  end
 +end
 diff --git a/db/schema.rb b/db/schema.rb
-index 46a1f7e..f522a93 100644
+index 82cee64..128439e 100644
 --- a/db/schema.rb
 +++ b/db/schema.rb
 @@ -9,7 +9,7 @@
  #
  # It's strongly recommended to check this file into your version control system.
  
--ActiveRecord::Schema.define(:version => 20091117001054) do
-+ActiveRecord::Schema.define(:version => 20091117001917) do
+-ActiveRecord::Schema.define(:version => 20091201134408) do
++ActiveRecord::Schema.define(:version => 20091201134811) do
  
    create_table "projects", :force => true do |t|
      t.string   "name"
-@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20091117001054) do
+@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20091201134408) do
      t.datetime "created_at"
      t.datetime "updated_at"
      t.integer  "story_id"
