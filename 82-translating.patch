@@ -1,0 +1,38 @@
+translating
+
+From: Bryan Larsen <bryan@larsen.st>
+
+# Translating the Application
+
+A lot of Hoboists are foreign, so let's translate our application so they feel at home.
+
+First we'll make a couple of temporary tweaks to our `config/environment.rb` file.
+
+SHOW_PATCH
+
+The first tweak changes the default locale to French.  Normally you want to set the locale dynamically, perhaps based on the domain name.   However, that's outside the scope of this tutorial.   See [the Rails guide to i18n](http://guides.rubyonrails.org/i18n.html) for more information.
+
+The second tweak sets the `HOBO_VERSBOSE_TRANSLATIONS` flag.  This causes the Hobo translater to log whenever it does a translation.   This lets you determine the translation keys that it is looking up.
+---
+
+ config/environment.rb |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+
+diff --git a/config/environment.rb b/config/environment.rb
+index 957216a..8e05a4d 100644
+--- a/config/environment.rb
++++ b/config/environment.rb
+@@ -41,9 +41,11 @@ Rails::Initializer.run do |config|
+ 
+   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+-  # config.i18n.default_locale = :de
++  config.i18n.default_locale = :fr
+ end
+ 
++HOBO_VERBOSE_TRANSLATIONS = true
++
+ #ActionMailer::Base.delivery_method = :smtp
+ #ActionMailer::Base.smtp_settings = {
+ #   :address => "smtp.example.com",

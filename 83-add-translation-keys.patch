@@ -1,0 +1,26 @@
+To add translations, you must add translation keys to your code.
+
+From: Bryan Larsen <bryan@larsen.st>
+
+For example, to translate one of the strings on the front page:
+
+SHOW_PAGE
+---
+
+ app/views/front/index.dryml |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+
+diff --git a/app/views/front/index.dryml b/app/views/front/index.dryml
+index 7434368..b26e657 100644
+--- a/app/views/front/index.dryml
++++ b/app/views/front/index.dryml
+@@ -23,7 +23,7 @@
+     </header>
+ 
+     <section with="&current_user" class="content-body" if="&logged_in?">
+-      <h3>Your Projects</h3>
++      <h3><ht key="projects.collection.front_title">Your Projects</ht></h3>
+       <collection:projects><card without-creator-link/></collection>
+ 
+       <a:projects action="new">New Project</a>

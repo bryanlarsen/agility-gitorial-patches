@@ -80,4 +80,7 @@
 79-record-a-test.patch
 80-run-the-test.patch
 81-fill-out-test.patch
-82-rest-of-tutorial.patch
+82-translating.patch
+83-add-translation-keys.patch
+84-fr-yml.patch
+85-rest-of-tutorial.patch

@@ -1,0 +1,30 @@
+fr-yml
+
+From: Bryan Larsen <bryan@larsen.st>
+
+Translations appear in the `config/locales` directory.  We'll create a `fr.yml` file to hold our French translation.  We'll also translate a few of the default keys that Hobo created.
+
+SHOW_PATCH
+---
+
+ config/locales/fr.yml |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
+ create mode 100644 config/locales/fr.yml
+
+
+diff --git a/config/locales/fr.yml b/config/locales/fr.yml
+new file mode 100644
+index 0000000..b911266
+--- /dev/null
++++ b/config/locales/fr.yml
+@@ -0,0 +1,10 @@
++
++fr:
++  stories:
++    model_name: "Histoire"
++    status: "Statut"
++  tasks:
++    model_name: "Tâche"
++    collection:
++      empty_message: "Aucune tâche d'afficher"
++      front_title: "Vos Projets"
