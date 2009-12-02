@@ -4,9 +4,9 @@ From: Bryan Larsen <bryan@larsen.st>
 
 # Specifying view relationships
 
-If we tell Hobo which has_many relationships are significant, Hobo adjusts to display the list of children on its parent's page.
+If we tell Hobo which has\_many relationships are significant, Hobo adjusts to display the list of children on its parent's page.
 
-We added five has_many relationships, but only two of them are significant, for now.  We specify these in the view hints file for the parent.
+We added five has\_many relationships, but only two of them are significant, for now.  We specify these in the view hints file for the parent.
 
 SHOW_PATCH
 ---

@@ -1,10 +1,12 @@
-To add translations, you must add translation keys to your code.
+add-translation-keys
 
 From: Bryan Larsen <bryan@larsen.st>
 
+To add translations, you must add translation keys to your code.
+
 For example, to translate one of the strings on the front page:
 
-SHOW_PAGE
+SHOW_PATCH
 ---
 
  app/views/front/index.dryml |    2 +-
