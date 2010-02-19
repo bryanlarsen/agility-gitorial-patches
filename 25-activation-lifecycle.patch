@@ -23,7 +23,7 @@ implement our sign up procedures.  Let's add an `inactive` state to
 counter the `active` state that's present, and make it the default.
 We should also add a block to our creation step to deliver the email.
 
-We'll also add another request_password_reset transition becuase
+We'll also add another `request_password_reset` transition becuase
 it is possible that inactivated users will click on the forgot
 password link.
 

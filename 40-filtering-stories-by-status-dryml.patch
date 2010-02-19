@@ -7,6 +7,8 @@ From: Bryan Larsen <bryan@larsen.st>
 Rapid's `<table-plus>` is giving us some nice searching and sorting features on the project page. We can easily add some filtering into the mix, so that it's easy to, say, see only new stories.
 
 First we'll add the filter control to the header of the table-plus. Rapid provides a `<filter-menu>` tag which is just what we need. We want to add it to the header section, before the stuff that's already there. In DRYML, you can prepend or append content to any named parameter. `<table-plus>` has a `header:` parameter, so we can use `<prepend-header:>`, like this:
+
+SHOW_PATCH
 ---
 
  app/views/projects/show.dryml |    5 +++++

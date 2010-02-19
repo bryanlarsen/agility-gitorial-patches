@@ -6,7 +6,7 @@ From: Bryan Larsen <bryan@larsen.st>
 
 Now we'll create the form to add a new person to the project. We'll set it up so that you can type the user's name, with auto-completion, in order to add someone to the project.
 
-First we need the controller side of the auto-complete. Add this declaration to `projects_controller.rb`:
+First we need the controller side of the auto-complete. Add this declaration to `users_controller.rb`:
 
 SHOW_PATCH
 ---
